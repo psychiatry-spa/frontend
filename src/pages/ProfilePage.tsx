@@ -1,7 +1,11 @@
 import "./ProfilePage.css";
-import TextEditor from "../components/TextEditor";
+import { TextEditor } from "../components/TextEditor";
+import { Calendar } from "../components/Calendar";
+
 
 function ProfilePage() {
+
+
   return (
     <>
       <ul className="font-medium flex justify-center p-4 border border-gray-100 bg-gray-50 text-gray-900">
@@ -68,10 +72,13 @@ function ProfilePage() {
             <h2 className="mb-4 text-4xl tracking-tight font-bold text-gray-900">
               Calendar for Consultations
             </h2>
+            <Calendar />
+
 
           </div>
         </div>
       </section>
+      
     </>
   );
 }

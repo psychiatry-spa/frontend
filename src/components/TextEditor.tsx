@@ -1,7 +1,9 @@
 import { useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Editor as TinyMCEEditor } from "tinymce";
-const TextEditor = () => {
+
+
+export const TextEditor = () => {
   const editorRef = useRef<TinyMCEEditor | null>(null);
   const log = () => {
     if (editorRef.current) {
@@ -34,5 +36,3 @@ const TextEditor = () => {
     </>
   );
 };
-
-export default TextEditor;
