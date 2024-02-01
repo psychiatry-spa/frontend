@@ -1,7 +1,5 @@
-import axios from "axios";
-import { Form, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 const RegisterForm = () => {
-  axios.get("http://localhost:3000/api/auth/login");
 
   return (
     <form className="p-4 w-80 m-auto border b-1px mt-5">
