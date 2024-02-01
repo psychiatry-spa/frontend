@@ -5,6 +5,7 @@ import apiClient from "../services/api-client";
 const LoginForm = () => {
   const [formData, setFormData] = useState({
     email: "",
+    username: "",
     password: "",
   });
 
@@ -12,7 +13,7 @@ const LoginForm = () => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: value, 
     }));
   };
 
@@ -50,6 +51,17 @@ const LoginForm = () => {
           value={formData.email}
           onChange={handleChange}
           placeholder="your email"
+        />
+      </div>
+      <div className="mx-auto w-64 block">
+        <label className="block mt-5 mb-2">Username </label>
+        <input
+          className="border-b pl-2 p-1 w-64  h-8 outline-none"
+          type="text"
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
+          placeholder="your username"
         />
       </div>
       <div className="mx-auto w-64 block">
