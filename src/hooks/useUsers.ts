@@ -1,19 +1,31 @@
-import { useEffect, useState } from 'react'
-import apiClient from '../services/api-client'
+import React from "react";
+import { API_ENDPOINTS } from "../constants/const";
 
-interface User {
-  email: string,
-  password: string,
-}
+const useUsers = (
+  enpoint: string,
+  formData: {}
+): React.FormEventHandler<HTMLFormElement> => {
+  return async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(enpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-const useUsers = (endpoint: string, deps?: any) => {
-  const [data, setData] = useState<User>()
-  useEffect(() => {
-    apiClient
-      .get<User>(endpoint)
-      .then((res) => setData(res.data))
-  }, deps ? deps : [])
-  return data
-}
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+      } else {
+        console.error("Login failed");
+      }
+    } catch (error) {
+      console.error("Error while submitting the form:", error);
+    }
+  };
+};
 
 export default useUsers;

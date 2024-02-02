@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom";
 import { useState } from "react";
-import apiClient from "../services/api-client";
+import { Link } from "react-router-dom";
+import useUsers from "../hooks/useUsers";
+import { API_ENDPOINTS } from "../constants/const";
+import googleLogo from "../assets/pngwing.com.png";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
     email: "",
-    username: "",
     password: "",
   });
 
@@ -13,31 +14,11 @@ const LoginForm = () => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value, 
+      [name]: value,
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:3000/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Login Successful:", data);
-      } else {
-        console.error("Login failed");
-      }
-    } catch (error) {
-      console.error("Error while submitting the form:", error);
-    }
-  };
+  const handleSubmit = useUsers(API_ENDPOINTS.login, formData);
 
   return (
     <form onSubmit={handleSubmit} className="p-4 w-80 m-auto border b-1px mt-5">
@@ -51,17 +32,6 @@ const LoginForm = () => {
           value={formData.email}
           onChange={handleChange}
           placeholder="your email"
-        />
-      </div>
-      <div className="mx-auto w-64 block">
-        <label className="block mt-5 mb-2">Username </label>
-        <input
-          className="border-b pl-2 p-1 w-64  h-8 outline-none"
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          placeholder="your username"
         />
       </div>
       <div className="mx-auto w-64 block">
@@ -82,7 +52,12 @@ const LoginForm = () => {
         Submit
       </button>
       <div className="text-3xl text-center">or</div>
-      <div>*Здесь будет гугл аутенфикация Тимура*</div>
+      <a className="mx-auto block w-64 my-4" href={API_ENDPOINTS.googleLogin}>
+        <div className="w-64 border inline-flex items-center p-1">
+          <img src={googleLogo} alt="Google logo" className="w-8" />{" "}
+          <p className="pl-4 text-xl">Login with google</p>
+        </div>
+      </a>
       <button className="block mx-auto mt-5">
         <Link to="/register" className="text-gray-400">
           Don't have an account
