@@ -1,5 +1,4 @@
 import React from "react";
-import { API_ENDPOINTS } from "../constants/const";
 
 const useUsers = (
   enpoint: string,
