@@ -1,7 +1,9 @@
-import google from "./svg/google.svg"
+import GoogleIcon from "./svg/Google"
 
 const icons = {
-  google: google,
+  google: GoogleIcon,
 }
 
-export default icons
+export type IconName = keyof typeof icons
+
+export { icons }

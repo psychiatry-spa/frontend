@@ -55,6 +55,7 @@ const LoginForm = () => {
       <Link className="mx-auto block w-64 my-4" to={API_ENDPOINTS.googleLogin}>
         <div className="w-64 border inline-flex items-center p-1">
           <Icon name="google" />
+          <span className="ml-2">Login with Google</span>
         </div>
       </Link>
       <button className="block mx-auto mt-5">
