@@ -1,25 +1,25 @@
-import { Link } from "react-router-dom"
-import { useState } from "react"
-import { API_ENDPOINTS } from "../../constants/const"
-import Icon from "../icons/Icon"
-import useUsers from "../../hooks/useUsers"
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { API_ENDPOINTS } from "../../constants/const";
+import Icon from "../icons/Icon";
+import useUsers from "../../hooks/useUsers";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
     email: "",
     username: "",
     password: "",
-  })
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
-  const handleSubmit = useUsers(API_ENDPOINTS.signUp, formData, "POST")
+  const handleSubmit = useUsers(API_ENDPOINTS.signUp, formData, "POST");
 
   return (
     <form className="p-4 w-80 m-auto border b-1px mt-5" onSubmit={handleSubmit}>
@@ -79,7 +79,7 @@ const RegisterForm = () => {
         </Link>
       </button>
     </form>
-  )
-}
+  );
+};
 
-export default RegisterForm
+export default RegisterForm;
