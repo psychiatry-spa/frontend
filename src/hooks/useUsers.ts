@@ -2,13 +2,14 @@ import React from "react";
 
 const useUsers = (
   enpoint: string,
-  formData: {}
+  formData: {},
+  method: string
 ): React.FormEventHandler<HTMLFormElement> => {
   return async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await fetch(enpoint, {
-        method: "POST",
+        method: method,
         headers: {
           "Content-Type": "application/json",
         },
