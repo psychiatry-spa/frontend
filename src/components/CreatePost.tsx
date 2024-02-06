@@ -1,9 +1,12 @@
-
-
 const CreatePost = () => {
   return (
-    <div>erojpi</div>
-  )
-}
+    <form>
+      <div>
+        <label htmlFor=""></label>
+        <input type="text" />
+      </div>
+    </form>
+  );
+};
 
-export default CreatePost
+export default CreatePost;
