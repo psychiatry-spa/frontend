@@ -15,9 +15,13 @@
     "@emotion/styled": "^11.11.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "axios": "^1.6.5",
+    "chart.js": "^4.4.1",
     "framer-motion": "^10.18.0",
+    "i18next": "^23.8.2",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
+    "react-i18next": "^14.0.5",
     "react-router-dom": "^6.21.3"
   },
   "devDependencies": {
