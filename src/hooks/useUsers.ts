@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 const useUsers = (
   enpoint: string,
@@ -6,7 +6,7 @@ const useUsers = (
   method: string
 ): React.FormEventHandler<HTMLFormElement> => {
   return async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const response = await fetch(enpoint, {
         method: method,
@@ -15,18 +15,18 @@ const useUsers = (
         },
         body: JSON.stringify(formData),
         credentials: "include",
-      })
+      });
 
       if (response.ok) {
-        const data = await response.json()
-        console.log(data)
+        const data = await response.json();
+        console.log(data);
       } else {
-        console.error("Login failed")
+        console.error("Login failed");
       }
     } catch (error) {
-      console.error("Error while submitting the form:", error)
+      console.error("Error while submitting the form:", error);
     }
-  }
-}
+  };
+};
 
-export default useUsers
+export default useUsers;

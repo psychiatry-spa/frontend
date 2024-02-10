@@ -1,24 +1,24 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import { API_ENDPOINTS } from "../../constants/const"
-import useUsers from "../../hooks/useUsers"
-import Icon from "../icons/Icon"
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { API_ENDPOINTS } from "../../constants/const";
+import useUsers from "../../hooks/useUsers";
+import Icon from "../icons/Icon";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-  })
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
-  const handleSubmit = useUsers(API_ENDPOINTS.signIn, formData, "POST")
+  const handleSubmit = useUsers(API_ENDPOINTS.signIn, formData, "POST");
 
   return (
     <form className="p-4 w-80 m-auto border b-1px mt-5" onSubmit={handleSubmit}>
@@ -64,7 +64,7 @@ const LoginForm = () => {
         </Link>
       </button>
     </form>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;
