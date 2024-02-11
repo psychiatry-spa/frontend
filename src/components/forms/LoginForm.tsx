@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { API_ENDPOINTS } from "../../constants/const";
 import useUsers from "../../hooks/useUsers";
 import Icon from "../icons/Icon";
-import NavBar from "../NavBar";
+import NavBar from "../../layouts/NavBar";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -24,7 +24,7 @@ const LoginForm = () => {
   return (
     <>
       <NavBar />
-      <div className="pt-14">
+      <div>
         <form
           className="p-4 w-80 m-auto border b-1px mt-5"
           onSubmit={handleSubmit}
@@ -71,7 +71,7 @@ const LoginForm = () => {
             </div>
           </Link>
           <button className="block mx-auto mt-5">
-            <Link className="text-gray-400" to="/register">
+            <Link className="text-gray-400" to="/signup">
               Don't have an account
             </Link>
           </button>
