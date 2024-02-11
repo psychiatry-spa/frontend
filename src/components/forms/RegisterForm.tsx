@@ -3,7 +3,7 @@ import { useState } from "react";
 import { API_ENDPOINTS } from "../../constants/const";
 import Icon from "../icons/Icon";
 import useUsers from "../../hooks/useUsers";
-import NavBar from "../NavBar";
+import NavBar from "../../layouts/NavBar";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -83,7 +83,7 @@ const RegisterForm = () => {
             </div>
           </Link>
           <button className="block mx-auto mt-5">
-            <Link className="text-gray-400" to="/login">
+            <Link className="text-gray-400" to="/signin">
               Already have an account
             </Link>
           </button>
