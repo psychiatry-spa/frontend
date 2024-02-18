@@ -1,15 +1,20 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LoginForm from "./components/forms/LoginForm";
-import RegisterForm from "./components/forms/RegisterForm";
+import { Navbar } from "./components/nav/navbar";
+import { Sidebar } from "./components/sidebar/sidebar";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/register" element={<RegisterForm />} />
-      </Routes>
-    </Router>
+    <>
+      <div className="bg-gray-50">
+        <Navbar />
+        <Sidebar />
+      </div>
+    </>
+    // <Router>
+    //   <Routes>
+    //     <Route path="/login" element={<LoginForm />} />
+    //     <Route path="/register" element={<RegisterForm />} />
+    //   </Routes>
+    // </Router>
   );
 }
 
