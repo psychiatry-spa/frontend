@@ -3,14 +3,17 @@ import { SearchBar } from "../nav/search-bar";
 
 export const Sidebar = () => {
   return (
-    <aside id="sidebar" className="fixed h-full top-0 left-0 -z-10 pt-16 w-64 font-normal lg:flex flex-col hidden transition-width">
-      <div className="flex flex-col border-r h-full pt-5 bg-white dark:bg-gray-800 dark:border-gray-700">
+    <aside
+      id="sidebar"
+      className="fixed h-full top-0 left-0 z-10 pt-16 w-64 font-normal lg:flex flex-col transition-width hidden"
+    >
+      <div className="flex flex-col border-r h-full pt-5 bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <ul className="">
           <li className="m-2 lg:hidden">
             <SearchBar />
           </li>
           <li>
-            <SidebarButton text="Dashboard" iconName="settings" />
+            <SidebarButton text="Dashboard" iconName="pie-chart" />
           </li>
           <li>
             <SidebarButton text="CRUD" iconName="database" />

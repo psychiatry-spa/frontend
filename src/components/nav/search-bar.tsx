@@ -1,4 +1,4 @@
-import { Icon } from "../icon";
+import { Icon } from "../common/icon";
 
 export const SearchBar = () => {
   return (

@@ -1,34 +1,20 @@
-import { Icon } from "../icon";
+import { Icon } from "../common/icon";
 import { IconButton } from "./icon-button";
 import { SearchBar } from "./search-bar";
-// import { handleThemeSwitch } from "../../util/switchTheme";
 
-import { useState, useEffect } from "react";
+import useColorMode from "../../hooks/useColorMode";
+import useSwitchSidebar from "../../hooks/useSwtichSidebar";
 
 export const Navbar = () => {
-  const [theme, setTheme] = useState("light");
+  const { colorMode, setColorMode } = useColorMode();
+  const handleThemeSwitch = () =>
+    setColorMode(colorMode === "dark" ? "light" : "dark");
 
-  useEffect(() => {
-    if (theme == "dark") document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
-  }, [theme]);
-
-  const handleThemeSwitch = () => setTheme(theme === "dark" ? "light" : "dark");
-
-  const [sidebar, setSidebar] = useState("hidden");
-  const sidebarElem = document.getElementById("sidebar");
-
-  useEffect(() => {
-    if (sidebar === "hidden") sidebarElem?.classList.remove("hidden");
-    else sidebarElem?.classList.add("hidden");
-  }, [sidebar]);
-
-  const handleSidebar = () => {
-    setSidebar(sidebar === "hidden" ? "" : "hidden");
-  };
+  const { sidebar, setSidebar } = useSwitchSidebar();
+  const handleSidebar = () => setSidebar(sidebar === "hidden" ? "" : "hidden");
 
   return (
-    <nav className="border-b bg-white dark:bg-gray-800 dark:border-gray-700">
+    <nav className="fixed z-30 w-full border-b bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700">
       <div className="flex">
         <div className="flex justify-start items-center">
           <div className="lg:hidden p-2">

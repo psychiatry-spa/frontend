@@ -1,13 +1,13 @@
 import { Navbar } from "./components/nav/navbar";
 import { Sidebar } from "./components/sidebar/sidebar";
+import { Content } from "./components/main/content";
 
 function App() {
   return (
     <>
-      <div className="bg-gray-50">
-        <Navbar />
-        <Sidebar />
-      </div>
+      <Navbar />
+      <Sidebar />
+      <Content />
     </>
     // <Router>
     //   <Routes>
