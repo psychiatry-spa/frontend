@@ -5,10 +5,12 @@ interface Props {
   styles?: string;
 }
 
-export const Icon = ({ name, styles }: Props) => {
+const Icon = ({ name, styles }: Props) => {
   return (
     <svg fill="currentColor" stroke="currentColor" className={`${styles}`}>
       <use xlinkHref={`${sprite}#${name}`} />
     </svg>
   );
 };
+
+export default Icon;

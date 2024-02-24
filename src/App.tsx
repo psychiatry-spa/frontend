@@ -1,13 +1,9 @@
-import { Navbar } from "./components/nav/navbar";
-import { Sidebar } from "./components/sidebar/sidebar";
-import { Content } from "./components/main/content";
+import AdminHome from "./pages/admin-home";
 
 function App() {
   return (
     <>
-      <Navbar />
-      <Sidebar />
-      <Content />
+      <AdminHome />
     </>
     // <Router>
     //   <Routes>
