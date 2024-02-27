@@ -21,7 +21,7 @@ const Navbar = ({ isSidebar, setSidebar }: Props) => {
   const handleSidebar = () => setSidebar(!isSidebar);
 
   return (
-    <nav className="fixed lg:p-4 p-2 z-30 w-full border-b bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+    <nav className="fixed lg:p-3 p-2 z-30 w-full border-b bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700">
       <div className="flex">
         <div className="flex justify-start items-center">
           <div className="lg:hidden p-2">
