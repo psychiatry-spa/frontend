@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { API_ENDPOINTS } from "../../constants/const";
-import useUsers from "../../hooks/useUsers";
-import Icon from "../icons/Icon";
+import { API_ENDPOINTS } from "../../../constants/const";
+import useUsers from "../../../hooks/useUsers";
+import Icon from "../../common/icon";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({

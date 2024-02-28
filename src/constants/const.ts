@@ -1,4 +1,4 @@
-const BASE_URL = "https://mi-project-backend-opa7fhbyqq-uc.a.run.app";
+const BASE_URL = "http://localhost:3000/";
 export const API_ENDPOINTS = {
   signUp: `${BASE_URL}/api/auth/signUp`,
   signIn: `${BASE_URL}/api/auth/signIn`,
