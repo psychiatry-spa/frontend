@@ -1,10 +1,11 @@
-import ChartBar from "./charts/BarChart";
-import ConsultationsCount from "./ConsultationsCount";
+import Container from "../../../layouts/admin/Container";
+import ChartBar from "./components/BarChart";
+import ConsultationsCount from "./components/ConsultationsCount";
 
 const ConsultationComponent = () => {
   return (
-    <div className="w-full">
-      <div className="flex flex-col items-center justify-between border rounded-lg px-5 pt-6 pb-12 sm:flex-row">
+    <Container>
+      <div className="flex flex-col items-center justify-between pb-4 sm:flex-row">
         <div className="flex-1 min-w-0 mr-auto">
           <ConsultationsCount />
         </div>
@@ -12,7 +13,7 @@ const ConsultationComponent = () => {
           <ChartBar />
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

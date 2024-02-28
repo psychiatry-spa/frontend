@@ -1,5 +1,5 @@
-import { SidebarButton } from "./sidebar-button";
-import { SearchBar } from "../nav/search-bar";
+import { SidebarButton } from "./components/SidebarButton";
+import { SearchBar } from "../../common/bars/SearchBar";
 
 interface Props {
   isSidebar: boolean;
@@ -9,7 +9,7 @@ const Sidebar = ({ isSidebar }: Props) => {
   return (
     <aside
       id="sidebar"
-      className={`fixed h-full top-0 left-0 z-10 pt-16 w-64 font-normal lg:flex flex-col transition-width ${
+      className={`fixed h-full top-0 left-0 z-10 pt-16 w-52 font-normal lg:flex flex-col transition-width ${
         isSidebar ? "" : "hidden"
       }`}
     >

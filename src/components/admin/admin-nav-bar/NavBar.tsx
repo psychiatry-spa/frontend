@@ -1,15 +1,15 @@
-import Icon from "../common/icon";
-import { IconButton } from "./icon-button";
-import { SearchBar } from "./search-bar";
+import Icon from "../../common/icon";
+import { IconButton } from "./components/IconButton";
+import { SearchBar } from "../../common/bars/SearchBar";
 
 import { useState, useEffect } from "react";
 
 interface Props {
   isSidebar: boolean;
-  setSidebar: (isSidebar: boolean) => void;
+  setIsSidebar: (isSidebar: boolean) => void;
 }
 
-const Navbar = ({ isSidebar, setSidebar }: Props) => {
+const Navbar = ({ isSidebar, setIsSidebar }: Props) => {
   const [colorMode, setColorMode] = useState(false);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const Navbar = ({ isSidebar, setSidebar }: Props) => {
   }, [colorMode]);
 
   const handleThemeSwitch = () => setColorMode(!colorMode);
-  const handleSidebar = () => setSidebar(!isSidebar);
+  const handleSidebar = () => setIsSidebar(!isSidebar);
 
   return (
     <nav className="fixed lg:p-4 p-2 z-30 w-full border-b bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700">

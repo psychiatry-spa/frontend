@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Icon from "../../common/icon";
-import Container from "../container";
-import StatisticsItem from "./statistics-item";
+import Container from "../../../layouts/admin/Container";
+import StatisticsItem from "./components/StatisticsItem";
 
 const Statistics = () => {
   const [isActive, setActive] = useState(true);
@@ -104,8 +104,6 @@ const Statistics = () => {
           <Icon name="search" styles="ml-2 size-4" />
         </button>
       </div>
-
-      <div></div>
     </Container>
   );
 };
