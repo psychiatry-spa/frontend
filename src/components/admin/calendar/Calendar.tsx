@@ -1,5 +1,5 @@
-import Container from "../main/container";
-import { IconButton } from "../nav/icon-button";
+import Container from "../../../layouts/admin/Container";
+import { IconButton } from "../admin-nav-bar/components/IconButton";
 
 import { useState } from "react";
 
@@ -19,12 +19,12 @@ import {
 } from "date-fns";
 
 interface Props {
-    today: Date,
-    selectedDay: Date,
-    setSelectedDay: React.Dispatch<React.SetStateAction<Date>>
+  today: Date;
+  selectedDay: Date;
+  setSelectedDay: React.Dispatch<React.SetStateAction<Date>>;
 }
 
-const Calendar = ({today, selectedDay, setSelectedDay}: Props) => {
+const Calendar = ({ today, selectedDay, setSelectedDay }: Props) => {
   let [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
   let firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
 
@@ -33,7 +33,7 @@ const Calendar = ({today, selectedDay, setSelectedDay}: Props) => {
     end: endOfMonth(firstDayCurrentMonth),
   });
 
-  function classNames(...classes) {
+  function classNames(...classes: (string | boolean)[]) {
     return classes.filter(Boolean).join(" ");
   }
 

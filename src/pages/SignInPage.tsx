@@ -1,5 +1,5 @@
 import Layout from "../layouts/Layout";
-import LoginForm from "../components/forms/LoginForm";
+import LoginForm from "../components/client/forms/LoginForm";
 
 const SignInPage = () => {
   return (
