@@ -10,7 +10,7 @@ const NavBar = () => {
           <div className="inline">EN</div>
         </li>
         <li className="p-4">
-          <Link to="/">Home</Link>
+          <Link to="/adminhome">Home</Link>
         </li>
         <li className="p-4">
           <Link to="/info">Info</Link>
