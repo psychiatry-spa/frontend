@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Navbar from "../components/nav/navbar";
-import Sidebar from "../components/sidebar/sidebar";
+import Navbar from "../components/admin/admin-nav-bar/NavBar";
+import Sidebar from "../components/admin/sidebar/SideBar";
 import Content from "../components/main/content";
-import Calendar from "../components/calendar/Calendar";
-import UpcomingMeetings from "../components/calendar/UpcomingMeetings";
+import Calendar from "../components/admin/calendar/Calendar";
+import UpcomingMeetings from "../components/admin/calendar/UpcomingMeetings";
 
 import { startOfToday } from "date-fns/startOfToday";
 
@@ -13,7 +13,7 @@ const AdminCalendar = () => {
   const [selectedDay, setSelectedDay] = useState(today);
   return (
     <>
-      <Navbar isSidebar={isSidebar} setSidebar={setSidebar} />
+      <Navbar isSidebar={isSidebar} setIsSidebar={setSidebar} />
       <Sidebar isSidebar={isSidebar} />
       <Content>
         <Calendar

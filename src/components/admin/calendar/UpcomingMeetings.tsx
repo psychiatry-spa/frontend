@@ -1,5 +1,5 @@
 import { format, isSameDay, parseISO } from "date-fns";
-import Container from "../main/container";
+import Container from "../../../layouts/admin/Container";
 import Meeting from "./Meeting";
 
 interface Props {

@@ -1,5 +1,5 @@
 import Layout from "../layouts/Layout";
-import RegisterForm from "../components/forms/RegisterForm";
+import RegisterForm from "../components/client/forms/RegisterForm";
 
 const SignUpPage = () => {
   return (
