@@ -1,4 +1,4 @@
-import { IconButton } from "../admin-nav-bar/components/IconButton";
+import { IconButton } from "../nav-bar/IconButton";
 
 interface Props {
   id: number;

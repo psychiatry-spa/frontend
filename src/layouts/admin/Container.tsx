@@ -1,12 +1,9 @@
-interface Props {
-  children: JSX.Element[] | JSX.Element;
-  colSpanXL?: number;
-}
+import { ChildrenProps } from "../../components/types/types";
 
-const Container = ({ children, colSpanXL = 1 }: Props) => {
+const Container = ({ children}: ChildrenProps) => {
   return (
     <div
-      className={`p-6 bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 xl:col-span-1 2xl:col-span-${colSpanXL}`}
+      className={`p-6 bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 xl:col-span-1 h-full`}
     >
       {children}
     </div>

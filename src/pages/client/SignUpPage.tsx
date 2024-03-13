@@ -1,10 +1,10 @@
+import SignUp from "../../components/client/forms/SignUp";
 import ClientLayout from "../../layouts/client/ClientLayout";
-import RegisterForm from "../../components/client/forms/RegisterForm";
 
 const SignUpPage = () => {
   return (
     <ClientLayout>
-      <RegisterForm />
+      <SignUp />
     </ClientLayout>
   );
 };

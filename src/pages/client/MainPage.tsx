@@ -1,10 +1,10 @@
-import NavBar from "../../components/client/navbar/NavBar";
+import ClientLayout from "../../layouts/client/ClientLayout";
 
 const MainPage = () => {
   return (
-    <>
-      <NavBar />
-    </>
+    <ClientLayout>
+      <div>Main Page for users</div>
+    </ClientLayout>
   );
 };
 
