@@ -1,14 +1,12 @@
 import Crud from "../../components/admin/crud/Crud";
 import AdminLayout from "../../layouts/admin/AdminLayout";
 
-const CrudPage = () => {
+const ManagerPage = () => {
   return (
-    <>
-      <AdminLayout>
-        <Crud />
-      </AdminLayout>
-    </>
+    <AdminLayout>
+      <Crud />
+    </AdminLayout>
   );
 };
 
-export default CrudPage;
+export default ManagerPage;

@@ -5,11 +5,10 @@ import Calendar from "../../components/admin/calendar/Calendar";
 import UpcomingMeetings from "../../components/admin/calendar/UpcomingMeetings";
 import AdminLayout from "../../layouts/admin/AdminLayout";
 
-const AdminCalendar = () => {
+const CalendarPage = () => {
   const today = startOfToday();
   const [selectedDay, setSelectedDay] = useState(today);
   return (
-    <>
       <AdminLayout>
           <Content>
             <Calendar
@@ -20,8 +19,7 @@ const AdminCalendar = () => {
             <UpcomingMeetings selectedDay={selectedDay} />
           </Content>
       </AdminLayout>
-    </>
   );
 };
 
-export default AdminCalendar;
+export default CalendarPage;

@@ -1,6 +1,6 @@
-import Icon from "../../common/icon";
-import { IconButton } from "./IconButton";
-import { SearchBar } from "../../common/bars/SearchBar";
+import Icon from "../../components/common/icon";
+import { IconButton } from "../../components/admin/nav-bar/IconButton";
+import { SearchBar } from "../../components/common/bars/SearchBar";
 import { Link } from "react-router-dom";
 
 interface Props {

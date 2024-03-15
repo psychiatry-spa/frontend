@@ -21,7 +21,7 @@ const SignInForm = ({ children }: Props) => {
     e.preventDefault();
     const result = await submitForm(formData);
     if (result.ok) {
-      navigate("/admin/home");
+      navigate("/admin/dashboard");
     }
   };
 
