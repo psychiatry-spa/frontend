@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import NavBar from "../../components/admin/admin-nav-bar/NavBar";
-import Sidebar from "../../components/admin/sidebar/SideBar";
+import NavBar from "../../components/admin/nav-bar/NavBar";
+import Sidebar from "../../components/admin/side-bar/SideBar";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -12,7 +12,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <>
       <NavBar isSidebar={isSidebar} setIsSidebar={setIsSidebar} />
       <Sidebar isSidebar={isSidebar} />
-      <div className="pt-20 lg:ml-52">{children}</div>
+      <div className="pt-[71px] lg:ml-52">{children}</div>
     </>
   );
 };

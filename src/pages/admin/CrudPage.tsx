@@ -1,14 +1,14 @@
-import Content from "../../components/admin/content/Content";
+import Crud from "../../components/admin/crud/Crud";
 import AdminLayout from "../../layouts/admin/AdminLayout";
 
-const AdminHome = () => {
+const CrudPage = () => {
   return (
     <>
       <AdminLayout>
-        <Content />
+        <Crud />
       </AdminLayout>
     </>
   );
 };
 
-export default AdminHome;
+export default CrudPage;

@@ -1,8 +1,7 @@
 import Icon from "../../common/icon";
-import { IconButton } from "./components/IconButton";
+import { IconButton } from "./IconButton";
 import { SearchBar } from "../../common/bars/SearchBar";
-
-import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 interface Props {
   isSidebar: boolean;
@@ -10,14 +9,6 @@ interface Props {
 }
 
 const Navbar = ({ isSidebar, setIsSidebar }: Props) => {
-  const [colorMode, setColorMode] = useState(false);
-
-  useEffect(() => {
-    if (colorMode) document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
-  }, [colorMode]);
-
-  const handleThemeSwitch = () => setColorMode(!colorMode);
   const handleSidebar = () => setIsSidebar(!isSidebar);
 
   return (
@@ -27,10 +18,10 @@ const Navbar = ({ isSidebar, setIsSidebar }: Props) => {
           <div className="lg:hidden p-2">
             <IconButton name="sun" handleClick={handleSidebar} />
           </div>
-          <a href="" className="flex justify-start items-center pr-6 mr-16">
+          <Link to="/" className="flex justify-start items-center pr-6 mr-16">
             <Icon name="moon" styles="size-10" />
             <span className="font-bold text-2xl dark:text-white">LogoName</span>
-          </a>
+          </Link>
           <div className="ml-1 w-96 hidden lg:block">
             <SearchBar />
           </div>
@@ -38,7 +29,7 @@ const Navbar = ({ isSidebar, setIsSidebar }: Props) => {
 
         <div className="flex items-center justify-end w-full">
           <IconButton name="bell" />
-          <IconButton name="moon" handleClick={handleThemeSwitch} />
+          <IconButton name="moon" />
         </div>
       </div>
     </nav>

@@ -1,6 +1,6 @@
 import Container from "../../../layouts/admin/Container";
-import ChartBar from "./components/BarChart";
-import ConsultationsCount from "./components/ConsultationsCount";
+import ChartBar from "./BarChart";
+import ConsultationsCount from "./ConsultationsCount";
 
 const ConsultationComponent = () => {
   return (

@@ -1,5 +1,5 @@
 import Container from "../../../layouts/admin/Container";
-import { IconButton } from "../admin-nav-bar/components/IconButton";
+import { IconButton } from "../nav-bar/IconButton";
 
 import { useState } from "react";
 

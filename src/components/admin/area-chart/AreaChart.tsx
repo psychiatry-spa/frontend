@@ -7,7 +7,8 @@ import Container from "../../../layouts/admin/Container";
 
 const AreaChartComponent = () => {
   return (
-    <Container colSpanXL={2}>
+    <div className="2xl:col-span-2">
+      <Container>
         <div className="flex pb-10 w-full">
           <MainCounter />
           <WeeklyChangeCounter />
@@ -17,7 +18,8 @@ const AreaChartComponent = () => {
           <PeriodChangeButton />
           <ReportButton />
         </div>
-    </Container>
+      </Container>
+    </div>
   );
 };
 
