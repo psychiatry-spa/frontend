@@ -1,25 +1,35 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import MainPage from "./pages/client/MainPage";
-import SignInPage from "./pages/client/SingInPage";
-import SignUpPage from "./pages/client/SignUpPage";
-import HomePage from "./pages/admin/HomePage";
-import CrudPage from "./pages/admin/CrudPage";
+import MainPage from "./pages/MainPage";
+import SignInPage from "./pages/SingInPage";
+import SignUpPage from "./pages/SignUpPage";
+import DashboardPage from "./pages/admin/DashboardPage";
+import ManagerPage from "./pages/admin/ManagerPage";
 import CalendarPage from "./pages/admin/CalendarPage";
+import SignOutPage from "./pages/SignOutPage";
+import AboutPage from "./pages/AboutPage";
+import SessionPage from "./pages/client/SessionPage";
+import SettingsPage from "./pages/admin/SettingsPage";
+import BookingPage from "./pages/client/BookingPage";
 
 function App() {
   return (
     <Router>
       <Routes>
+        {/* Everyone */}
         <Route path="" element={<MainPage />} />
-        <Route path="/client/signin" element={<SignInPage />} />
-        <Route path="/client/signup" element={<SignUpPage />} />
-        <Route path="/client/info" />
-        <Route path="/client/consultations" />
-        <Route path="/client/posts" />
-        <Route path="/client/support" />
-        <Route path="/admin/home" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/login" element={<SignInPage />} />
+        <Route path="/register" element={<SignUpPage />} />
+        <Route path="/logout" element={<SignOutPage />} />
+        {/* User */}
+        <Route path="/sessions" element={<SessionPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/booking" element={<BookingPage />} />
+        {/* Admin */}
+        <Route path="/admin/dashboard" element={<DashboardPage />} />
         <Route path="/admin/calendar" element={<CalendarPage />} />
-        <Route path="/admin/crud" element={<CrudPage />} />
+        <Route path="/admin/manager" element={<ManagerPage />} />
+        <Route path="/admin/settings" element={<SettingsPage />} />
       </Routes>
     </Router>
   );

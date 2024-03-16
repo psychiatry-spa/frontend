@@ -4,9 +4,8 @@ import Content from "../../components/admin/content/Content";
 import Statistics from "../../components/admin/statistics/Statistics";
 import AdminLayout from "../../layouts/admin/AdminLayout";
 
-const AdminHome = () => {
+const DashboardPage = () => {
   return (
-    <>
       <AdminLayout>
         <Content>
           <AreaChartComponent />
@@ -16,8 +15,7 @@ const AdminHome = () => {
           <ConsultationComponent />
         </Content>
       </AdminLayout>
-    </>
   );
 };
 
-export default AdminHome;
+export default DashboardPage;

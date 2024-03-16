@@ -28,7 +28,7 @@ const SignUpForm = ({ children }: ChildrenProps) => {
     e.preventDefault();
     const result = await submitForm(formData);
     if (result.ok) {
-      navigate("/admin/home");
+      navigate("/admin/dashboard");
     }
   };
 

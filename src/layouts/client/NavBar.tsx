@@ -5,29 +5,23 @@ const NavBar = () => {
     <div className="fixed top-0 left-0 bg-white z-50 w-full border-b-2">
       <ul className="flex">
         <li className="p-4 pr-32">
-          <div className="inline">LOH</div>/<div className="inline">RU</div>/
+          <div className="inline">LV</div>/<div className="inline">RU</div>/
           <div className="inline">EN</div>
         </li>
         <li className="p-4">
-          <Link to="/admin/home">Home</Link>
+          <Link to="/">Home</Link>
         </li>
         <li className="p-4">
-          <Link to="/client/info">Info</Link>
+          <Link to="/about">About</Link>
         </li>
         <li className="p-4">
-          <Link to="/client/consulations">Consultations</Link>
+          <Link to="/login">Log in</Link>
         </li>
         <li className="p-4">
-          <Link to="/client/posts">Posts</Link>
+          <Link to="/register">Register</Link>
         </li>
         <li className="p-4">
-          <Link to="/client/support">Support</Link>
-        </li>
-        <li className="p-4">
-          <Link to="/client/signin">Sing in</Link>
-        </li>
-        <li className="p-4">
-          <Link to="/client/signup">Sign up</Link>
+          <Link to="/logout">Log out</Link>
         </li>
       </ul>
     </div>
