@@ -14,7 +14,7 @@ export interface UsersProps {
   surname: string;
   email: string;
   country: string;
-  consultationCounter: number;
+  consultations: [];
   role: "admin" | "user";
   createdAt: number;
 }

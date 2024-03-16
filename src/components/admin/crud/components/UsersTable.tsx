@@ -55,10 +55,16 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
       <thead className="">
         <tr className="text-deep-sea text-left font-semibold">
           <th className="pl-2 rounded-tl-lg">Name</th>
-          <th className="hidden px-3 border-x border-frost">Role</th>
+          <th className="lg:table-cell hidden px-3 border-x border-frost">
+            Role
+          </th>
           <th className="px-3 border-x border-frost">Consultations</th>
-          <th className="hidden px-3 border-x border-frost">Country</th>
-          <th className="hidden px-3 border-x border-frost">Creation date</th>
+          <th className="lg:table-cell hidden px-3 border-x border-frost">
+            Country
+          </th>
+          <th className="xl:table-cell hidden px-3 border-x border-frost">
+            Creation date
+          </th>
           <th className="px-3 rounded-tr-lg">Properties</th>
         </tr>
       </thead>
@@ -72,7 +78,7 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
               email,
               role,
               country,
-              consultationCounter,
+              consultations,
               createdAt,
             }) => (
               <tr
@@ -96,12 +102,16 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
                     <div className="font-normal text-ocean-wave">{email}</div>
                   </div>
                 </td>
-                <td className="hidden px-3 uppercase font-medium">{role}</td>
-                <td className="px-3 text-deep-sea text-center">
-                  {consultationCounter}
+                <td className="lg:table-cell hidden px-3 uppercase font-medium">
+                  {role}
                 </td>
-                <td className="hidden px-3">{country}</td>
-                <td className="hidden px-3">{formatDate(createdAt)}</td>
+                <td className="px-3 text-deep-sea text-center">
+                  {consultations.length}
+                </td>
+                <td className="lg:table-cell hidden px-3">{country}</td>
+                <td className="xl:table-cell hidden px-3">
+                  {formatDate(createdAt)}
+                </td>
                 <td>
                   <button className="primary text-base w-20 py-1 bg-ocean-wave">
                     Delete
