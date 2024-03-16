@@ -17,6 +17,7 @@ const formatDate = (timestamp: number): string => {
 const UsersTable = ({ searchQuery }: SearchQueryProps) => {
   const [data, setData] = useState<UsersProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,22 +40,30 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
     return <div>Loading...</div>;
   }
 
-  const filteredData = searchQuery
-    ? data.filter(({ name, surname, email }) => {
-        const query = searchQuery.toLowerCase();
-        return (
-          (name && name.toLowerCase().includes(query)) ||
-          (surname && surname.toLowerCase().includes(query)) ||
-          (email && email.toLowerCase().includes(query))
-        );
-      })
-    : data;
+  setFilteredData(
+    {searchQuery
+      ? data.filter(({ name, surname, email }) => {
+          const query = searchQuery.toLowerCase();
+          return (
+            (name && name.toLowerCase().includes(query)) ||
+            (surname && surname.toLowerCase().includes(query)) ||
+            (email && email.toLowerCase().includes(query))
+          );
+        })
+      : data}
+  );
+
+  const handleClickName = () => {
+    setFilteredData(filteredData.sort((a, b) => a.name.localeCompare(b.name)));
+  };
 
   return (
     <table className="table-auto w-full min-w-full">
       <thead className="">
         <tr className="text-deep-sea text-left font-semibold">
-          <th className="pl-2 rounded-tl-lg">Name</th>
+          <th onClick={handleClickName} className="pl-2 rounded-tl-lg">
+            Name
+          </th>
           <th className="lg:table-cell hidden px-3 border-x border-frost">
             Role
           </th>
