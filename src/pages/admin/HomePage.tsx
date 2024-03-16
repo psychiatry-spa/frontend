@@ -1,7 +1,7 @@
 import AreaChartComponent from "../../components/admin/area-chart/AreaChart";
 import ConsultationComponent from "../../components/admin/consultation/Consultation";
 import Content from "../../components/admin/content/Content";
-import Statistics from "../../components/admin/statistics/Statistics";
+import Statistics from "../../components/admin/Statistics/Statistics";
 import AdminLayout from "../../layouts/admin/AdminLayout";
 
 const AdminHome = () => {
