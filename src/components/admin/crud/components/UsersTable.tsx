@@ -82,7 +82,11 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
                 <td className="pl-2 py-4 flex items-center space-x-3">
                   <img
                     className="w-10 h-10 rounded-full"
-                    src={imageUrl}
+                    src={
+                      imageUrl
+                        ? imageUrl
+                        : "https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png"
+                    }
                     alt="pfp"
                   />
                   <div className="flex flex-col">
