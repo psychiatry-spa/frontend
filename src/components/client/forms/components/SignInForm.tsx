@@ -34,24 +34,19 @@ const SignInForm = ({ children }: Props) => {
   };
 
   return (
-    <div className="row-span-2 px-8 py-10 rounded-3xl inline-block border w-full bg-white">
+    <div className="row-span-2 p-10 rounded-3xl border w-full bg-white">
       <form className="" onSubmit={handleSubmit}>
-        <h1 className="font-semibold font-sans pb-7 text-2xl text-teal">
-          Log in to your account
+        <h1 className="font-semibold font-sans pb-7 text-2xl text-primary">
+          Log in to Your Account
         </h1>
-        <div className="block">
-          <label className="block mb-1 text-teal font-light text-base">
-            Email address
-          </label>
-          <input
-            className="border rounded-xl border-teal-50 w-full p-3 pr-2 outline-none"
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder=""
-          />
-        </div>
+        <input
+          className="placeholder-secondary border rounded-xl border-secondary w-full p-3 outline-none"
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Enter your email"
+        />
         <div className="block">
           <label className="block mb-1 mt-5 text-teal font-light text-base">
             Password

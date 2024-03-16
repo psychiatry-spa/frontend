@@ -1,4 +1,4 @@
-import Icon from "../../common/icon";
+import Icon from "../../common/icon/icon";
 import { IconButton } from "./IconButton";
 import { SearchBar } from "../../common/bars/SearchBar";
 import { Link } from "react-router-dom";

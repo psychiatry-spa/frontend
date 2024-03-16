@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Icon from "../../common/icon";
+import Icon from "../../common/icon/icon";
 import Container from "../../../layouts/admin/Container";
 import StatisticsItem from "./StatisticsItem";
 

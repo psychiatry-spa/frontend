@@ -1,13 +1,13 @@
 import { ChildrenProps } from "../../types/types";
 
 interface ButtonProps extends ChildrenProps {
-  bgColor?: "primary" | "secondary" | "tertiary";
+  styles?: string;
   type?: "button" | "submit";
 }
 
-const Button = ({ children, bgColor = "primary", type = "button" }: ButtonProps) => {
+const Button = ({ children, styles, type = "button" }: ButtonProps) => {
   return (
-    <button type={type} className={bgColor}>
+    <button type={type} className={`py-4 rounded-xl ${styles}`}>
       {children}
     </button>
   );

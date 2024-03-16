@@ -1,4 +1,4 @@
-import Icon from "../../common/icon";
+import Icon from "../../common/icon/icon";
 
 interface Props {
   name: string;
