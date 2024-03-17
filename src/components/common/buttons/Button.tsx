@@ -1,13 +1,28 @@
 import { ChildrenProps } from "../../types/types";
 
 interface ButtonProps extends ChildrenProps {
-  bgColor?: "primary" | "secondary" | "tertiary";
+  style: string;
+  styles?: string;
   type?: "button" | "submit";
+  disabled?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, bgColor = "primary", type = "button" }) => {
+const Button = ({
+  children,
+  style,
+  styles,
+  type = "button",
+  disabled = false,
+}: ButtonProps) => {
+  if (disabled) styles += " text-white bg-disabled";
+  else if (style === "primary") styles += " text-white bg-accent hover:bg-accent-focus";
+
   return (
-    <button type={type} className={bgColor}>
+    <button
+      disabled={disabled}
+      type={type}
+      className={`py-4 rounded-xl ${styles}`}
+    >
       {children}
     </button>
   );
