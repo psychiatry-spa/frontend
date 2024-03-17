@@ -40,9 +40,9 @@ const Sidebar = ({ isSidebar }: Props) => {
             </Link>
           </li>
           <li>
-            <a href="https://github.com/psychiatry-spa" target="_blank">
+            <Link to="https://github.com/psychiatry-spa" target="_blank">
               <SidebarButton text="Repository" iconName="github" />
-            </a>
+            </Link>
           </li>
           <li>
             <SidebarButton text="Support" iconName="help" />
