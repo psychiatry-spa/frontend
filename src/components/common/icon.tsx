@@ -7,7 +7,7 @@ interface Props {
 
 const Icon = ({ name, styles }: Props) => {
   return (
-    <svg fill="currentColor" stroke="currentColor" className={`${styles}`}>
+    <svg fill="currentColor" className={`${styles}`}>
       <use xlinkHref={`${sprite}#${name}`} />
     </svg>
   );

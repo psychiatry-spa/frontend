@@ -1,11 +1,11 @@
 import ClientLayout from "../layouts/client/ClientLayout";
 
-const MainPage = () => {
+const AboutPage = () => {
   return (
     <ClientLayout>
-      <div>Main page</div>
+      <div>AboutPage</div>
     </ClientLayout>
   );
 };
 
-export default MainPage;
+export default AboutPage;

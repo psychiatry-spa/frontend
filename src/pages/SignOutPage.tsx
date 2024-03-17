@@ -1,11 +1,11 @@
 import ClientLayout from "../layouts/client/ClientLayout";
 
-const MainPage = () => {
+const SignOutPage = () => {
   return (
     <ClientLayout>
-      <div>Main page</div>
+      <div>Sign out page</div>
     </ClientLayout>
   );
 };
 
-export default MainPage;
+export default SignOutPage;
