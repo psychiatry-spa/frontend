@@ -1,12 +1,12 @@
+import React from "react";
+
 interface Props {
   children: React.ReactNode;
 }
 
 const Container = ({ children }: Props) => {
   return (
-    <div
-      className={`p-6 bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 xl:col-span-1 h-full`}
-    >
+    <div className="p-10 rounded-3xl border w-full max-w-lg bg-white">
       {children}
     </div>
   );

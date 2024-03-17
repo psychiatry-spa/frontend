@@ -1,15 +1,16 @@
 import React from "react";
 import NavBar from "./NavBar";
+import Container from "../admin/Container";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <NavBar />
-      <div className="pt-14">{children}</div>
+      <div className="pt-20 flex justify-center">{children}</div>
     </>
   );
 };
