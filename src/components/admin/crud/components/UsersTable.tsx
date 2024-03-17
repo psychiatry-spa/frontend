@@ -85,7 +85,7 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
       if (field === "createdAt") {
         return {
           field,
-          order: prevSort.order === "none" ? "asc" : "none"
+          order: prevSort.order === "none" ? "asc" : "none",
         };
       }
 
@@ -93,12 +93,17 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
         return {
           field,
           order: prevSort.order === "asc" ? "desc" : "asc",
-        }; 
-      
+        };
+
       return {
-          field,
-          order: prevSort.order === "none" ? "asc" : prevSort.order === "asc" ? "desc" : "none"
-        }
+        field,
+        order:
+          prevSort.order === "none"
+            ? "asc"
+            : prevSort.order === "asc"
+            ? "desc"
+            : "none",
+      };
     });
   };
 
@@ -107,48 +112,38 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
   return (
     <table className="table-auto w-full min-w-full">
       <thead className="">
-        <tr className="text-deep-sea text-left font-semibold">
-          <th className="pl-2 rounded-tl-lg">
-            <button
-              className="cursor-pointer"
-              onClick={() => handleSort("name")}
-            >
-              Name
-            </button>
+        <tr className="text-deep-sea text-left font-semibold h-10">
+          <th
+            className="hover:bg-slate-200 rounded-l-md pl-2 cursor-pointer"
+            onClick={() => handleSort("name")}
+          >
+            Name
           </th>
-          <th className="lg:table-cell hidden px-3 border-x border-frost">
-            <button
-              className="cursor-pointer"
-              onClick={() => handleSort("role")}
-            >
-              Role
-            </button>
+          <th
+            className="hover:bg-slate-200 lg:table-cell hidden px-3 border-ocean-wave cursor-pointer"
+            onClick={() => handleSort("role")}
+          >
+            Role
           </th>
-          <th className="px-3 border-x border-frost">
-            <button
-              className="cursor-pointer"
-              onClick={() => handleSort("consultations")}
-            >
-              Consultations
-            </button>
+          <th
+            className="hover:bg-slate-200 px-3 border-ocean-wave cursor-pointer"
+            onClick={() => handleSort("consultations")}
+          >
+            Consultations
           </th>
-          <th className="lg:table-cell hidden px-3 border-x border-frost">
-            <button
-              className="cursor-pointer"
-              onClick={() => handleSort("country")}
-            >
-              Country
-            </button>
+          <th
+            className="hover:bg-slate-200 lg:table-cell hidden px-3 border-ocean-wave cursor-pointer"
+            onClick={() => handleSort("country")}
+          >
+            Country
           </th>
-          <th className="xl:table-cell hidden px-3 border-x border-frost">
-            <button
-              className="cursor-pointer"
-              onClick={() => handleSort("createdAt")}
-            >
-              Creation date
-            </button>
+          <th
+            className="hover:bg-slate-200 xl:table-cell hidden px-3 border-ocean-wave cursor-pointer"
+            onClick={() => handleSort("createdAt")}
+          >
+            Creation date
           </th>
-          <th className="px-3 rounded-tr-lg">Properties</th>
+          <th className="px-3">Properties</th>
         </tr>
       </thead>
       <tbody>
@@ -189,9 +184,7 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
                 <td className="lg:table-cell hidden px-3 uppercase font-medium">
                   {role}
                 </td>
-                <td className="px-3 text-deep-sea text-center">
-                  {consultations.length}
-                </td>
+                <td className="px-3 text-deep-sea">{consultations.length}</td>
                 <td className="lg:table-cell hidden px-3">{country}</td>
                 <td className="xl:table-cell hidden px-3">
                   {formatDate(createdAt)}
