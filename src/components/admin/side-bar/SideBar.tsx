@@ -36,9 +36,9 @@ const Sidebar = ({ isSidebar }: Props) => {
             <SidebarButton text="Setting" iconName="settings" />
           </li>
           <li>
-            <a href="https://github.com/psychiatry-spa" target="_blank">
+            <Link to="https://github.com/psychiatry-spa" target="_blank">
               <SidebarButton text="Repository" iconName="github" />
-            </a>
+            </Link>
           </li>
           <li>
             <SidebarButton text="Support" iconName="help" />

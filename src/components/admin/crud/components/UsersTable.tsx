@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { API_ENDPOINTS } from "../../../../constants/const";
 import { SearchQueryProps, UsersProps } from "../../../types/types";
 import useFetchData from "../../../../hooks/useFetchData";
@@ -17,7 +17,10 @@ const formatDate = (timestamp: number): string => {
 const UsersTable = ({ searchQuery }: SearchQueryProps) => {
   const [data, setData] = useState<UsersProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [filteredData, setFilteredData] = useState([]);
+  const [sort, setSort] = useState<{
+    field: "name" | "role" | "country" | "createdAt" | "consultations" | "none";
+    order: "asc" | "desc" | "none";
+  }>({ field: "none", order: "none" });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +31,7 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
         setData(response.data.users);
         setLoading(false);
       } else {
-        console.log("Failed to fetch Users");
+        console.error("Failed to fetch Users");
         setLoading(false);
       }
     };
@@ -36,51 +39,123 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
     fetchData();
   }, [searchQuery]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const filteredSortedData = useMemo(() => {
+    let sortedData = [...data];
 
-  setFilteredData(
-    {searchQuery
-      ? data.filter(({ name, surname, email }) => {
-          const query = searchQuery.toLowerCase();
-          return (
-            (name && name.toLowerCase().includes(query)) ||
-            (surname && surname.toLowerCase().includes(query)) ||
-            (email && email.toLowerCase().includes(query))
-          );
-        })
-      : data}
-  );
+    if (searchQuery) {
+      sortedData = sortedData.filter(({ name, surname, email }) =>
+        [name, surname, email].some((value) =>
+          value.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      );
+    }
 
-  const handleClickName = () => {
-    setFilteredData(filteredData.sort((a, b) => a.name.localeCompare(b.name)));
+    if (sort.field !== "none" && sort.order !== "none") {
+      sortedData.sort((a, b) => {
+        const key = sort.field as keyof UsersProps;
+
+        let valueA = String(a[key] ?? "");
+        let valueB = String(b[key] ?? "");
+
+        if (key === "createdAt") {
+          return sort.order === "asc"
+            ? new Date(valueA as string).getTime() -
+                new Date(valueB as string).getTime()
+            : new Date(valueB as string).getTime() -
+                new Date(valueA as string).getTime();
+        } else if (key === "consultations") {
+          const lengthA = (a[key] as unknown as any[]).length;
+          const lengthB = (b[key] as unknown as any[]).length;
+          return sort.order === "asc" ? lengthA - lengthB : lengthB - lengthA;
+        } else {
+          return sort.order === "asc"
+            ? (valueA as string).localeCompare(valueB as string)
+            : (valueB as string).localeCompare(valueA as string);
+        }
+      });
+    }
+
+    return sortedData;
+  }, [data, searchQuery, sort]);
+
+  const handleSort = (field: typeof sort.field) => {
+    setSort((prevSort) => {
+      if (prevSort.field !== field) return { field, order: "asc" };
+
+      if (field === "createdAt") {
+        return {
+          field,
+          order: prevSort.order === "none" ? "asc" : "none"
+        };
+      }
+
+      if (field === "consultations")
+        return {
+          field,
+          order: prevSort.order === "asc" ? "desc" : "asc",
+        }; 
+      
+      return {
+          field,
+          order: prevSort.order === "none" ? "asc" : prevSort.order === "asc" ? "desc" : "none"
+        }
+    });
   };
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <table className="table-auto w-full min-w-full">
       <thead className="">
         <tr className="text-deep-sea text-left font-semibold">
-          <th onClick={handleClickName} className="pl-2 rounded-tl-lg">
-            Name
+          <th className="pl-2 rounded-tl-lg">
+            <button
+              className="cursor-pointer"
+              onClick={() => handleSort("name")}
+            >
+              Name
+            </button>
           </th>
           <th className="lg:table-cell hidden px-3 border-x border-frost">
-            Role
+            <button
+              className="cursor-pointer"
+              onClick={() => handleSort("role")}
+            >
+              Role
+            </button>
           </th>
-          <th className="px-3 border-x border-frost">Consultations</th>
+          <th className="px-3 border-x border-frost">
+            <button
+              className="cursor-pointer"
+              onClick={() => handleSort("consultations")}
+            >
+              Consultations
+            </button>
+          </th>
           <th className="lg:table-cell hidden px-3 border-x border-frost">
-            Country
+            <button
+              className="cursor-pointer"
+              onClick={() => handleSort("country")}
+            >
+              Country
+            </button>
           </th>
           <th className="xl:table-cell hidden px-3 border-x border-frost">
-            Creation date
+            <button
+              className="cursor-pointer"
+              onClick={() => handleSort("createdAt")}
+            >
+              Creation date
+            </button>
           </th>
           <th className="px-3 rounded-tr-lg">Properties</th>
         </tr>
       </thead>
       <tbody>
-        {data.length > 0 ? (
-          filteredData.map(
+        {filteredSortedData.length > 0 ? (
+          filteredSortedData.map(
             ({
+              _id,
               imageUrl,
               name,
               surname,
@@ -92,7 +167,7 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
             }) => (
               <tr
                 className="text-ocean-wave border-b border-ocean-wave/25"
-                key={email}
+                key={_id}
               >
                 <td className="pl-2 py-4 flex items-center space-x-3">
                   <img
@@ -133,7 +208,6 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
           <tr>
             <td colSpan={9999} className="text-5xl text-center py-32 pr-32">
               No results
-              <button>eiorfeoirk</button>
             </td>
           </tr>
         )}
