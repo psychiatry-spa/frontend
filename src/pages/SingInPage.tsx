@@ -1,5 +1,5 @@
-import SignIn from "../../components/client/forms/SignIn";
-import ClientLayout from "../../layouts/client/ClientLayout";
+import SignIn from "../components/client/forms/SignIn";
+import ClientLayout from "../layouts/client/ClientLayout";
 
 const SignInPage = () => {
   return (

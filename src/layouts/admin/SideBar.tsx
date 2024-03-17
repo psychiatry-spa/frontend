@@ -1,5 +1,5 @@
-import { SidebarButton } from "./SidebarButton";
-import { SearchBar } from "../../common/bars/SearchBar";
+import { SidebarButton } from "../../components/admin/side-bar/SidebarButton";
+import { SearchBar } from "../../components/common/bars/SearchBar";
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -20,7 +20,9 @@ const Sidebar = ({ isSidebar }: Props) => {
             <SearchBar />
           </li>
           <li>
-            <SidebarButton text="Dashboard" iconName="pie-chart" />
+            <Link to="/admin/dashboard">
+              <SidebarButton text="Dashboard" iconName="pie-chart" />
+            </Link>
           </li>
           <li>
             <Link to="/admin/calendar">
@@ -28,12 +30,14 @@ const Sidebar = ({ isSidebar }: Props) => {
             </Link>
           </li>
           <li>
-            <Link to="/admin/crud">
-              <SidebarButton text="CRUD" iconName="database" />
+            <Link to="/admin/manager">
+              <SidebarButton text="Manager" iconName="database" />
             </Link>
           </li>
           <li>
-            <SidebarButton text="Setting" iconName="settings" />
+            <Link to="/admin/settings">
+              <SidebarButton text="Setting" iconName="settings" />
+            </Link>
           </li>
           <li>
             <Link to="https://github.com/psychiatry-spa" target="_blank">
