@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Icon from "../../common/icon";
 import Container from "../../../layouts/admin/Container";
-import StatisticsItem from "./StatisticsItem";
+import StatisticsItem from "../statistics/StatisticsItem";
 
 const Statistics = () => {
   const [isActive, setActive] = useState(true);
