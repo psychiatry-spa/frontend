@@ -23,7 +23,7 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
   }>({ field: "none", order: "none" });
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const itemsPerPage = 3;
+  const itemsPerPage = 20;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -146,7 +146,7 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
               Role
             </th>
             <th
-              className="hover:bg-slate-200 px-3 border-ocean-wave cursor-pointer"
+              className="hover:bg-slate-200 sm:table-cell hidden border-ocean-wave cursor-pointer"
               onClick={() => handleSort("consultations")}
             >
               Consultations
@@ -188,23 +188,26 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
                     <img
                       className="w-10 h-10 rounded-full"
                       src={
-                        imageUrl
-                          ? imageUrl
-                          : "https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png"
+                        imageUrl ||
+                        "https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png"
                       }
                       alt="pfp"
                     />
-                    <div className="flex flex-col">
-                      <div className="font-semibold text-deep-sea">
+                    <div className="flex flex-col flex-grow min-w-0">
+                      <span className="min-w-0 font-semibold text-deep-sea whitespace-normal break-words">
                         {name} {surname}
-                      </div>
-                      <div className="font-normal text-ocean-wave">{email}</div>
+                      </span>
+                      <span className="font-normal overflow-hidden text-ellipsis whitespace-nowrap text-ocean-wave">
+                        {email}
+                      </span>
                     </div>
                   </td>
                   <td className="lg:table-cell hidden px-3 uppercase font-medium">
                     {role}
                   </td>
-                  <td className="px-3 text-deep-sea">{consultations.length}</td>
+                  <td className="sm:table-cell hidden px-3 text-deep-sea">
+                    {consultations.length}
+                  </td>
                   <td className="lg:table-cell hidden px-3">{country}</td>
                   <td className="xl:table-cell hidden px-3">
                     {formatDate(createdAt)}
@@ -226,23 +229,23 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
           )}
         </tbody>
       </table>
-      {filteredSortedData && (
-        <div className="flex justify-center mt-4">
+      {filteredSortedData.length > 0 && (
+        <div className="flex justify-center my-4">
           <div className="inline-flex lg:gap-x-3  items-center">
             <button
-              className="p-3 w-32 rounded-xl primary text-base inline-block"
+              className="p-2 w-20 rounded-xl primary text-base inline-block"
               onClick={handlePrevPage}
             >
-              Previous page
+              Prev
             </button>
-            <span className="mx-3 text-xl text-deep-sea">
+            <span className="mx-3 text-base sm:text-xl text-deep-sea">
               {currentPage} out of {totalPages}
             </span>
             <button
-              className="p-3 w-32 rounded-xl primary text-base inline-block"
+              className="p-2 w-20 rounded-xl primary text-base inline-block"
               onClick={handleNextPage}
             >
-              Next page
+              Next
             </button>
           </div>
         </div>
