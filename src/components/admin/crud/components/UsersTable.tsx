@@ -21,6 +21,9 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
     field: "name" | "role" | "country" | "createdAt" | "consultations" | "none";
     order: "asc" | "desc" | "none";
   }>({ field: "none", order: "none" });
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const itemsPerPage = 20;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,6 +81,12 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
     return sortedData;
   }, [data, searchQuery, sort]);
 
+  const paginatedData = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredSortedData.slice(startIndex, endIndex);
+  }, [filteredSortedData, currentPage, itemsPerPage]);
+
   const handleSort = (field: typeof sort.field) => {
     setSort((prevSort) => {
       if (prevSort.field !== field) return { field, order: "asc" };
@@ -107,105 +116,141 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
     });
   };
 
+  const totalPages = Math.ceil(filteredSortedData.length / itemsPerPage);
+
+  const handlePrevPage = () => {
+    setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev));
+  };
+
   if (loading) return <div>Loading...</div>;
 
   return (
-    <table className="table-auto w-full min-w-full">
-      <thead className="">
-        <tr className="text-deep-sea text-left font-semibold h-10">
-          <th
-            className="hover:bg-slate-200 rounded-l-md pl-2 cursor-pointer"
-            onClick={() => handleSort("name")}
-          >
-            Name
-          </th>
-          <th
-            className="hover:bg-slate-200 lg:table-cell hidden px-3 border-ocean-wave cursor-pointer"
-            onClick={() => handleSort("role")}
-          >
-            Role
-          </th>
-          <th
-            className="hover:bg-slate-200 px-3 border-ocean-wave cursor-pointer"
-            onClick={() => handleSort("consultations")}
-          >
-            Consultations
-          </th>
-          <th
-            className="hover:bg-slate-200 lg:table-cell hidden px-3 border-ocean-wave cursor-pointer"
-            onClick={() => handleSort("country")}
-          >
-            Country
-          </th>
-          <th
-            className="hover:bg-slate-200 xl:table-cell hidden px-3 border-ocean-wave cursor-pointer"
-            onClick={() => handleSort("createdAt")}
-          >
-            Creation date
-          </th>
-          <th className="px-3">Properties</th>
-        </tr>
-      </thead>
-      <tbody>
-        {filteredSortedData.length > 0 ? (
-          filteredSortedData.map(
-            ({
-              _id,
-              imageUrl,
-              name,
-              surname,
-              email,
-              role,
-              country,
-              consultations,
-              createdAt,
-            }) => (
-              <tr
-                className="text-ocean-wave border-b border-ocean-wave/25"
-                key={_id}
-              >
-                <td className="pl-2 py-4 flex items-center space-x-3">
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src={
-                      imageUrl
-                        ? imageUrl
-                        : "https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png"
-                    }
-                    alt="pfp"
-                  />
-                  <div className="flex flex-col">
-                    <div className="font-semibold text-deep-sea">
-                      {name} {surname}
-                    </div>
-                    <div className="font-normal text-ocean-wave">{email}</div>
-                  </div>
-                </td>
-                <td className="lg:table-cell hidden px-3 uppercase font-medium">
-                  {role}
-                </td>
-                <td className="px-3 text-deep-sea">{consultations.length}</td>
-                <td className="lg:table-cell hidden px-3">{country}</td>
-                <td className="xl:table-cell hidden px-3">
-                  {formatDate(createdAt)}
-                </td>
-                <td>
-                  <button className="primary text-base w-20 py-1 bg-ocean-wave">
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            )
-          )
-        ) : (
-          <tr>
-            <td colSpan={9999} className="text-5xl text-center py-32 pr-32">
-              No results
-            </td>
+    <>
+      <table className="table-auto w-full min-w-full">
+        <thead className="">
+          <tr className="text-deep-sea text-left font-semibold h-10">
+            <th
+              className="hover:bg-slate-200 rounded-l-md pl-2 cursor-pointer"
+              onClick={() => handleSort("name")}
+            >
+              Name
+            </th>
+            <th
+              className="hover:bg-slate-200 lg:table-cell hidden px-3 border-ocean-wave cursor-pointer"
+              onClick={() => handleSort("role")}
+            >
+              Role
+            </th>
+            <th
+              className="hover:bg-slate-200 sm:table-cell hidden border-ocean-wave cursor-pointer"
+              onClick={() => handleSort("consultations")}
+            >
+              Consultations
+            </th>
+            <th
+              className="hover:bg-slate-200 lg:table-cell hidden px-3 border-ocean-wave cursor-pointer"
+              onClick={() => handleSort("country")}
+            >
+              Country
+            </th>
+            <th
+              className="hover:bg-slate-200 xl:table-cell hidden px-3 border-ocean-wave cursor-pointer"
+              onClick={() => handleSort("createdAt")}
+            >
+              Creation date
+            </th>
+            <th className="px-3">Properties</th>
           </tr>
-        )}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {filteredSortedData.length > 0 ? (
+            paginatedData.map(
+              ({
+                _id,
+                imageUrl,
+                name,
+                surname,
+                email,
+                role,
+                country,
+                consultations,
+                createdAt,
+              }) => (
+                <tr
+                  className="text-ocean-wave border-b border-ocean-wave/25"
+                  key={_id}
+                >
+                  <td className="pl-2 py-4 flex items-center space-x-3">
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src={
+                        imageUrl ||
+                        "https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png"
+                      }
+                      alt="pfp"
+                    />
+                    <div className="flex flex-col flex-grow min-w-0">
+                      <span className="min-w-0 font-semibold text-deep-sea whitespace-normal break-words">
+                        {name} {surname}
+                      </span>
+                      <span className="font-normal overflow-hidden text-ellipsis whitespace-nowrap text-ocean-wave">
+                        {email}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="lg:table-cell hidden px-3 uppercase font-medium">
+                    {role}
+                  </td>
+                  <td className="sm:table-cell hidden px-3 text-deep-sea">
+                    {consultations.length}
+                  </td>
+                  <td className="lg:table-cell hidden px-3">{country}</td>
+                  <td className="xl:table-cell hidden px-3">
+                    {formatDate(createdAt)}
+                  </td>
+                  <td>
+                    <button className="primary text-base w-20 py-1 bg-ocean-wave">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              )
+            )
+          ) : (
+            <tr>
+              <td colSpan={9999} className="text-5xl text-center py-32 pr-32">
+                No results
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      {filteredSortedData.length > 0 && (
+        <div className="flex justify-center my-4">
+          <div className="inline-flex lg:gap-x-3  items-center">
+            <button
+              className="p-2 w-20 rounded-xl primary text-base inline-block"
+              onClick={handlePrevPage}
+            >
+              Prev
+            </button>
+            <span className="mx-3 text-base sm:text-xl text-deep-sea">
+              {currentPage} out of {totalPages}
+            </span>
+            <button
+              className="p-2 w-20 rounded-xl primary text-base inline-block"
+              onClick={handleNextPage}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

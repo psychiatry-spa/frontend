@@ -8,7 +8,7 @@ interface Props {
   endDatetime: string;
 }
 
-const Meeting = ({ id, name, imageUrl, startDatetime, endDatetime }: Props) => {
+const Meeting = ({ name, imageUrl, startDatetime }: Props) => {
   return (
     <li className="flex justify-between items-start py-4 border-b border-gray-200 dark:border-gray-700 ">
       <div className="flex">

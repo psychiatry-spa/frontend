@@ -1,4 +1,3 @@
-import { format, isSameDay, parseISO } from "date-fns";
 import Container from "../../../layouts/admin/Container";
 import Meeting from "./Meeting";
 
@@ -6,7 +5,7 @@ interface Props {
   selectedDay: Date;
 }
 
-const UpcomingMeetings = ({ selectedDay }: Props) => {
+const UpcomingMeetings = ({  }: Props) => {
   const meetings = [
     {
       id: 1,
@@ -49,10 +48,6 @@ const UpcomingMeetings = ({ selectedDay }: Props) => {
       endDatetime: "2022-05-13T14:30",
     },
   ];
-
-  let selectedDayMeetings = meetings.filter((meeting) =>
-    isSameDay(parseISO(meeting.startDatetime), selectedDay)
-  );
 
   return (
     <Container>
