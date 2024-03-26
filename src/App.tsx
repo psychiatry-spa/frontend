@@ -10,6 +10,7 @@ import AboutPage from "./pages/AboutPage";
 import SessionPage from "./pages/client/SessionPage";
 import SettingsPage from "./pages/admin/SettingsPage";
 import BookingPage from "./pages/client/BookingPage";
+import PostPage from "./pages/admin/PostPage";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/admin/dashboard" element={<DashboardPage />} />
         <Route path="/admin/calendar" element={<CalendarPage />} />
         <Route path="/admin/manager" element={<ManagerPage />} />
+        <Route path="/admin/posts/" element={<PostPage />} />
         <Route path="/admin/settings" element={<SettingsPage />} />
       </Routes>
     </Router>
