@@ -5,7 +5,7 @@ const PostPage = () => {
   return (
 
     <AdminLayout>
-      <Post />
+        <Post />
     </AdminLayout>
   )
 }
