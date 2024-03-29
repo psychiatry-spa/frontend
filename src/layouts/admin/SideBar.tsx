@@ -35,6 +35,11 @@ const Sidebar = ({ isSidebar }: Props) => {
             </Link>
           </li>
           <li>
+            <Link to="/admin/posts">
+              <SidebarButton text="Posts" iconName="post" />
+            </Link>
+          </li>
+          <li>
             <Link to="/admin/settings">
               <SidebarButton text="Setting" iconName="settings" />
             </Link>
