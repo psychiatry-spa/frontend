@@ -1,15 +1,17 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import MainPage from "./pages/MainPage";
-import SignInPage from "./pages/LoginPage";
-import SignUpPage from "./pages/SignUpPage";
-import DashboardPage from "./pages/admin/DashboardPage";
-import ManagerPage from "./pages/admin/ManagerPage";
-import CalendarPage from "./pages/admin/CalendarPage";
-import SignOutPage from "./pages/SignOutPage";
-import AboutPage from "./pages/AboutPage";
-import SessionPage from "./pages/client/SessionPage";
-import SettingsPage from "./pages/admin/SettingsPage";
-import BookingPage from "./pages/client/BookingPage";
+import {
+  AboutPage,
+  BookingPage,
+  CalendarPage,
+  DashboardPage,
+  MainPage,
+  ManagerPage,
+  SessionPage,
+  SettingsPage,
+  SignInPage,
+  SignOutPage,
+  SignUpPage,
+} from "./pages";
 
 function App() {
   return (
