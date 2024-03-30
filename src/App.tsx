@@ -13,6 +13,7 @@ import {
   SignUpPage,
 } from "./pages";
 
+
 function App() {
   return (
     <Router>
@@ -31,6 +32,7 @@ function App() {
         <Route path="/admin/dashboard" element={<DashboardPage />} />
         <Route path="/admin/calendar" element={<CalendarPage />} />
         <Route path="/admin/manager" element={<ManagerPage />} />
+        <Route path="/admin/posts/" element={<PostPage />} />
         <Route path="/admin/settings" element={<SettingsPage />} />
       </Routes>
     </Router>

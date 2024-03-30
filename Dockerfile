@@ -14,6 +14,6 @@ ENV NODE_ENV=${NODE_ENV}
 
 RUN npm run build
 
-EXPOSE 4173
+EXPOSE 5173
 
 CMD [ "npm", "run", "preview" ]
