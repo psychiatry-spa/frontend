@@ -5,6 +5,7 @@ import {
   Tooltip,
   XAxis,
   TooltipProps as RechartsTooltipProps,
+  ResponsiveContainer,
 } from "recharts";
 
 interface CustomTooltipProps extends RechartsTooltipProps<number, string> {
@@ -74,19 +75,14 @@ const ChartBar = () => {
   }, [data]);
 
   return (
-    <div ref={chartContainerRef} className="w-full">
-      <BarChart
-        margin={{ left: 16, right: 16 }}
-        width={chartWidth}
-        height={120}
-        data={data}
-      >
+    <ResponsiveContainer width="100%" height={150}>
+      <BarChart margin={{ top: 0, left: 0, right: 0, bottom: 0 }} data={data}>
         <XAxis dataKey="name" hide={true} />
         {/* cursor={{fill: "color"}} */}
         <Tooltip cursor={false} content={<CustomTooltip />} />
         <Bar radius={[3, 3, 0, 0]} dataKey="consultations" fill="blue" />
       </BarChart>
-    </div>
+    </ResponsiveContainer>
   );
 };
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Icon from "../../common/icon";
+import MenuButton from "../../common/buttons/MenuButton";
 import Container from "../../../layouts/admin/Container";
 import StatisticsItem from "./StatisticsItem";
 
@@ -7,15 +7,15 @@ const Statistics = () => {
   const [isActive, setActive] = useState(true);
 
   const active = [
-    "text-blue-700",
+    "text-accent",
     "dark:text-blue-500",
-    "hover:text-blue-800",
+    "hover:text-accent-focus",
     "dark:hover:text-blue-400",
   ];
 
   const regular = [
-    "text-gray-600",
-    "hover:text-gray-900",
+    "text-primary",
+    "hover:text-primary-focus",
     "dark:text-gray-300",
     "dark:hover:text-white",
   ];
@@ -36,22 +36,23 @@ const Statistics = () => {
   };
 
   return (
-    <Container>
+    <Container styles="col-span-3 xl:col-span-1">
       <div className="flex items-center mb-3">
-        <span className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h2 className="text-xl font-semibold text-primary dark:text-white">
           Statistics this month
-        </span>
-        <Icon
+        </h2>
+        {/* <Icon
           name="help"
           styles="size-4 text-gray-500 ml-2 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-        />
+        /> */}
       </div>
       <div className="flex text-sm font-medium text-center cursor-pointer">
         <button
           type="button"
           id="customersButton"
-          className={`p-4 w-full border-b border-r rounded-tl-lg border-gray-200 dark:border-gray-800
-          bg-gray-50 hover:bg-gray-100 active:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600
+          className={`p-4 w-full border-b border-r rounded-tl-lg 
+          border-primary-200 bg-primary-005 hover:bg-primary-100 active:bg-primary-200
+          dark:border-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600
           ${isActive ? active.join(" ") : regular.join(" ")}`}
           onClick={handleCustomersTab}
         >
@@ -60,8 +61,9 @@ const Statistics = () => {
         <button
           type="button"
           id="blogsButton"
-          className={`p-4 w-full border-b border-l rounded-tr-lg border-gray-200 dark:border-gray-800
-          bg-gray-50 hover:bg-gray-100 active:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600
+          className={`p-4 w-full border-b border-l rounded-tr-lg 
+          border-primary-200 bg-primary-005 hover:bg-primary-100 active:bg-primary-200
+          dark:border-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600
           ${isActive ? regular.join(" ") : active.join(" ")}`}
           onClick={handleBlogsButton}
         >
@@ -93,15 +95,19 @@ const Statistics = () => {
         )}
       </ul>
 
-      <div className="mt-2 flex justify-between">
-        <button className="flex items-center font-medium text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-          Last 7 days
-          <Icon name="search" styles="ml-2 size-4" />
-        </button>
+      <div className="mt-1 flex justify-between">
+        <MenuButton
+          options={[
+            "Last 7 days",
+            "Last 30 days",
+            "Last 90 days",
+            "Last 180 days",
+          ]}
+        />
 
-        <button className="flex items-center font-medium text-sm text-blue-700 hover:text-gray-900 dark:text-blue-500 dark:hover:text-white">
+        <button className="flex items-center font-medium text-accent hover:text-accent-focus dark:text-blue-500 dark:hover:text-white">
           Full Report
-          <Icon name="search" styles="ml-2 size-4" />
+          {/* <Icon name="search" styles="ml-2 size-4" /> */}
         </button>
       </div>
     </Container>

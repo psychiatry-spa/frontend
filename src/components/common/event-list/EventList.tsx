@@ -1,12 +1,8 @@
-import { format, isSameDay, parseISO } from "date-fns";
-import Container from "../../../layouts/admin/Container";
-import Meeting from "./Meeting";
+import Container from "../Container";
+import Event from "./Event";
+import MenuButton from "../buttons/MenuButton";
 
-interface Props {
-  selectedDay: Date;
-}
-
-const UpcomingMeetings = ({ selectedDay }: Props) => {
+const EventList = () => {
   const meetings = [
     {
       id: 1,
@@ -51,23 +47,22 @@ const UpcomingMeetings = ({ selectedDay }: Props) => {
   ];
 
   return (
-    <Container>
+    <Container styles="col-span-3">
       <section>
-        <span className="text-lg font-semibold text-gray-900 dark:text-white">
-          Upcoming meetings
-        </span>
-        <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
+        <h2 className="text-xl font-semibold text-primary">
+          Upcoming consultations
+        </h2>
+        <ol className="mt-4">
           {meetings.length > 0 ? (
             meetings.map(
               ({ id, name, imageUrl, startDatetime, endDatetime }) => (
-                <Meeting
+                <Event
                   id={id}
                   name={name}
                   imageUrl={imageUrl}
-                  startDatetime={startDatetime}
-                  endDatetime={endDatetime}
+                  start={startDatetime}
+                  end={endDatetime}
                 />
-                //   <Meeting meeting={meeting} key={meeting.id} />
               )
             )
           ) : (
@@ -75,9 +70,12 @@ const UpcomingMeetings = ({ selectedDay }: Props) => {
           )}
           {/* <p>No meetings for today.</p> */}
         </ol>
+        <div className="mt-4">
+          <MenuButton options={["Upcoming", "Past", "Canceled"]} />
+        </div>
       </section>
     </Container>
   );
 };
 
-export default UpcomingMeetings;
+export default EventList;

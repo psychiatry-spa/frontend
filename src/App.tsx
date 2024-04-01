@@ -10,6 +10,8 @@ import AboutPage from "./pages/AboutPage";
 import SessionPage from "./pages/client/SessionPage";
 import SettingsPage from "./pages/admin/SettingsPage";
 import BookingPage from "./pages/client/BookingPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/login" element={<SignInPage />} />
         <Route path="/register" element={<SignUpPage />} />
         <Route path="/logout" element={<SignOutPage />} />
+        {/* <Route path="/forgot" element={<ForgotPasswordPage />} />
+        <Route path="/reset" element={<ResetPasswordPage />} /> */}
         {/* User */}
         <Route path="/sessions" element={<SessionPage />} />
         <Route path="/settings" element={<SettingsPage />} />
