@@ -10,12 +10,18 @@ export default {
       colors: {
         "accent": "#F2957C",
         "accent-focus": "#EF7A5B",
+        "accent-100": "#FDF2EF",
         
-
         "primary": "#014E56",
+        "primary-focus": "#00353D",
+        "primary-900": "#1A6067",
+        "primary-800": "#347178",
         "primary-700": "#4D8389",
         "primary-600": "#619196",
         "primary-500": "#7AA2A6",
+        "primary-300": "#B3CACC",
+        "primary-200": "#CCDCDD",
+        "primary-100": "#E6F2F3",
         "primary-005": "#F2F6F7",
 
 
