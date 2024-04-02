@@ -50,7 +50,7 @@ const Statistics = () => {
         <button
           type="button"
           id="customersButton"
-          className={`p-4 w-full border-b border-r rounded-tl-lg 
+          className={`p-4 w-full border-b border-r 
           border-primary-200 bg-primary-005 hover:bg-primary-100 active:bg-primary-200
           dark:border-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600
           ${isActive ? active.join(" ") : regular.join(" ")}`}
@@ -61,7 +61,7 @@ const Statistics = () => {
         <button
           type="button"
           id="blogsButton"
-          className={`p-4 w-full border-b border-l rounded-tr-lg 
+          className={`p-4 w-full border-b border-l 
           border-primary-200 bg-primary-005 hover:bg-primary-100 active:bg-primary-200
           dark:border-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600
           ${isActive ? regular.join(" ") : active.join(" ")}`}

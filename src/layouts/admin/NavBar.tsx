@@ -1,38 +1,41 @@
 import Icon from "../../components/common/icon";
 import { IconButton } from "../../components/admin/nav-bar/IconButton";
 import { SearchBar } from "../../components/common/bars/SearchBar";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 
-interface Props {
-  isSidebar: boolean;
-  setIsSidebar: (isSidebar: boolean) => void;
-}
-
-const Navbar = ({ isSidebar, setIsSidebar }: Props) => {
-  const handleSidebar = () => setIsSidebar(!isSidebar);
-
+const Navbar = () => {
+  const [isDark, setIsDark] = useState(false);
+  const handleMode = () => setIsDark(!isDark);
   return (
-    <nav className="fixed lg:p-3 p-2 z-30 w-full border-b bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-      <div className="flex">
-        <div className="flex justify-start items-center">
-          <div className="lg:hidden p-2">
-            <IconButton name="sun" handleClick={handleSidebar} />
-          </div>
-          <Link to="/" className="flex justify-start items-center pr-6 mr-8">
-            <Icon name="moon" styles="size-10" />
-            <span className="font-bold text-2xl dark:text-white">LogoName</span>
-          </Link>
-          <div className="w-96 hidden lg:block">
-            <SearchBar />
-          </div>
+    <nav className="fixed lg:p-4 p-2 z-10 w-full border-b bg-white border-primary-200 dark:bg-gray-800 dark:border-gray-700">
+      <div className="flex justify-between">
+        <div className="ml-60 w-96 hidden lg:block">
+          <SearchBar />
         </div>
 
         <div className="flex items-center justify-end w-full">
-          <IconButton name="bell" />
-          <IconButton name="darkmode" />
-          <button className="p-2 bg-accent rounded-full">
-            <Icon name="name" styles="size-6" />
+          <button
+            onClick={handleMode}
+            className={`mx-2 text-primary relative inline-flex items-center justify-center w-14 h-8 rounded-full focus:outline-none transition-colors duration-300 ease-in-out ${
+              isDark ? "bg-accent" : "bg-primary-100"
+            }`}
+          >
+            <Icon
+              name={`${isDark ? "darkmode" : "lightmode"}`}
+              styles={`text-primary-800 size-3 p-1 absolute left-1 w-6 h-6 bg-white rounded-full shadow-md transition-transform duration-300 ease-in-out ${
+                isDark ? "transform translate-x-full" : ""
+              }`}
+            />
           </button>
+
+          <button className="text-primary-800 mx-2 bg-primary-100 p-2 rounded-full hover:bg-primary-200 hover:text-primary">
+            <Icon name="bell" styles="size-4" />
+          </button>
+          <img
+            className="size-12 rounded-full mx-2"
+            src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            alt="avatar"
+          />
         </div>
       </div>
     </nav>
