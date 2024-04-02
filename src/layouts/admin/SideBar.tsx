@@ -4,10 +4,11 @@ import { SearchBar } from "../../components/common/bars/SearchBar";
 import { Link } from "react-router-dom";
 import Icon from "../../components/common/icon";
 
-const Sidebar = () => {
-  const [isSidebar, setIsSidebar] = useState(false);
-  const handleSidebar = () => setIsSidebar(!isSidebar);
+interface Props {
+  isSidebar: boolean;
+}
 
+const Sidebar = ({ isSidebar }: Props) => {
   const [activeButton, setActiveButton] = useState("dashboard");
   const handleActive = (index: string) => {
     console.log(index);
@@ -21,14 +22,11 @@ const Sidebar = () => {
       }`}
     >
       <div className="flex flex-col h-full pt-5 bg-white border-r border-primary-200 dark:bg-gray-800 dark:border-gray-700">
-        <div className="lg:hidden p-2">
-          <button onClick={handleSidebar}>
-            <Icon name="sun" />
-          </button>
-        </div>
         <Link to="/" className="flex justify-start items-center mb-9">
           <Icon name="moon" styles="size-10" />
-          <span className="font-bold text-primary text-2xl dark:text-white">Admin Panel</span>
+          <span className="font-bold text-primary text-2xl dark:text-white">
+            Admin Panel
+          </span>
         </Link>
         <ul>
           <li className="m-2 lg:hidden">

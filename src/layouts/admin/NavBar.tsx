@@ -1,13 +1,21 @@
 import Icon from "../../components/common/icon";
-import { IconButton } from "../../components/admin/nav-bar/IconButton";
 import { SearchBar } from "../../components/common/bars/SearchBar";
 import { useState } from "react";
 
-const Navbar = () => {
+interface Props {
+  handleClick: () => void;
+}
+
+const Navbar = ({ handleClick }: Props) => {
   const [isDark, setIsDark] = useState(false);
   const handleMode = () => setIsDark(!isDark);
   return (
     <nav className="fixed lg:p-4 p-2 z-10 w-full border-b bg-white border-primary-200 dark:bg-gray-800 dark:border-gray-700">
+      <div className="lg:hidden p-2">
+        <button onClick={handleClick}>
+          <Icon name="sun" />
+        </button>
+      </div>
       <div className="flex justify-between">
         <div className="ml-60 w-96 hidden lg:block">
           <SearchBar />
