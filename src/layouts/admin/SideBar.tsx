@@ -21,12 +21,12 @@ const Sidebar = ({ isSidebar }: Props) => {
           </li>
           <li>
             <Link to="/admin/dashboard">
-              <SidebarButton text="Dashboard" iconName="pie-chart" />
+              <SidebarButton text="Dashboard" iconName="dashboard" />
             </Link>
           </li>
           <li>
             <Link to="/admin/calendar">
-              <SidebarButton text="Calendar" iconName="pie-chart" />
+              <SidebarButton text="Calendar" iconName="date" />
             </Link>
           </li>
           <li>
@@ -50,7 +50,7 @@ const Sidebar = ({ isSidebar }: Props) => {
             </Link>
           </li>
           <li>
-            <SidebarButton text="Support" iconName="help" />
+            <SidebarButton text="Support" iconName="support" />
           </li>
         </ul>
       </div>

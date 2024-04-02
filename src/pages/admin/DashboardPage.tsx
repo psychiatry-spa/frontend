@@ -1,5 +1,5 @@
-import AreaChartComponent from "../../components/admin/area-chart/AreaChart";
-import ConsultationComponent from "../../components/admin/consultation/Consultation";
+import AreaChart from "../../components/admin/area-chart/AreaChart";
+import Chart from "../../components/admin/consultation/BarChartWithData";
 import Content from "../../components/admin/content/Content";
 import Statistics from "../../components/admin/statistics/Statistics";
 import AdminLayout from "../../layouts/admin/AdminLayout";
@@ -8,11 +8,11 @@ const DashboardPage = () => {
   return (
       <AdminLayout>
         <Content>
-          <AreaChartComponent />
+          <AreaChart />
           <Statistics />
-          <ConsultationComponent />
-          <ConsultationComponent />
-          <ConsultationComponent />
+          <Chart text="Consultations this week"/>
+          <Chart text="New clients this week"/>
+          <Chart text="New visitors this week"/>
         </Content>
       </AdminLayout>
   );

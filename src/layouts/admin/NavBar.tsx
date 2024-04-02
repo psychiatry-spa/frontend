@@ -18,18 +18,21 @@ const Navbar = ({ isSidebar, setIsSidebar }: Props) => {
           <div className="lg:hidden p-2">
             <IconButton name="sun" handleClick={handleSidebar} />
           </div>
-          <Link to="/" className="flex justify-start items-center pr-6 mr-16">
+          <Link to="/" className="flex justify-start items-center pr-6 mr-8">
             <Icon name="moon" styles="size-10" />
             <span className="font-bold text-2xl dark:text-white">LogoName</span>
           </Link>
-          <div className="ml-1 w-96 hidden lg:block">
+          <div className="w-96 hidden lg:block">
             <SearchBar />
           </div>
         </div>
 
         <div className="flex items-center justify-end w-full">
           <IconButton name="bell" />
-          <IconButton name="moon" />
+          <IconButton name="darkmode" />
+          <button className="p-2 bg-accent rounded-full">
+            <Icon name="name" styles="size-6" />
+          </button>
         </div>
       </div>
     </nav>

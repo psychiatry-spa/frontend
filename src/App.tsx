@@ -13,7 +13,6 @@ import {
   SignUpPage,
 } from "./pages";
 
-
 function App() {
   return (
     <Router>
@@ -24,6 +23,8 @@ function App() {
         <Route path="/login" element={<SignInPage />} />
         <Route path="/register" element={<SignUpPage />} />
         <Route path="/logout" element={<SignOutPage />} />
+        {/* <Route path="/forgot" element={<ForgotPasswordPage />} />
+        <Route path="/reset" element={<ResetPasswordPage />} /> */}
         {/* User */}
         <Route path="/sessions" element={<SessionPage />} />
         <Route path="/settings" element={<SettingsPage />} />
