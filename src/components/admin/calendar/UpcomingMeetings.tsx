@@ -1,4 +1,3 @@
-import { format, isSameDay, parseISO } from "date-fns";
 import Container from "../../../layouts/admin/Container";
 import Meeting from "./Meeting";
 
@@ -6,7 +5,7 @@ interface Props {
   selectedDay: Date;
 }
 
-const UpcomingMeetings = ({ selectedDay }: Props) => {
+const UpcomingMeetings = ({  }: Props) => {
   const meetings = [
     {
       id: 1,

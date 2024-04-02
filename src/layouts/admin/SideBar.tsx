@@ -31,13 +31,23 @@ const Sidebar = ({ isSidebar }: Props) => {
           </li>
           <li>
             <Link to="/admin/manager">
-              <SidebarButton text="Manager" iconName="db" />
+              <SidebarButton text="Manager" iconName="database" />
             </Link>
           </li>
           <li>
-            <a href="https://github.com/psychiatry-spa" target="_blank">
+            <Link to="/admin/posts">
+              <SidebarButton text="Posts" iconName="post" />
+            </Link>
+          </li>
+          <li>
+            <Link to="/admin/settings">
+              <SidebarButton text="Setting" iconName="settings" />
+            </Link>
+          </li>
+          <li>
+            <Link to="https://github.com/psychiatry-spa" target="_blank">
               <SidebarButton text="Repository" iconName="github" />
-            </a>
+            </Link>
           </li>
           <li>
             <SidebarButton text="Support" iconName="support" />
