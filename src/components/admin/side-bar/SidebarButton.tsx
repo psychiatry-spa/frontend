@@ -1,22 +1,24 @@
+import { Link } from "react-router-dom";
 import Icon from "../../common/icon";
 
 interface Props {
-  text: string;
-  iconName: string;
+  name: string;
+  isActive?: boolean;
 }
 
-export const SidebarButton = ({ text, iconName }: Props) => {
+export const SidebarButton = ({ name, isActive = false }: Props) => {
   return (
-    <a
-      href=""
-      className="p-1 m-2 mx-3 flex items-center 
-      text-primary-800 rounded-lg hover:bg-primary-005 hover:text-primary 
-      dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700"
+    <Link
+      to={`/admin/${name}`}
+      className={`p-2 m-1 mx-3 flex items-center rounded-lg
+      hover:bg-primary-100 hover:text-primary-800 
+      dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700
+      ${isActive ? " bg-primary-100 text-primary-800 font-medium" : " text-primary-700"}`}
     >
-      <Icon name={iconName} styles="m-1 mr-3 size-6" />
-      <span className="text-[1.1rem] text-primary dark:text-gray-200">
-        {text}
+      <Icon name={name} styles="m-1 mr-3 size-5" />
+      <span className="text-[1.1rem]">
+        {name.replace(/^\w/, (c) => c.toUpperCase())}
       </span>
-    </a>
+    </Link>
   );
 };

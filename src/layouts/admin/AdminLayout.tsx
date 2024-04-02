@@ -8,12 +8,13 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [isSidebar, setIsSidebar] = useState(false);
+  const handleSidebar = () => setIsSidebar(!isSidebar);
   return (
-    <>
-      <NavBar isSidebar={isSidebar} setIsSidebar={setIsSidebar} />
+    <div className="bg-primary-005">
+      <NavBar handleClick={handleSidebar} />
       <Sidebar isSidebar={isSidebar} />
-      <div className="pt-[71px] lg:ml-52">{children}</div>
-    </>
+      <div className="pt-20 lg:ml-60">{children}</div>
+    </div>
   );
 };
 

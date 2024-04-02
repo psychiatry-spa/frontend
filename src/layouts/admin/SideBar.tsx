@@ -1,47 +1,48 @@
+import { useState } from "react";
 import { SidebarButton } from "../../components/admin/side-bar/SidebarButton";
 import { SearchBar } from "../../components/common/bars/SearchBar";
 import { Link } from "react-router-dom";
+import Icon from "../../components/common/icon";
 
 interface Props {
   isSidebar: boolean;
 }
 
 const Sidebar = ({ isSidebar }: Props) => {
+  const [activeButton, setActiveButton] = useState("dashboard");
+  const handleActive = (index: string) => {
+    console.log(index);
+    setActiveButton(index);
+  };
   return (
     <aside
       id="sidebar"
-      className={`fixed h-full top-0 left-0 z-10 pt-16 w-52 font-normal lg:flex flex-col transition-width ${
+      className={`fixed h-full z-10 w-60 font-normal lg:flex flex-col transition-width ${
         isSidebar ? "" : "hidden"
       }`}
     >
-      <div className="flex flex-col border-r h-full pt-5 bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-        <ul className="">
+      <div className="flex flex-col h-full pt-5 bg-white border-r border-primary-200 dark:bg-gray-800 dark:border-gray-700">
+        <Link to="/" className="flex justify-start items-center mb-9">
+          <Icon name="moon" styles="size-10" />
+          <span className="font-bold text-primary text-2xl dark:text-white">
+            Admin Panel
+          </span>
+        </Link>
+        <ul>
           <li className="m-2 lg:hidden">
             <SearchBar />
           </li>
-          <li>
-            <Link to="/admin/dashboard">
-              <SidebarButton text="Dashboard" iconName="dashboard" />
-            </Link>
-          </li>
-          <li>
-            <Link to="/admin/calendar">
-              <SidebarButton text="Calendar" iconName="date" />
-            </Link>
-          </li>
-          <li>
-            <Link to="/admin/manager">
-              <SidebarButton text="Manager" iconName="db" />
-            </Link>
-          </li>
-          <li>
-            <a href="https://github.com/psychiatry-spa" target="_blank">
-              <SidebarButton text="Repository" iconName="github" />
-            </a>
-          </li>
-          <li>
-            <SidebarButton text="Support" iconName="support" />
-          </li>
+          {["dashboard", "calendar", "manager", "settings"].map((name) => (
+            <li key={name} onClick={() => handleActive(name)}>
+              <SidebarButton name={name} isActive={activeButton === name} />
+            </li>
+          ))}
+          <li className="border-b border-primary-200 mx-3"></li>
+          {["repository", "support", "logout"].map((name) => (
+            <li key={name} onClick={() => handleActive(name)}>
+              <SidebarButton name={name} isActive={activeButton === name} />
+            </li>
+          ))}
         </ul>
       </div>
     </aside>

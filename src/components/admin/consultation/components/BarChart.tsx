@@ -80,7 +80,7 @@ const ChartBar = () => {
         <XAxis dataKey="name" hide={true} />
         {/* cursor={{fill: "color"}} */}
         <Tooltip cursor={false} content={<CustomTooltip />} />
-        <Bar radius={[3, 3, 0, 0]} dataKey="consultations" fill="blue" />
+        <Bar radius={[3, 3, 0, 0]} dataKey="consultations" fill="#F2957C" />
       </BarChart>
     </ResponsiveContainer>
   );
