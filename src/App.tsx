@@ -6,6 +6,7 @@ import {
   DashboardPage,
   MainPage,
   ManagerPage,
+  PostPage,
   SessionPage,
   SettingsPage,
   SignInPage,
