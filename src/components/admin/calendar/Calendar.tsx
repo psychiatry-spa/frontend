@@ -4,18 +4,14 @@ import { IconButton } from "../nav-bar/IconButton";
 import { useState } from "react";
 
 import {
-  add,
   eachDayOfInterval,
   endOfMonth,
   format,
   getDay,
   isEqual,
-  isSameDay,
   isSameMonth,
   isToday,
   parse,
-  parseISO,
-  startOfToday,
 } from "date-fns";
 
 interface Props {
@@ -25,7 +21,7 @@ interface Props {
 }
 
 const Calendar = ({ today, selectedDay, setSelectedDay }: Props) => {
-  let [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
+  let [currentMonth] = useState(format(today, "MMM-yyyy"));
   let firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
 
   let days = eachDayOfInterval({
