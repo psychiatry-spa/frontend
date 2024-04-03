@@ -20,28 +20,22 @@ const Sidebar = ({ isSidebar }: Props) => {
             <SearchBar />
           </li>
           <li>
-            <SidebarButton text="Dashboard" iconName="pie-chart" />
+            <SidebarButton name="Dashboard" />
           </li>
           <li>
-            <Link to="/admin/calendar">
-              <SidebarButton text="Calendar" iconName="pie-chart" />
-            </Link>
+              <SidebarButton name="Calendar" />
           </li>
           <li>
-            <Link to="/admin/crud">
-              <SidebarButton text="CRUD" iconName="database" />
-            </Link>
+              <SidebarButton name="CRUD" />
           </li>
           <li>
-            <SidebarButton text="Setting" iconName="settings" />
+            <SidebarButton name="Setting" />
           </li>
           <li>
-            <a href="https://github.com/psychiatry-spa" target="_blank">
-              <SidebarButton text="Repository" iconName="github" />
-            </a>
+            <SidebarButton name="Repository" />
           </li>
           <li>
-            <SidebarButton text="Support" iconName="help" />
+            <SidebarButton name="Support" />
           </li>
         </ul>
       </div>
