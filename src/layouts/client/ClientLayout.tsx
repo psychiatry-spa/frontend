@@ -10,7 +10,7 @@ const Layout = ({ children }: LayoutProps) => {
     <>
       <NavBar />
       <div className="flex justify-center">
-        <div className="pt-16 grid grid-cols-7 gap-4 max-w-screen-xl">
+        <div className="pt-20 grid grid-cols-7 gap-4 max-w-screen-xl">
           {children}
         </div>
       </div>
