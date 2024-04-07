@@ -12,8 +12,8 @@ import {
   SignInPage,
   SignOutPage,
   SignUpPage,
+  Page404
 } from "./pages";
-import Page404 from "./pages/Page404";
 
 function App() {
   return (
