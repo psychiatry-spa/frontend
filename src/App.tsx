@@ -13,6 +13,7 @@ import {
   SignOutPage,
   SignUpPage,
 } from "./pages";
+import Page404 from "./pages/Page404";
 
 function App() {
   return (
@@ -36,6 +37,8 @@ function App() {
         <Route path="/admin/manager" element={<ManagerPage />} />
         <Route path="/admin/posts/" element={<PostPage />} />
         <Route path="/admin/settings" element={<SettingsPage />} />
+
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </Router>
   );
