@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { SidebarButton } from "../../components/admin/side-bar/SidebarButton";
 import { SearchBar } from "../../components/common/bars/SearchBar";
 import { Link } from "react-router-dom";
@@ -8,12 +7,7 @@ interface Props {
   isSidebar: boolean;
 }
 
-const Sidebar = ({ isSidebar }: Props) => {
-  const [activeButton, setActiveButton] = useState("dashboard");
-  const handleActive = (index: string) => {
-    console.log(index);
-    setActiveButton(index);
-  };
+const Sidebar = ({ isSidebar}: Props) => {
   return (
     <aside
       id="sidebar"
@@ -33,14 +27,14 @@ const Sidebar = ({ isSidebar }: Props) => {
             <SearchBar />
           </li>
           {["dashboard", "calendar", "manager", "settings"].map((name) => (
-            <li key={name} onClick={() => handleActive(name)}>
-              <SidebarButton name={name} isActive={activeButton === name} />
+            <li key={name}>
+              <SidebarButton name={name} />
             </li>
           ))}
           <li className="border-b border-primary-200 mx-3"></li>
           {["repository", "support", "logout"].map((name) => (
-            <li key={name} onClick={() => handleActive(name)}>
-              <SidebarButton name={name} isActive={activeButton === name} />
+            <li key={name}>
+              <SidebarButton name={name}  />
             </li>
           ))}
         </ul>
