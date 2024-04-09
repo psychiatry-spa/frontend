@@ -34,16 +34,17 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
     fetchData();
   }, [searchQuery]);
 
+// TODO: refactor this:
+
   const filteredSortedData = useMemo(() => {
     let sortedData = [...data];
 
-    if (searchQuery) {
+    if (searchQuery)
       sortedData = sortedData.filter(({ name, surname, email }) =>
         [name, surname, email].some((value) =>
           value.toLowerCase().includes(searchQuery.toLowerCase())
         )
       );
-    }
 
     if (sort.field !== "none" && sort.order !== "none") {
       sortedData.sort((a, b) => {
@@ -53,11 +54,10 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
         let valueB = String(b[key] ?? "");
 
         if (key === "createdAt") {
-          return sort.order === "asc"
-            ? new Date(valueA as string).getTime() -
-                new Date(valueB as string).getTime()
-            : new Date(valueB as string).getTime() -
-                new Date(valueA as string).getTime();
+          const dateA = new Date(valueA as string).getTime()
+          const dateB = new Date(valueB as string).getTime()
+          return sort.order === "asc" ? dateA - dateB : dateB - dateA;
+
         } else if (key === "consultations") {
           const lengthA = (a[key] as unknown as any[]).length;
           const lengthB = (b[key] as unknown as any[]).length;
@@ -118,32 +118,7 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
 
   // if (loading)
   //   return (
-  //     <table className="table-auto w-full min-w-full mt-4 animate-pulse">
-  //       <thead className="border-b border-primary-200">
-  //         <tr>
-  //           {}
-  //           <td className="h-10 bg-primary-100 "></td>
-  //           <td className="h-10 bg-primary-100 "></td>
-  //         </tr>
-  //       </thead>
-  //       <tbody>
-  //         <tr>
-  //           <td className="h-2.5 bg-gray-200"></td>
-  //           <td className="loading-skeleton-cell"></td>
-  //           <td className="loading-skeleton-cell"></td>
-  //         </tr>
-  //         <tr>
-  //           <td className="loading-skeleton-cell"></td>
-  //           <td className="loading-skeleton-cell"></td>
-  //           <td className="loading-skeleton-cell"></td>
-  //         </tr>
-  //         <tr>
-  //           <td className="loading-skeleton-cell"></td>
-  //           <td className="loading-skeleton-cell"></td>
-  //           <td className="loading-skeleton-cell"></td>
-  //         </tr>
-  //       </tbody>
-  //     </table>
+  // TODO: Create sceleton for table, while loading
   //   );
 
   return (
@@ -181,68 +156,27 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
                   }`}
                   key={_id}
                 >
-                  {!loading ? (
-                    <>
-                      <TableNameItem
-                        name={name}
-                        surname={surname}
-                        email={email}
-                        imageUrl={imageUrl}
-                      />
+                  <TableNameItem
+                    name={name}
+                    surname={surname}
+                    email={email}
+                    imageUrl={imageUrl}
+                  />
 
-                      {[
-                        role,
-                        consultations.length.toString(),
-                        (country = ""),
-                        format(createdAt, "MM.dd.yyyy H:mm:ss"),
-                      ].map((text) => (
-                        <TableItem text={text} />
-                      ))}
+                  {[
+                    role,
+                    consultations.length.toString(),
+                    (country = ""),
+                    format(createdAt, "MM.dd.yyyy H:mm:ss"),
+                  ].map((text) => (
+                    <TableItem text={text} />
+                  ))}
 
-                      <td>
-                        <button className="text-primary-800 ml-4 m-1 bg-primary-100 p-3 rounded-full hover:bg-primary-200 hover:text-primary">
-                          <Icon name="delete" styles="size-5" />
-                        </button>
-                      </td>
-                    </>
-                  ) : (
-                    <>
-                      <td className="pl-2 py-3 flex items-center gap-x-5">
-                        <img
-                          className="size-10 rounded-full"
-                          src={
-                            "https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png"
-                          }
-                          alt="avatar"
-                        />
-                        <div className="flex flex-col">
-                          <span className="font-semibold bg-primary-100 py-1 px-6">
-                            AAaasdsadasdsad
-                          </span>
-                          <span className="text-sm overflow-hidden text-ellipsis whitespace-nowrap text-primary-600">
-                            dasdsadsad
-                          </span>
-                        </div>
-                      </td>
-                      <td className="pl-2 py-3 flex items-center gap-x-5">
-                        <img
-                          className="size-10 rounded-full"
-                          src={
-                            "https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png"
-                          }
-                          alt="avatar"
-                        />
-                        <div className="flex flex-col">
-                          <span className="font-semibold bg-primary-100 py-1 px-6">
-                            AAaasdsadasdsad
-                          </span>
-                          <span className="text-sm overflow-hidden text-ellipsis whitespace-nowrap text-primary-600">
-                            asdasdasda
-                          </span>
-                        </div>
-                      </td>
-                    </>
-                  )}
+                  <td>
+                    <button className="text-primary-800 ml-4 m-1 bg-primary-100 p-3 rounded-full hover:bg-primary-200 hover:text-primary">
+                      <Icon name="delete" styles="size-5" />
+                    </button>
+                  </td>
                 </tr>
               )
             )

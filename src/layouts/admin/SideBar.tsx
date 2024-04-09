@@ -7,7 +7,7 @@ interface Props {
   isSidebar: boolean;
 }
 
-const Sidebar = ({ isSidebar}: Props) => {
+const Sidebar = ({ isSidebar }: Props) => {
   return (
     <aside
       id="sidebar"
@@ -34,7 +34,7 @@ const Sidebar = ({ isSidebar}: Props) => {
           <li className="border-b border-primary-200 mx-3"></li>
           {["repository", "support", "logout"].map((name) => (
             <li key={name}>
-              <SidebarButton name={name}  />
+              <SidebarButton name={name} />
             </li>
           ))}
         </ul>
