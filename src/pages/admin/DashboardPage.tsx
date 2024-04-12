@@ -8,7 +8,7 @@ import AdminLayout from "../../layouts/admin/AdminLayout";
 const DashboardPage = () => {
   return (
     <AdminLayout>
-      <Content>
+      <Content columns="grid-cols-3">
         <AreaChart />
         <Statistics />
         <Chart text="Consultations this week" />
