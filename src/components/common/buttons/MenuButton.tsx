@@ -21,11 +21,11 @@ const MenuButton = ({ options, isDots = false }: Props) => {
           className="font-medium flex items-center"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isDots ? "" : <span className="mr-2">{buttonName}</span>}
+          {!isDots && <span className="mr-2">{buttonName}</span>}
 
           <Icon
             name={isDots ? "menu" : isOpen ? "arrow-top" : "arrow-bottom"}
-            styles="size-4"
+            styles="size-3"
           />
         </button>
         {isOpen && (
