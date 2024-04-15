@@ -15,8 +15,8 @@ const MenuButton = ({ options, isDots = false }: Props) => {
     setButtonName(options[index]);
   };
   return (
-    <div className=" flex justify-end text-primary-700 hover:text-primary-800 8">
-      <div className="relative hover:bg-primary-005 py-1 px-3 rounded-full">
+    <div className=" flex justify-end text-primary-700 hover:text-primary-800 dark:text-primary-300 dark:hover:text-primary-200">
+      <div className="relative py-1 px-3 rounded-lg hover:bg-primary-005 dark:hover:bg-dark-bg-hover">
         <button
           className="font-medium flex items-center"
           onClick={() => setIsOpen(!isOpen)}
@@ -29,10 +29,10 @@ const MenuButton = ({ options, isDots = false }: Props) => {
           />
         </button>
         {isOpen && (
-          <ul className="absolute bg-white bottom-full left-0 z-50 w-32 cursor-pointer border rounded-lg p-2">
+          <ul className="absolute bottom-full left-0 z-50 w-32 cursor-pointer border rounded-lg p-2 border-primary-200 bg-white dark:border-dark-border dark:bg-dark-container">
             {options.map((option, index) => (
               <li
-                className="p-1 bg-white hover:bg-primary-005"
+                className="p-1 bg-white hover:bg-primary-005 dark:bg-dark-container"
                 key={index}
                 onClick={() => handleSelect(index)}
               >

@@ -10,10 +10,16 @@ const Crud = () => {
   return (
     <div className="mx-4 my-4">
       <Container>
-        <h1 className="text-3xl font-medium text-primary mb-4">All users</h1>
+        <h1 className="text-3xl font-medium mb-4 text-primary dark:text-primary-100">
+          All users
+        </h1>
         <div className="flex items-center">
           <SearchBar setSearchQuery={setSearchQuery} />
-          <button className="text-primary-800 ml-4 m-1 bg-primary-100 p-3 rounded-full hover:bg-primary-200 hover:text-primary">
+          <button
+            className="ml-4 m-1 p-3 rounded-full 
+                      text-primary-800 bg-primary-100 hover:bg-primary-200 hover:text-primary
+                      dark:text-primary-200 dark:bg-primary-800 dark:hover:bg-primary-700 dark:hover:text-primary-100"
+          >
             <Icon name="delete" styles="size-5" />
           </button>
         </div>

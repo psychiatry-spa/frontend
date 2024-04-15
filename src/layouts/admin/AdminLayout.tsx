@@ -10,7 +10,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [isSidebar, setIsSidebar] = useState(false);
   const handleSidebar = () => setIsSidebar(!isSidebar);
   return (
-    <div className="bg-primary-005">
+    <div className="bg-primary-005 dark:bg-dark-background">
       <NavBar handleClick={handleSidebar} />
       <Sidebar isSidebar={isSidebar} />
       <div className="pt-20 lg:ml-60">{children}</div>

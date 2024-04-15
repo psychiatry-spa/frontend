@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { API_ENDPOINTS } from "../../../../../constants/const";
 import { SearchQueryProps, UsersProps } from "../../../../types/types";
-import useFetchData from "../../../../../hooks/useFetchData";
+import useFetchData from "../../../../../hooks/api/useFetchData";
 
 import TableHeader from "./components/TableHeader";
 import TableNameItem from "./components/TableNameItem";
@@ -123,8 +123,8 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
   return (
     <>
       <table className="table-auto w-full min-w-full mt-4">
-        <thead className="bg-primary-005 border-b border-primary-200">
-          <tr className="text-primary-600">
+        <thead className="border-b bg-primary-005 border-primary-200 dark:bg-dark-bg-hover dark:border-dark-border">
+          <tr className="text-primary-600 dark:text-primary-400">
             {["name", "role", "consultations", "country", "createdAt", ""].map(
               (name) => (
                 <TableHeader name={name} handleClick={() => handleSort(name)} />
@@ -150,8 +150,8 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
                 index
               ) => (
                 <tr
-                  className={`border-b border-primary-200${
-                    index % 2 !== 0 && " bg-primary-001"
+                  className={`border-b border-primary-200 dark:border-dark-border ${
+                    index % 2 !== 0 && " bg-primary-001 dark:bg-dark-bg-hover"
                   }`}
                   key={_id}
                 >
@@ -172,7 +172,11 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
                   ))}
 
                   <td>
-                    <button className="text-primary-800 ml-4 m-1 bg-primary-100 p-3 rounded-full hover:bg-primary-200 hover:text-primary">
+                    <button
+                      className="ml-4 m-1 p-3 rounded-full 
+                                     text-primary-800 bg-primary-100 hover:bg-primary-200 hover:text-primary
+                                     dark:text-primary-200 dark:bg-primary-800 dark:hover:bg-primary-700 dark:hover:text-primary-100"
+                    >
                       <Icon name="delete" styles="size-5" />
                     </button>
                   </td>
@@ -192,20 +196,33 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
         <div className="flex items-center justify-start pt-5">
           <button
             onClick={handlePrevPage}
-            className="mr-2 text-primary-800 p-1.5 rounded-full hover:bg-primary-200 hover:text-primary"
+            className="mr-2 p-1.5 rounded-full 
+                     text-primary-800 hover:text-primary
+                     dark:text-primary-200 dark:hover:text-primary-100"
           >
             <Icon name="arrow-left" styles="size-4" />
           </button>
           <button
             onClick={handleNextPage}
-            className="mr-2 text-primary-800 p-1.5 rounded-full hover:bg-primary-200 hover:text-primary"
+            className="mr-2 p-1.5 rounded-full 
+                     text-primary-800 hover:text-primary
+                     dark:text-primary-200 dark:hover:text-primary-100"
           >
             <Icon name="arrow-right" styles="size-4" />
           </button>
-          <span className="text-sm text-primary-600 mr-1">Showing </span>
-          <span className="text-primary text-sm font-medium mr-1">1-20</span>
-          <span className="text-sm text-primary-600 mr-1"> of </span>
-          <span className="text-primary text-sm font-medium">100</span>
+          <span className="text-sm text-primary-600 mr-1 dark:text-primary-300">
+            Showing{" "}
+          </span>
+          <span className="text-primary text-sm font-medium mr-1 dark:text-primary-100">
+            1-20
+          </span>
+          <span className="text-sm text-primary-600 mr-1 dark:text-primary-300">
+            {" "}
+            of{" "}
+          </span>
+          <span className="text-primary text-sm font-medium dark:text-primary-100">
+            100
+          </span>
         </div>
       )}
     </>

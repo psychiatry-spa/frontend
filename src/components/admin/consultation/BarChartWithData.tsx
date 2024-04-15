@@ -8,14 +8,14 @@ interface Props {
 
 const Chart = ({ text }: Props) => {
   return (
-    <Container styles="col-span-1">
+    <Container styles="col-span-4">
       <div className="flex flex-col">
         <div className="flex justify-between items-start">
           <div>
-            <h4 className="text-2xl font-semibold text-primary dark:text-white">
+            <h4 className="text-2xl font-semibold text-primary dark:text-primary-100">
               1.486
             </h4>
-            <p className="text-primary-800">{text}</p>
+            <p className="text-primary-600 dark:text-primary-400">{text}</p>
           </div>
           <div className="flex items-center text-sm mt-1">
             <Icon name="increased" styles="size-3 stroke-green-600" />

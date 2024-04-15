@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Container from "../Container";
-import useSubmitForm from "../../../hooks/useSubmitForm";
+import useSubmitForm from "../../../hooks/api/useSubmitForm";
 import { API_ENDPOINTS } from "../../../constants/const";
 import { useNavigate } from "react-router-dom";
 import Button from "../buttons/Button";
