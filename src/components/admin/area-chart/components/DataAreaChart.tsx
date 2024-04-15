@@ -10,6 +10,7 @@ import {
 } from "recharts";
 
 const DataAreaChart = () => {
+  console.log(localStorage.getItem("darkMode"));
   const data = [
     { name: "1 Feb", uv: 4000, pv: 2400 },
     { name: "2 Feb", uv: 3000, pv: 1398 },
@@ -49,9 +50,11 @@ const DataAreaChart = () => {
           name="Income (previous)"
           type="monotone"
           dataKey="uv"
-          stroke="#014E56"
+          stroke={
+            localStorage.getItem("darkMode") === "true" ? "#E6F2F3" : "#014E56"
+          }
           strokeWidth="2"
-          fillOpacity={1}
+          fillOpacity={0}
           fill="url(#colorUv)"
         />
         <Area
@@ -60,7 +63,7 @@ const DataAreaChart = () => {
           dataKey="pv"
           stroke="#F2957C"
           strokeWidth="2"
-          fillOpacity={1}
+          fillOpacity={0}
           fill="url(#colorPv)"
         />
         <Legend verticalAlign="bottom" height={36} />

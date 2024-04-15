@@ -1,16 +1,30 @@
 import Icon from "../../components/common/icon";
 import { SearchBar } from "../../components/common/bars/SearchBar";
 import { useState } from "react";
+// import useDarkMode from "../../hooks/useDarkMode";
 
 interface Props {
   handleClick: () => void;
 }
 
 const Navbar = ({ handleClick }: Props) => {
-  const [isDark, setIsDark] = useState(false);
-  const handleMode = () => setIsDark(!isDark);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(
+    localStorage.darkMode === "true"
+  );
+
+  const toggleDarkMode = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    localStorage.setItem("darkMode", newMode.toString()); // Store dark mode preference in local storage
+    if (newMode) {
+      document.documentElement.classList.add("dark"); // Apply dark mode classes to HTML element
+    } else {
+      document.documentElement.classList.remove("dark"); // Remove dark mode classes from HTML element
+    }
+  };
+
   return (
-    <nav className="fixed lg:p-4 p-2 z-10 w-full border-b bg-white border-primary-200 dark:bg-gray-800 dark:border-gray-700">
+    <nav className="fixed lg:p-4 p-2 z-10 w-full border-b bg-white border-primary-200 dark:bg-dark-container dark:border-dark-border">
       <div className="lg:hidden p-2">
         <button onClick={handleClick}>
           <Icon name="sun" />
@@ -23,20 +37,24 @@ const Navbar = ({ handleClick }: Props) => {
 
         <div className="flex items-center justify-end w-full">
           <button
-            onClick={handleMode}
+            onClick={toggleDarkMode}
             className={`mx-2 text-primary relative inline-flex items-center justify-center w-14 h-8 rounded-full focus:outline-none transition-colors duration-300 ease-in-out ${
-              isDark ? "bg-accent" : "bg-primary-100"
+              isDarkMode ? "bg-accent" : "bg-primary-100"
             }`}
           >
             <Icon
-              name={`${isDark ? "darkmode" : "lightmode"}`}
-              styles={`text-primary-800 size-3 p-1 absolute left-1 w-6 h-6 bg-white rounded-full shadow-md transition-transform duration-300 ease-in-out ${
-                isDark ? "transform translate-x-full" : ""
-              }`}
+              name={`${isDarkMode ? "darkmode" : "lightmode"}`}
+              styles={`text-primary-800 size-3 p-1 absolute left-1 w-6 h-6 bg-white rounded-full shadow-md transition-transform duration-300 ease-in-out
+                       dark:bg-primary-800 dark:text-primary-100 ${
+                         isDarkMode ? "transform translate-x-full" : ""
+                       }`}
             />
           </button>
 
-          <button className="text-primary-800 mx-2 bg-primary-100 p-2 rounded-full hover:bg-primary-200 hover:text-primary">
+          <button
+            className="text-primary-800 mx-2 bg-primary-100 p-2 rounded-full hover:bg-primary-200 hover:text-primary
+                       dark:bg-primary-800 dark:text-primary-200 dark:hover:text-primary-100 dark:hover:bg-primary-700"
+          >
             <Icon name="bell" styles="size-4" />
           </button>
           <img

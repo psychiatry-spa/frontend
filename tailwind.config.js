@@ -19,6 +19,7 @@ export default {
         "primary-700": "#4D8389",
         "primary-600": "#619196",
         "primary-500": "#7AA2A6",
+        "primary-400": "#99B8BB",
         "primary-300": "#B3CACC",
         "primary-200": "#CCDCDD",
         "primary-100": "#E6F2F3",
@@ -32,7 +33,14 @@ export default {
         "disabled": "#BFE0E1",
 
         "background": "#F7F7F7",
+        "dark-background": "#101819",
+        "dark-container": "#212829",
+        "dark-bg-hover": "#404647",
+        "dark-border": "#404647",
+
         "field-background": "#F2F6F7",
+
+
 
 
 

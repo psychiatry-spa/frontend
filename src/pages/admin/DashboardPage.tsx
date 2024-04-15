@@ -9,17 +9,15 @@ const DashboardPage = () => {
   return (
     <AdminLayout>
       <Content>
+        <StatisticsCard />
+        <StatisticsCard />
+        <StatisticsCard />
+        <StatisticsCard />
         <AreaChart />
         <Statistics />
         <Chart text="Consultations this week" />
         <Chart text="New clients this week" />
         <Chart text="New visitors this week" />
-        <StatisticsCard />
-        <StatisticsCard />
-        <StatisticsCard />
-        <StatisticsCard />
-        <StatisticsCard />
-        <StatisticsCard />
       </Content>
     </AdminLayout>
   );

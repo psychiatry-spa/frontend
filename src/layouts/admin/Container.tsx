@@ -6,7 +6,7 @@ interface Props {
 const Container = ({ children, styles = "" }: Props) => {
   return (
     <div
-      className={`p-6 bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 h-full ${styles}`}
+      className={`p-6 bg-white border border-primary-200 rounded-lg dark:bg-dark-container dark:border-dark-border h-full ${styles}`}
     >
       {children}
     </div>

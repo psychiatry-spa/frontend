@@ -15,14 +15,14 @@ const StatisticsCard = ({
   iconName = "repository"
 }: StatisticsCardProps) => {
   return (
-    <Container>
+    <Container styles="col-span-3">
       <div className="w-10 h-10 bg-slate-300 rounded-full pt-2 pl-2">
         <Icon name={iconName.toLowerCase()} styles="size-6 fill-slate-500" />
       </div>
       <div className="flex justify-between">
         <div className="mt-5">
-          <span className="font-semibold text-2xl">${totalAmount}</span>
-          <p className="mt-1 text-ocean-wave">Total {totalLabel}</p>
+          <span className="font-semibold text-2xl text-primary dark:text-primary-100">${totalAmount}</span>
+          <p className="mt-1 text-primary-600 dark:text-primary-400">Total {totalLabel}</p>
         </div>
         <div className="flex items-center text-sm mt-auto">
           <Icon name="increased" styles="size-3 stroke-green-600" />

@@ -6,18 +6,13 @@ import StatisticsItem from "../statistics/StatisticsItem";
 const Statistics = () => {
   const [isActive, setActive] = useState(true);
 
-  const active = [
-    "text-accent",
-    "dark:text-blue-500",
-    "hover:text-accent-focus",
-    "dark:hover:text-blue-400",
-  ];
+  const active = ["text-accent", "hover:text-accent-focus"];
 
   const regular = [
     "text-primary",
     "hover:text-primary-focus",
-    "dark:text-gray-300",
-    "dark:hover:text-white",
+    "dark:text-primary-300",
+    "dark:hover:text-primary-100",
   ];
 
   const handleCustomersTab = () => setActive(true);
@@ -36,9 +31,9 @@ const Statistics = () => {
   };
 
   return (
-    <Container styles="col-span-3 xl:col-span-1">
+    <Container styles="col-span-12 xl:col-span-4">
       <div className="flex items-center mb-3">
-        <h2 className="text-xl font-semibold text-primary dark:text-white">
+        <h2 className="text-xl font-semibold text-primary dark:text-primary-100">
           Statistics this month
         </h2>
         {/* <Icon
@@ -50,9 +45,9 @@ const Statistics = () => {
         <button
           type="button"
           id="customersButton"
-          className={`p-4 w-full border-b border-r 
-          border-primary-200 bg-primary-005 hover:bg-primary-100 active:bg-primary-200
-          dark:border-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600
+          className={`p-4 w-full border-r 
+          border-white bg-primary-005 hover:bg-primary-100 active:bg-primary-200
+          dark:border-dark-container dark:bg-dark-bg-hover dark:hover:bg-dark-bg-hover
           ${isActive ? active.join(" ") : regular.join(" ")}`}
           onClick={handleCustomersTab}
         >
@@ -61,9 +56,9 @@ const Statistics = () => {
         <button
           type="button"
           id="blogsButton"
-          className={`p-4 w-full border-b border-l 
-          border-primary-200 bg-primary-005 hover:bg-primary-100 active:bg-primary-200
-          dark:border-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600
+          className={`p-4 w-full border-l 
+          border-white bg-primary-005 hover:bg-primary-100 active:bg-primary-200
+          dark:border-dark-container dark:bg-dark-bg-hover dark:hover:bg-dark-bg-hover
           ${isActive ? regular.join(" ") : active.join(" ")}`}
           onClick={handleBlogsButton}
         >
@@ -105,7 +100,7 @@ const Statistics = () => {
           ]}
         />
 
-        <button className="flex items-center font-medium text-accent hover:text-accent-focus dark:text-blue-500 dark:hover:text-white">
+        <button className="flex items-center font-medium text-accent hover:text-accent-focus">
           Full Report
           {/* <Icon name="search" styles="ml-2 size-4" /> */}
         </button>

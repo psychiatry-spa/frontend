@@ -4,7 +4,7 @@ import Socials from "../socials/Socials";
 import Button from "../buttons/Button";
 import { useState } from "react";
 import { API_ENDPOINTS } from "../../../constants/const";
-import useSubmitForm from "../../../hooks/useSubmitForm";
+import useSubmitForm from "../../../hooks/api/useSubmitForm";
 import Container from "../Container";
 
 const RegisterForm = () => {

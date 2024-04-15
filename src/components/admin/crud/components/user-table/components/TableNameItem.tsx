@@ -17,10 +17,10 @@ const TableNameItem = ({ name, surname, email, imageUrl }: Props) => {
         alt="avatar"
       />
       <div className="flex flex-col">
-        <span className="font-semibold text-primary">
+        <span className="font-semibold text-primary dark:text-primary-100">
           {name} {surname}
         </span>
-        <span className="text-sm overflow-hidden text-ellipsis whitespace-nowrap text-primary-600">
+        <span className="text-sm overflow-hidden text-ellipsis whitespace-nowrap text-primary-600 dark:text-primary-400">
           {email}
         </span>
       </div>

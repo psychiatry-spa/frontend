@@ -18,7 +18,7 @@ const SearchBar = ({ setSearchQuery }: SearchQueryProps) => {
       <label htmlFor="topbar-search" className="sr-only">
         Search
       </label>
-      <div className="relative text-primary-700">
+      <div className="relative text-primary-600 dark:text-primary-200">
         <Icon
           name="search"
           styles="size-8 absolute inset-y-0 left-0 pl-3 pt-3"
@@ -30,7 +30,7 @@ const SearchBar = ({ setSearchQuery }: SearchQueryProps) => {
           id="search-bar"
           className="block w-full pl-10 p-2.5 outline-none rounded-lg border
           placeholder-primary-600 bg-primary-005  border-primary-200
-          dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+          dark:bg-dark-bg-hover dark:border-dark-border dark:placeholder-primary-300 dark:text-primary-300"
         />
       </div>
     </form>

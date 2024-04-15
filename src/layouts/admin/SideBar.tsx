@@ -15,7 +15,7 @@ const Sidebar = ({ isSidebar }: Props) => {
         isSidebar ? "" : "hidden"
       }`}
     >
-      <div className="flex flex-col h-full pt-5 bg-white border-r border-primary-200 dark:bg-gray-800 dark:border-gray-700">
+      <div className="flex flex-col h-full pt-5 bg-white border-r border-primary-200 dark:bg-dark-container dark:border-dark-border">
         <Link to="/" className="flex justify-start items-center mb-9">
           <Icon name="moon" styles="size-10" />
           <span className="font-bold text-primary text-2xl dark:text-white">
