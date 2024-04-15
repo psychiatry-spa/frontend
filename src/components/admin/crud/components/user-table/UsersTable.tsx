@@ -34,7 +34,7 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
     fetchData();
   }, [searchQuery]);
 
-// TODO: refactor this:
+  // TODO: refactor this:
 
   const filteredSortedData = useMemo(() => {
     let sortedData = [...data];
@@ -54,10 +54,9 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
         let valueB = String(b[key] ?? "");
 
         if (key === "createdAt") {
-          const dateA = new Date(valueA as string).getTime()
-          const dateB = new Date(valueB as string).getTime()
+          const dateA = new Date(valueA as string).getTime();
+          const dateB = new Date(valueB as string).getTime();
           return sort.order === "asc" ? dateA - dateB : dateB - dateA;
-
         } else if (key === "consultations") {
           const lengthA = (a[key] as unknown as any[]).length;
           const lengthB = (b[key] as unknown as any[]).length;

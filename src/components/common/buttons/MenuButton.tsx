@@ -16,16 +16,16 @@ const MenuButton = ({ options, isDots = false }: Props) => {
   };
   return (
     <div className=" flex justify-end text-primary-700 hover:text-primary-800 8">
-      <div className="relative hover:bg-primary-005 py-1 px-3 rounded-lg">
+      <div className="relative hover:bg-primary-005 py-1 px-3 rounded-full">
         <button
           className="font-medium flex items-center"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isDots ? "" : <span className="mr-2">{buttonName}</span>}
+          {!isDots && <span className="mr-2">{buttonName}</span>}
 
           <Icon
             name={isDots ? "menu" : isOpen ? "arrow-top" : "arrow-bottom"}
-            styles="size-4"
+            styles="size-3"
           />
         </button>
         {isOpen && (
