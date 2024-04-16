@@ -130,7 +130,9 @@ import {
 // import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 // import { capitalizeFirstLetter } from "./utils/functions";
 import { useState } from "react";
+
 import Icon from "../icon";
+import Container from "../../../layouts/admin/Container";
 
 interface Props {
   today: Date;
@@ -172,46 +174,50 @@ const Calendar = ({ today, selectedDay, setSelectedDay }: Props) => {
   };
 
   return (
-    <div className="w-full flex col-span-2">
-      <div className="">
-        <div className="flex items-center justify-between">
-          <p className="font-semibold text-lg text-primary">
-            {format(firstDayOfMonth, "MMMM yyyy")}
-          </p>
-          <div className="flex items-center justify-evenly">
-            <button
-              onClick={(e) => getPrevMonth(e)}
-              className="mr-2 text-primary-800 p-1.5 rounded-full hover:bg-primary-100 hover:text-primary"
-            >
-              <Icon name="arrow-left" styles="size-4" />
-            </button>
-            <button
-              onClick={getNextMonth}
-              className="text-primary-800 p-1.5 rounded-full hover:bg-primary-100 hover:text-primary"
-            >
-              <Icon name="arrow-right" styles="size-4" />
-            </button>
+    <Container styles="col-span-4">
+      <div className="w-full flex col-span-2">
+        <div className="">
+          <div className="flex items-center justify-between">
+            <p className="font-semibold text-lg text-primary">
+              {format(firstDayOfMonth, "MMMM yyyy")}
+            </p>
+            <div className="flex items-center justify-evenly">
+              <button
+                onClick={(e) => getPrevMonth(e)}
+                className="mr-2 text-primary-800 p-1.5 rounded-full hover:bg-primary-100 hover:text-primary"
+              >
+                <Icon name="arrow-left" styles="size-4" />
+              </button>
+              <button
+                onClick={getNextMonth}
+                className="text-primary-800 p-1.5 rounded-full hover:bg-primary-100 hover:text-primary"
+              >
+                <Icon name="arrow-right" styles="size-4" />
+              </button>
+            </div>
           </div>
-        </div>
-        <hr className="h-px my-6 bg-primary-200 border-0" />
-        <div className="grid grid-cols-7 sm:gap-12 place-items-center">
-          {days.map((day, idx) => {
-            return (
-              <div key={idx} className="font-semibold text-sm text-primary-800">
-                {day}
-              </div>
-            );
-          })}
-        </div>
-        <div className="grid grid-cols-7 sm:gap-12 mt-8 place-items-center">
-          {daysInMonth.map((day, idx) => {
-            return (
-              <div key={idx} className={colStartClasses[getDay(day)]}>
-                <button
-                  type="button"
-                  onClick={() => setSelectedDay(day)}
-                  disabled={isBefore(day, today) && true}
-                  className={`cursor-pointer flex items-center justify-center font-semibold h-8 w-8 rounded-full
+          <hr className="h-px my-6 bg-primary-200 border-0" />
+          <div className="grid grid-cols-7 sm:gap-12 place-items-center">
+            {days.map((day, idx) => {
+              return (
+                <div
+                  key={idx}
+                  className="font-semibold text-sm text-primary-800"
+                >
+                  {day}
+                </div>
+              );
+            })}
+          </div>
+          <div className="grid grid-cols-7 sm:gap-12 mt-8 place-items-center">
+            {daysInMonth.map((day, idx) => {
+              return (
+                <div key={idx} className={colStartClasses[getDay(day)]}>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedDay(day)}
+                    disabled={isBefore(day, today) && true}
+                    className={`cursor-pointer flex items-center justify-center font-semibold h-8 w-8 rounded-full
                   ${
                     !isSameMonth(day, today) &&
                     " text-primary-200 pointer-events-none"
@@ -229,15 +235,16 @@ const Calendar = ({ today, selectedDay, setSelectedDay }: Props) => {
                   }
 
                   `}
-                >
-                  {format(day, "d")}
-                </button>
-              </div>
-            );
-          })}
+                  >
+                    {format(day, "d")}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
