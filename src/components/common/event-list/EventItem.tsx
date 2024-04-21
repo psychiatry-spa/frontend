@@ -1,7 +1,8 @@
 import Icon from "../Icon";
 import MenuButton from "../buttons/MenuButton";
-import { format, isSameDay, parseISO } from "date-fns";
+import { format } from "date-fns";
 
+// todo: replace it with Event interface
 interface Props {
   id: number;
   name: string;
@@ -10,7 +11,7 @@ interface Props {
   end: string;
 }
 
-const Event = ({ id, name, imageUrl, start, end }: Props) => {
+const EventItem = ({ id, name, imageUrl, start, end }: Props) => {
   return (
     <li className="flex justify-between items-start py-4 border-b border-primary-300">
       <div className="flex">
@@ -37,4 +38,4 @@ const Event = ({ id, name, imageUrl, start, end }: Props) => {
   );
 };
 
-export default Event;
+export default EventItem;
