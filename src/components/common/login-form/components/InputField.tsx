@@ -16,7 +16,7 @@ const InputField = ({ data, type, handleChange, placeholder }: Props) => {
     <div className="relative">
       <Icon name={type} styles="size-8 absolute inset-y-0 left-0 pl-3 mt-4" />
       {type === "password" && (
-        <button onClick={handleClick}>
+        <button type="button" onClick={handleClick}>
           <Icon
             name={isActive ? "hide" : "show"}
             styles="size-10 absolute inset-y-0 right-3 pl-3 mt-3.5"

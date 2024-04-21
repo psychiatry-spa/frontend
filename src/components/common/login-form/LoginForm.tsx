@@ -13,6 +13,7 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
+  const [passwordError, setPasswordError] = useState<boolean>()
 
   const navigate = useNavigate();
   const submitForm = useSubmitForm(API_ENDPOINTS.signIn);
@@ -20,9 +21,8 @@ const LoginForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = await submitForm(formData);
-    if (result.ok) {
-      navigate("/admin/dashboard");
-    }
+    !result.ok && result.error === "short password" ? setPasswordError(true) : setPasswordError(false)
+    result.ok && navigate("/admin/dashboard")
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,6 +51,7 @@ const LoginForm = () => {
           type="password"
           handleChange={handleChange}
         />
+        {passwordError && <p className="text-red-500 text-xs">password must be at least 6 characters long</p>}
         <div className="flex justify-between text-secondary pt-1 pb-2">
           <div className="flex justify-start items-center">
             Remember me
