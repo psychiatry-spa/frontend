@@ -1,5 +1,5 @@
 import Container from "../../../layouts/admin/Container";
-import Icon from "../../common/icon";
+import Icon from "../../common/Icon";
 
 interface StatisticsCardProps {
   totalAmount?: number;
@@ -12,7 +12,7 @@ const StatisticsCard = ({
   totalAmount = 1632,
   totalLabel = "money",
   growthRate = 4.53,
-  iconName = "repository"
+  iconName = "repository",
 }: StatisticsCardProps) => {
   return (
     <Container styles="col-span-3">
@@ -21,8 +21,12 @@ const StatisticsCard = ({
       </div>
       <div className="flex justify-between">
         <div className="mt-5">
-          <span className="font-semibold text-2xl text-primary dark:text-primary-100">${totalAmount}</span>
-          <p className="mt-1 text-primary-600 dark:text-primary-400">Total {totalLabel}</p>
+          <span className="font-semibold text-2xl text-primary dark:text-primary-100">
+            ${totalAmount}
+          </span>
+          <p className="mt-1 text-primary-600 dark:text-primary-400">
+            Total {totalLabel}
+          </p>
         </div>
         <div className="flex items-center text-sm mt-auto">
           <Icon name="increased" styles="size-3 stroke-green-600" />

@@ -2,7 +2,13 @@ import Container from "../../../layouts/admin/Container";
 import Event from "./Event";
 import MenuButton from "../buttons/MenuButton";
 
-const EventList = () => {
+import { format } from "date-fns";
+
+interface Props {
+  day: Date;
+}
+
+const EventList = ({ day }: Props) => {
   const meetings = [
     {
       id: 1,
@@ -42,7 +48,7 @@ const EventList = () => {
     <Container styles="col-span-3">
       <section>
         <h2 className="text-xl font-semibold text-primary">
-          Upcoming consultations
+          Upcoming Events - {format(day, "d MMMM")}
         </h2>
         <ol className="mt-4">
           {meetings.length > 0 ? (

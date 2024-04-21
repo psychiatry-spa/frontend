@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Icon from "../../common/icon";
+import Icon from "../../common/Icon";
 
 interface Props {
   name: string;
@@ -10,7 +10,7 @@ export const SidebarButton = ({ name }: Props) => {
 
   return (
     <Link
-      className={`w-56 py-2 mx-2 my-1 flex items-center rounded-lg
+      className={`w-56 px-2 py-2 mx-2 my-1 flex items-center 
       hover:bg-primary-100 hover:text-primary-800 
       dark:hover:bg-dark-bg-hover dark:hover:text-primary-100
       ${
