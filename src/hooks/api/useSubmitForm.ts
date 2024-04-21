@@ -1,6 +1,11 @@
 const useSubmitForm = (endpoint: string) => {
-  return async (formData?: {}) => {
+  return async (formData?: { email: string; password: string }) => {
     try {
+      if (formData && formData.password.length < 6) {
+        console.error("Password must be at least 6 characters long");
+        return {ok: false, error: "short password"}
+      }
+
       const options: RequestInit = {
         method: "POST",
         headers: {
