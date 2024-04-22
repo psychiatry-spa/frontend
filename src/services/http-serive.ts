@@ -15,6 +15,10 @@ class HttpService {
     const controller = new AbortController();
     const request = apiClient.get<T[]>(this.endpoint, {
       signal: controller.signal,
+      withCredentials: true,
+      headers: {
+        "Content-type": "application/json",
+      },
     });
     return { request, cancel: () => controller.abort() };
   }
