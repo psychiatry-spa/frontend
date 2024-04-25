@@ -13,7 +13,11 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
-  const [passwordError, setPasswordError] = useState<boolean>()
+  const [passwordCharactersError, setPasswordCharactersError] =
+    useState<boolean>();
+  const [emailError, setEmailError] = useState<boolean>();
+  const [passwordError, setPasswordError] = useState<boolean>();
+  const [incorrectError, setIncorrectError] = useState<boolean>();
 
   const navigate = useNavigate();
   const submitForm = useSubmitForm(API_ENDPOINTS.signIn);
@@ -21,8 +25,27 @@ const LoginForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = await submitForm(formData);
-    !result.ok && result.error === "short password" ? setPasswordError(true) : setPasswordError(false)
-    result.ok && navigate("/admin/dashboard")
+    if (result) {
+      if (!result.ok && result.errors) {
+        result.errors.forEach((error) => {
+          switch (error) {
+            case "Short password":
+              setPasswordCharactersError(true);
+              break;
+            case "Incorrect email or password":
+              setIncorrectError(true);
+              break;
+            case "Weak password":
+              setPasswordError(true);
+              break;
+            case "Invalid email format":
+              setEmailError(true);
+              break;
+          }
+        });
+      }
+      result.ok && navigate("/admin/dashboard");
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,27 +54,48 @@ const LoginForm = () => {
       ...prevState,
       [name]: value,
     }));
+    passwordCharactersError && setPasswordCharactersError(false);
+    emailError && setEmailError(false);
+    passwordError && setPasswordError(false);
+    incorrectError && setIncorrectError(false);
   };
 
   const isDisabled = () => !formData.email || !formData.password;
 
   return (
     <Container>
-      <form className="flex flex-col" onSubmit={handleSubmit}>
+      <form className="flex flex-col" onSubmit={handleSubmit} noValidate={true}>
         <h1 className="font-semibold font-sans mb-5 text-2xl text-primary">
           Log in to Your Account
         </h1>
         <InputField
+          styles={emailError || incorrectError ? "border-red-500" : ""}
           data={formData.email}
           type="email"
           handleChange={handleChange}
         />
+        {emailError && (
+          <p className="text-red-500 text-sm">
+            Please enter a valid email address. Example: name@domain.com.
+          </p>
+        )}
         <InputField
+          styles={passwordError || incorrectError || passwordCharactersError ? "border-red-500" : ""}
           data={formData.password}
           type="password"
           handleChange={handleChange}
         />
-        {passwordError && <p className="text-red-500 text-xs">password must be at least 6 characters long</p>}
+        {passwordError && (
+          <p className="text-red-500 text-sm">
+            At least 1 uppercase, lowercase, number and special character.
+          </p>
+        )}
+        {incorrectError && (
+          <p className="text-red-500 text-sm">Incorrect email or password</p>
+        )}
+        {passwordCharactersError && (
+          <p className="text-red-500 text-sm">At least 6 characters</p>
+        )}
         <div className="flex justify-between text-secondary pt-1 pb-2">
           <div className="flex justify-start items-center">
             Remember me
