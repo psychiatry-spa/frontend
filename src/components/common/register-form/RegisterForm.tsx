@@ -64,7 +64,7 @@ const RegisterForm = () => {
       return 0;
     }
     const result = await submitForm(formData);
-    result.ok && navigate("/admin/dashboard");
+    if (result.ok) navigate("/admin/dashboard");
   };
 
   const isDisabled = () =>
