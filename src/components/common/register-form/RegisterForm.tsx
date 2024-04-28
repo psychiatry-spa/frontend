@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import InputField from "../login-form/components/InputField";
 import Socials from "../socials/Socials";
 import Button from "../buttons/Button";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { API_ENDPOINTS } from "../../../constants/const";
 import useSubmitForm from "../../../hooks/api/useSubmitForm";
 import Container from "../Container";
@@ -67,8 +67,10 @@ const RegisterForm = () => {
     if (result.ok) navigate("/admin/dashboard");
   };
 
-  const isDisabled = () =>
-    !formData.fullname || !formData.email || !formData.password;
+  const isDisabled = useMemo(
+    () => !formData.fullname || !formData.email || !formData.password,
+    [formData.fullname, formData.email, formData.password]
+  );
 
   return (
     <Container>
@@ -115,7 +117,7 @@ const RegisterForm = () => {
 
         <Button
           style={"primary"}
-          disabled={isDisabled()}
+          disabled={isDisabled}
           type="submit"
           styles="my-5 text-2xl font-medium"
         >
