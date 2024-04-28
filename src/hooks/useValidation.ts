@@ -36,5 +36,5 @@ export const useValidation = (formData: {
     }
   }
 
-  if (errors) return {errors};
+  return {errors};
 };

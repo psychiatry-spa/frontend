@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { API_ENDPOINTS } from "../../../constants/const";
 import useSubmitForm from "../../../hooks/api/useSubmitForm";
 import InputField from "./components/InputField";
@@ -9,46 +9,49 @@ import Icon from "../icon";
 import Container from "../Container";
 import { useValidation } from "../../../hooks/useValidation";
 
+interface FormData {
+  fullname?: string;
+  email: string;
+  password: string;
+}
+
+interface ValidationErrors {
+  passwordCharactersError: boolean;
+  emailError: boolean;
+  passwordError: boolean;
+}
+
 const LoginForm = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
   });
-  const [passwordCharactersError, setPasswordCharactersError] =
-    useState<boolean>();
-  const [emailError, setEmailError] = useState<boolean>();
-  const [passwordError, setPasswordError] = useState<boolean>();
-  const [incorrectError, setIncorrectError] = useState<boolean>();
+  const [errors, setErrors] = useState<ValidationErrors>({
+    passwordCharactersError: false,
+    emailError: false,
+    passwordError: false,
+  });
+  const [incorrectError, setIncorrectError] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const submitForm = useSubmitForm(API_ENDPOINTS.signIn);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const validation = await useValidation(formData);
-    if (validation && validation.errors.length > 0) {
-      validation.errors.forEach((error) => {
-        switch (error) {
-          case "Short password":
-            setPasswordCharactersError(true);
-            break;
-          case "Incorrect email or password":
-            setIncorrectError(true);
-            break;
-          case "Weak password":
-            setPasswordError(true);
-            break;
-          case "Invalid email format":
-            setEmailError(true);
-            break;
-        }
-      });
-      return 0;
-    };
+    const { errors: validationErrors } = await useValidation(formData);
+    if (validationErrors.length > 0) {
+      const newErrors = {
+        passwordCharactersError: validationErrors.includes("Short password"),
+        passwordError: validationErrors.includes("Weak password"),
+        emailError: validationErrors.includes("Invalid email format"),
+      };
+      setErrors(newErrors);
+      return;
+    }
     const result = await submitForm(formData);
     if (!result.ok) {
       setIncorrectError(true);
-    } else navigate("/admin/dashboard")
+    } else navigate("/admin/dashboard");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,13 +60,23 @@ const LoginForm = () => {
       ...prevState,
       [name]: value,
     }));
-    setPasswordCharactersError(false);
-    setEmailError(false);
-    setPasswordError(false);
+    let errorKeys: string[] = [];
+    if (name === "email") {
+      errorKeys = ["emailError"];
+    } else if (name === "password") {
+      errorKeys = ["passwordError", "passwordCharactersError"];
+    }
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      ...errorKeys.reduce((acc, key) => ({ ...acc, [key]: false }), {}),
+    }));
     setIncorrectError(false);
   };
 
-  const isDisabled = () => !formData.email || !formData.password;
+  const isDisabled = useMemo(
+    () => !formData.email || !formData.password,
+    [formData.email, formData.password]
+  );
 
   return (
     <Container>
@@ -72,19 +85,19 @@ const LoginForm = () => {
           Log in to Your Account
         </h1>
         <InputField
-          styles={emailError || incorrectError ? "border-red-500" : ""}
+          styles={errors.emailError || incorrectError ? "border-red-500" : ""}
           data={formData.email}
           type="email"
           handleChange={handleChange}
         />
-        {emailError && (
+        {errors.emailError && (
           <p className="text-red-500 text-sm">
             Please enter a valid email address. Example: name@domain.com.
           </p>
         )}
         <InputField
           styles={
-            passwordError || incorrectError || passwordCharactersError
+            errors.passwordError || incorrectError || errors.passwordCharactersError
               ? "border-red-500"
               : ""
           }
@@ -92,7 +105,7 @@ const LoginForm = () => {
           type="password"
           handleChange={handleChange}
         />
-        {passwordError && (
+        {errors.passwordError && (
           <p className="text-red-500 text-sm">
             At least 1 uppercase, lowercase, number and special character.
           </p>
@@ -100,7 +113,7 @@ const LoginForm = () => {
         {incorrectError && (
           <p className="text-red-500 text-sm">Incorrect email or password</p>
         )}
-        {passwordCharactersError && (
+        {errors.passwordCharactersError && (
           <p className="text-red-500 text-sm">At least 6 characters</p>
         )}
         <div className="flex justify-between text-secondary pt-1 pb-2">
@@ -114,7 +127,7 @@ const LoginForm = () => {
         </div>
         <Button
           style={"primary"}
-          disabled={isDisabled()}
+          disabled={isDisabled}
           type="submit"
           styles="my-5 text-2xl font-medium"
         >
