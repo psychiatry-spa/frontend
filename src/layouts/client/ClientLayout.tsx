@@ -9,7 +9,8 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <NavBar />
-      <div className="flex justify-center items-center h-dvh bg-primary-005">
+      {/* TODO: h-full or h-dvh  */}
+      <div className="flex justify-center items-center h-full bg-red-500">
         <div className="mt-20">
           {children}
         </div>
