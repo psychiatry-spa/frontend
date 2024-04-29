@@ -1,5 +1,5 @@
 export const useValidation = (formData: {
-  fullname?: string;
+  fullName?: string;
   email: string;
   password: string;
 }) => {
@@ -26,9 +26,9 @@ export const useValidation = (formData: {
     errors.push("Invalid email format");
   }
 
-  if (formData.fullname) {
+  if (formData.fullName) {
     let fullnameRegex = /^[A-Za-z\s]+$/;
-    if (!fullnameRegex.test(formData.fullname)) {
+    if (!fullnameRegex.test(formData.fullName)) {
       console.error(
         "Full name should only contain alphabetic characters and spaces."
       )

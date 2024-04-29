@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { API_ENDPOINTS } from "../../../constants/const";
 import useSubmitForm from "../../../hooks/api/useSubmitForm";
 import InputField from "./components/InputField";
@@ -8,59 +8,52 @@ import { Link, useNavigate } from "react-router-dom";
 import Icon from "../icon";
 import Container from "../Container";
 import { useValidation } from "../../../hooks/useValidation";
-
-interface FormData {
-  fullname?: string;
-  email: string;
-  password: string;
-}
-
-interface ValidationErrors {
-  passwordCharactersError: boolean;
-  emailError: boolean;
-  passwordError: boolean;
-}
+import { FormErrorFlags, FormData } from "../../types";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState<ValidationErrors>({
+  const [errors, setErrors] = useState<FormErrorFlags>({
     passwordCharactersError: false,
     emailError: false,
+    incorrectError: false,
     passwordError: false,
   });
-  const [incorrectError, setIncorrectError] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const submitForm = useSubmitForm(API_ENDPOINTS.signIn);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const { errors: validationErrors } = await useValidation(formData);
-    if (validationErrors.length > 0) {
-      const newErrors = {
-        passwordCharactersError: validationErrors.includes("Short password"),
-        passwordError: validationErrors.includes("Weak password"),
-        emailError: validationErrors.includes("Invalid email format"),
-      };
-      setErrors(newErrors);
-      return;
-    }
-    const result = await submitForm(formData);
-    if (!result.ok) {
-      setIncorrectError(true);
-    } else navigate("/admin/dashboard");
-  };
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const { errors: validationErrors } = await useValidation(formData);
+      if (validationErrors.length > 0) {
+        const newErrors = {
+          passwordCharactersError: validationErrors.includes("Short password"),
+          passwordError: validationErrors.includes("Weak password"),
+          incorrectError: false,
+          emailError: validationErrors.includes("Invalid email format"),
+        };
+        setErrors(newErrors);
+        return;
+      }
+      const result = await submitForm(formData);
+      if (!result.ok) {
+        setErrors({ ...errors, incorrectError: true });
+      } else navigate("/admin/dashboard");
+    },
+    [formData]
+  );
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
-    let errorKeys: string[] = [];
+    let errorKeys: string[] = ["incorrectError"];
     if (name === "email") {
       errorKeys = ["emailError"];
     } else if (name === "password") {
@@ -70,8 +63,7 @@ const LoginForm = () => {
       ...prevErrors,
       ...errorKeys.reduce((acc, key) => ({ ...acc, [key]: false }), {}),
     }));
-    setIncorrectError(false);
-  };
+  }, []);
 
   const isDisabled = useMemo(
     () => !formData.email || !formData.password,
@@ -85,7 +77,9 @@ const LoginForm = () => {
           Log in to Your Account
         </h1>
         <InputField
-          styles={errors.emailError || incorrectError ? "border-red-500" : ""}
+          styles={
+            errors.emailError || errors.incorrectError ? "border-red-500" : ""
+          }
           data={formData.email}
           type="email"
           handleChange={handleChange}
@@ -97,7 +91,9 @@ const LoginForm = () => {
         )}
         <InputField
           styles={
-            errors.passwordError || incorrectError || errors.passwordCharactersError
+            errors.passwordError ||
+            errors.incorrectError ||
+            errors.passwordCharactersError
               ? "border-red-500"
               : ""
           }
@@ -110,7 +106,7 @@ const LoginForm = () => {
             At least 1 uppercase, lowercase, number and special character.
           </p>
         )}
-        {incorrectError && (
+        {errors.incorrectError && (
           <p className="text-red-500 text-sm">Incorrect email or password</p>
         )}
         {errors.passwordCharactersError && (
