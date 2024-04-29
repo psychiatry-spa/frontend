@@ -2,74 +2,75 @@ import { useNavigate } from "react-router-dom";
 import InputField from "../login-form/components/InputField";
 import Socials from "../socials/Socials";
 import Button from "../buttons/Button";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { API_ENDPOINTS } from "../../../constants/const";
 import useSubmitForm from "../../../hooks/api/useSubmitForm";
 import Container from "../Container";
 import { useValidation } from "../../../hooks/useValidation";
+import { FormData, FormErrorFlags } from "../../types";
 
 const RegisterForm = () => {
-  const [formData, setFormData] = useState({
-    fullname: "",
+  const [formData, setFormData] = useState<FormData>({
+    fullName: "",
     email: "",
     password: "",
   });
-  const [passwordCharactersError, setPasswordCharactersError] =
-    useState<boolean>();
-  const [emailError, setEmailError] = useState<boolean>();
-  const [passwordError, setPasswordError] = useState<boolean>();
-  const [incorrectError, setIncorrectError] = useState<boolean>();
-  const [fullnameError, setFullnameError] = useState<boolean>();
+  const [errors, setErrors] = useState<FormErrorFlags>({
+    passwordCharactersError: false,
+    emailError: false,
+    incorrectError: false,
+    passwordError: false,
+    fullNameError: false,
+  });
 
-  // TODO: Refactor into separate method
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const navigate = useNavigate();
+  const submitForm = useSubmitForm(API_ENDPOINTS.signUp);
+  
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
-    setPasswordCharactersError(false);
-    setEmailError(false);
-    setPasswordError(false);
-    setIncorrectError(false);
-    setFullnameError(false);
-  };
-  const navigate = useNavigate();
-  const submitForm = useSubmitForm(API_ENDPOINTS.signUp);
-
-  // TODO: Refactor into separate method
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const validation = await useValidation(formData);
-    if (validation && validation.errors.length > 0) {
-      validation.errors.forEach((error) => {
-        switch (error) {
-          case "Short password":
-            setPasswordCharactersError(true);
-            break;
-          case "Incorrect email or password":
-            setIncorrectError(true);
-            break;
-          case "Weak password":
-            setPasswordError(true);
-            break;
-          case "Invalid email format":
-            setEmailError(true);
-            break;
-          case "Invalid full name format":
-            setFullnameError(true);
-            break;
-        }
-      });
-      return 0;
+    let errorKeys: string[] = ["incorrectError"];
+    if (name === "email") {
+      errorKeys = ["emailError"];
+    } else if (name === "password") {
+      errorKeys = ["passwordError", "passwordCharactersError"];
+    } else if (name === "fullName") {
+      errorKeys = ["fullNameError"]
     }
-    const result = await submitForm(formData);
-    if (result.ok) navigate("/admin/dashboard");
-  };
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      ...errorKeys.reduce((acc, key) => ({ ...acc, [key]: false }), {}),
+    }));
+  }, []);
+
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const { errors: validationErrors } = await useValidation(formData);
+      if (validationErrors.length > 0) {
+        const newErrors = {
+          passwordCharactersError: validationErrors.includes("Short password"),
+          passwordError: validationErrors.includes("Weak password"),
+          incorrectError: false,
+          emailError: validationErrors.includes("Invalid email format"),
+        };
+        setErrors(newErrors);
+        return;
+      }
+      const result = await submitForm(formData);
+      if (!result.ok) {
+        setErrors({ ...errors, incorrectError: true });
+      } else navigate("/admin/dashboard");
+    },
+    [formData]
+  );
 
   const isDisabled = useMemo(
-    () => !formData.fullname || !formData.email || !formData.password,
-    [formData.fullname, formData.email, formData.password]
+    () => !formData.fullName || !formData.email || !formData.password,
+    [formData.fullName, formData.email, formData.password]
   );
 
   return (
@@ -79,11 +80,11 @@ const RegisterForm = () => {
           Create new Account
         </h1>
         <InputField
-          data={formData.fullname}
-          type="fullname"
+          data={formData.fullName || ""}
+          type="fullName"
           handleChange={handleChange}
         />
-        {fullnameError && (
+        {errors.fullNameError && (
           <p className="text-red-500 text-sm">
             Full name should only contain alphabetic characters and spaces.
           </p>
@@ -93,7 +94,7 @@ const RegisterForm = () => {
           type="email"
           handleChange={handleChange}
         />
-        {emailError && (
+        {errors.emailError && (
           <p className="text-red-500 text-sm">
             Please enter a valid email address. Example: name@domain.com.
           </p>
@@ -103,15 +104,15 @@ const RegisterForm = () => {
           type="password"
           handleChange={handleChange}
         />
-        {passwordError && (
+        {errors.passwordError && (
           <p className="text-red-500 text-sm">
             At least 1 uppercase, lowercase, number and special character.
           </p>
         )}
-        {incorrectError && (
+        {errors.incorrectError && (
           <p className="text-red-500 text-sm">Incorrect email or password</p>
         )}
-        {passwordCharactersError && (
+        {errors.passwordCharactersError && (
           <p className="text-red-500 text-sm">At least 6 characters</p>
         )}
 
