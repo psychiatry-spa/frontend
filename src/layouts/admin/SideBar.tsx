@@ -1,7 +1,7 @@
 import { SidebarButton } from "../../components/admin/side-bar/SidebarButton";
 import { SearchBar } from "../../components/common/bars/SearchBar";
 import { Link } from "react-router-dom";
-import Icon from "../../components/common/icon";
+import Icon from "../../components/common/Icon";
 
 interface Props {
   isSidebar: boolean;

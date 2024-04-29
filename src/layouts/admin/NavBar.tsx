@@ -1,4 +1,4 @@
-import Icon from "../../components/common/icon";
+import Icon from "../../components/common/Icon";
 import { SearchBar } from "../../components/common/bars/SearchBar";
 import { useState } from "react";
 // import useDarkMode from "../../hooks/useDarkMode";
@@ -25,7 +25,7 @@ const Navbar = ({ handleClick }: Props) => {
 
   return (
     <nav className="fixed lg:p-4 p-2 z-10 w-full border-b bg-white border-primary-200 dark:bg-dark-container dark:border-dark-border">
-      <div className="lg:hidden p-2">
+      <div className="hidden p-2">
         <button onClick={handleClick}>
           <Icon name="sun" />
         </button>

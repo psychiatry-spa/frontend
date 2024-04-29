@@ -1,5 +1,6 @@
 import { useState } from "react";
-import Icon from "../../icon";
+import Icon from "../../Icon";
+
 
 interface Props {
   data: string;
@@ -24,7 +25,7 @@ const InputField = ({ data, type, handleChange, placeholder }: Props) => {
         </button>
       )}
       <input
-        className="pl-10 placeholder-secondary border rounded-xl border-primary-500 w-full p-3 my-2 outline-none bg-primary-005 focus:bg-white"
+        className="px-12 placeholder-secondary border rounded-xl border-primary-500 w-full p-3 my-2 outline-none bg-primary-005 focus:bg-white"
         type={isActive ? "text" : type}
         name={type}
         value={data}
