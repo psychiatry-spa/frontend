@@ -23,9 +23,9 @@
   @apply border border-coral hover:bg-coral w-full px-20 py-4 text-center rounded-2xl text-black font-light text-xl block mx-auto;
 }
 
-/* body {
-  @apply bg-[#F9FAFB];
-} */
+body {
+  @apply bg-primary-005;
+}
 
 /* * {
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
