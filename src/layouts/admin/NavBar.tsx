@@ -24,14 +24,14 @@ const Navbar = ({ handleClick }: Props) => {
   };
 
   return (
-    <nav className="fixed lg:p-4 p-2 z-10 w-full border-b bg-white border-primary-200 dark:bg-dark-container dark:border-dark-border">
+    <nav className="fixed py-2 z-10 w-full border-b bg-white border-primary-200 dark:bg-dark-container dark:border-dark-border">
       <div className="hidden p-2">
         <button onClick={handleClick}>
           <Icon name="sun" />
         </button>
       </div>
       <div className="flex justify-between">
-        <div className="ml-60 w-96 hidden lg:block">
+        <div className="ml-0 w-80  block lg:ml-64">
           <SearchBar />
         </div>
 

@@ -15,9 +15,9 @@ const Sidebar = ({ isSidebar }: Props) => {
         isSidebar ? "" : "hidden"
       }`}
     >
-      <div className="flex flex-col h-full pt-5 bg-white border-r border-primary-200 dark:bg-dark-container dark:border-dark-border">
-        <Link to="/" className="flex justify-start items-center mb-9">
-          <Icon name="moon" styles="size-10" />
+      <div className="flex flex-col h-full  bg-white border-r border-primary-200 dark:bg-dark-container dark:border-dark-border">
+        <Link to="/" className="flex justify-around items-center py-3">
+          <Icon name="google" styles="size-10" />
           <span className="font-bold text-primary text-2xl dark:text-white">
             Admin Panel
           </span>
@@ -26,7 +26,7 @@ const Sidebar = ({ isSidebar }: Props) => {
           <li className="m-2 lg:hidden">
             <SearchBar />
           </li>
-          {["dashboard", "calendar", "manager", "settings"].map((name) => (
+          {["dashboard", "calendar", "manager", "posts", "settings"].map((name) => (
             <li key={name}>
               <SidebarButton name={name} />
             </li>

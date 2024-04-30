@@ -42,12 +42,12 @@ const NavBar = () => {
       
       <div className={`${isOpen ? 'block' : 'hidden'} sm:hidden`}>
         <div className="p-3 space-y-1 sm:px-3">
-          <NavLink className={({isActive}) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? "bg-coral text-white hover:bg-coral-dark" : "text-gray-700"}`} to="/">Home</NavLink>
-          <NavLink className={({isActive}) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? "bg-coral text-white hover:bg-coral-dark" : "text-gray-700"}`} to="/sessions">Schedule</NavLink>
-          <NavLink className={({isActive}) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? "bg-coral text-white hover:bg-coral-dark" : "text-gray-700"}`} to="/about">Doctor</NavLink>
-          <NavLink className={({isActive}) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? "bg-coral text-white hover:bg-coral-dark" : "text-gray-700"}`} to="/news">News</NavLink>
-          <NavLink className={({isActive}) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? "bg-coral text-white hover:bg-coral-dark" : "text-gray-700"}`} to="/login">Log in</NavLink>
-          <NavLink className={({isActive}) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? "bg-coral text-white hover:bg-coral-dark" : "text-gray-700"}`} to="/register">Register</NavLink>
+          <NavLink className={({isActive}) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? "bg-coral text-white hover:bg-coral-dark" : "text-gray-700 hover:bg-gray-200"}`} to="/">Home</NavLink>
+          <NavLink className={({isActive}) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? "bg-coral text-white hover:bg-coral-dark" : "text-gray-700 hover:bg-gray-200"}`} to="/sessions">Schedule</NavLink>
+          <NavLink className={({isActive}) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? "bg-coral text-white hover:bg-coral-dark" : "text-gray-700 hover:bg-gray-200"}`} to="/about">Doctor</NavLink>
+          <NavLink className={({isActive}) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? "bg-coral text-white hover:bg-coral-dark" : "text-gray-700 hover:bg-gray-200"}`} to="/news">News</NavLink>
+          <NavLink className={({isActive}) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? "bg-coral text-white hover:bg-coral-dark" : "text-gray-700 hover:bg-gray-200"}`} to="/login">Log in</NavLink>
+          <NavLink className={({isActive}) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? "bg-coral text-white hover:bg-coral-dark" : "text-gray-700 hover:bg-gray-200"}`} to="/register">Register</NavLink>
         </div>
       </div>
     </nav>
