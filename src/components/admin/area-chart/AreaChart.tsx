@@ -1,7 +1,7 @@
 import DataAreaChart from "./components/DataAreaChart";
 import MenuButton from "../../common/buttons/MenuButton";
 import Container from "../../../layouts/admin/Container";
-import Icon from "../../common/icon";
+import Icon from "../../common/Icon";
 
 const AreaChart = () => {
   return (

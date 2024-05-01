@@ -131,7 +131,7 @@ import {
 // import { capitalizeFirstLetter } from "./utils/functions";
 import { useState } from "react";
 
-import Icon from "../icon";
+import Icon from "../Icon";
 import Container from "../../../layouts/admin/Container";
 
 interface Props {
