@@ -1,6 +1,6 @@
 import { deletePost } from "../../../../api/posts/requests/deletePost";
 import PostContent from "./PostContent";
-import Icon from "../../icon/icon";
+import Icon from "../../Icon";
 
 const SinglePostCard = ({ post }: any) => {
   const formatDate = (date: any) => {

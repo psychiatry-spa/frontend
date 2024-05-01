@@ -1,5 +1,5 @@
 import Container from "../../../layouts/admin/Container";
-import Icon from "../../common/icon";
+import Icon from "../../common/Icon";
 import ChartBar from "./components/BarChart";
 
 interface Props {

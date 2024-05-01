@@ -1,4 +1,4 @@
-import Icon from "../../components/common/icon";
+import Icon from "../../components/common/Icon";
 import { SearchBar } from "../../components/common/bars/SearchBar";
 import { useState } from "react";
 // import useDarkMode from "../../hooks/useDarkMode";

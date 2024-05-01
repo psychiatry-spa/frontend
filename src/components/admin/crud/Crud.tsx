@@ -2,7 +2,7 @@ import { useState } from "react";
 import SearchBar from "./components/SearchBar";
 import UsersTable from "./components/user-table/UsersTable";
 import Container from "../../../layouts/admin/Container";
-import Icon from "../../common/icon";
+import Icon from "../../common/Icon";
 // import { SearchBar } from "../../common/bars/SearchBar";
 
 const Crud = () => {
