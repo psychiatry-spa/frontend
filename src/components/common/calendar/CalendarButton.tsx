@@ -31,7 +31,7 @@ const CalendarButton = ({
         ${!isCurrentMonth && " text-primary-200 pointer-events-none"}
         ${isSelected && " text-white bg-accent"}
         ${isToday && " text-accent"}
-        ${!isSelected && " hover:bg-primary-500 hover:text-white"}
+        ${!isSelected && " hover:bg-primary-900 hover:text-white"}
 
 
         `}

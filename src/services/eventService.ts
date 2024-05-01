@@ -1,4 +1,4 @@
-import create from "./http-serive";
+import ApiClient from "./apiClient";
 
 export interface Event {
   id: string;
@@ -9,4 +9,6 @@ export interface Event {
   end: { dateTime: string };
 }
 
-export default create("clientGoogleCalendar/doctors");
+export const CACHE_KEY_EVENTS = ["events"]
+
+export default new ApiClient<Event>("");

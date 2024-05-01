@@ -1,5 +1,6 @@
 const useSubmitForm = (endpoint: string) => {
   return async (formData?: {}) => {
+    console.log(formData)
     try {
       const options: RequestInit = {
         method: "POST",

@@ -8,8 +8,9 @@ export default {
         sans: ["Roboto", "sans-serif"],
       },
       colors: {
-        "accent": "#F2957C",
-        "accent-focus": "#EF7A5B",
+        "accent": "#EF7A5B",
+        "accent-focus": "#E37456",
+        "accent-focus-dark": "#F1876B",
         "accent-100": "#FDF2EF",
         
         "primary": "#014E56",

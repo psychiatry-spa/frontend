@@ -6,7 +6,7 @@ import useFetchData from "../../../../../hooks/api/useFetchData";
 import TableHeader from "./components/TableHeader";
 import TableNameItem from "./components/TableNameItem";
 import TableItem from "./components/TableItem";
-import Icon from "../../../../common/Icon";
+import { IconButton } from "../../../../common/buttons/IconButton";
 
 import { format } from "date-fns";
 
@@ -109,10 +109,10 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
 
   const totalPages = Math.ceil(filteredSortedData.length / itemsPerPage);
 
-  const handlePrevPage = () =>
+  const setPrevPage = () =>
     setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
 
-  const handleNextPage = () =>
+  const setNextPage = () =>
     setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev));
 
   // if (loading)
@@ -172,13 +172,7 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
                   ))}
 
                   <td>
-                    <button
-                      className="ml-4 m-1 p-3 rounded-full 
-                                     text-primary-800 bg-primary-100 hover:bg-primary-200 hover:text-primary
-                                     dark:text-primary-200 dark:bg-primary-800 dark:hover:bg-primary-700 dark:hover:text-primary-100"
-                    >
-                      <Icon name="delete" styles="size-5" />
-                    </button>
+                    <IconButton name="delete" isBackground={true} />
                   </td>
                 </tr>
               )
@@ -194,22 +188,18 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
       </table>
       {filteredSortedData.length > 0 && (
         <div className="flex items-center justify-start pt-5">
-          <button
-            onClick={handlePrevPage}
-            className="mr-2 p-1.5 rounded-full 
-                     text-primary-800 hover:text-primary
-                     dark:text-primary-200 dark:hover:text-primary-100"
-          >
-            <Icon name="arrow-left" styles="size-4" />
-          </button>
-          <button
-            onClick={handleNextPage}
-            className="mr-2 p-1.5 rounded-full 
-                     text-primary-800 hover:text-primary
-                     dark:text-primary-200 dark:hover:text-primary-100"
-          >
-            <Icon name="arrow-right" styles="size-4" />
-          </button>
+          <IconButton
+            name="arrow-left"
+            handleClick={setPrevPage}
+            size="4"
+            styles="mr-4"
+          />
+          <IconButton
+            name="arrow-right"
+            handleClick={setNextPage}
+            size="4"
+            styles="mr-5"
+          />
           <span className="text-sm text-primary-600 mr-1 dark:text-primary-300">
             Showing{" "}
           </span>

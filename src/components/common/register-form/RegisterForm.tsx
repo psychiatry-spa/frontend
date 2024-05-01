@@ -9,7 +9,7 @@ import Container from "../Container";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
-    name: "",
+    fullName: "",
     email: "",
     password: "",
   });
@@ -35,7 +35,7 @@ const RegisterForm = () => {
   };
 
   const isDisabled = () =>
-    !formData.name || !formData.email || !formData.password;
+    !formData.fullName || !formData.email || !formData.password;
 
   return (
     <Container>
@@ -44,8 +44,8 @@ const RegisterForm = () => {
           Create new Account
         </h1>
         <InputField
-          data={formData.name}
-          type="name"
+          data={formData.fullName}
+          type="fullName"
           handleChange={handleChange}
         />
         <InputField

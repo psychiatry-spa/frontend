@@ -1,4 +1,4 @@
-import { SidebarButton } from "../../components/admin/side-bar/SidebarButton";
+import { SidebarButton } from "../../components/common/buttons/SidebarButton";
 import { SearchBar } from "../../components/common/bars/SearchBar";
 import { Link } from "react-router-dom";
 import Icon from "../../components/common/Icon";

@@ -1,5 +1,5 @@
 import AreaChart from "../../components/admin/area-chart/AreaChart";
-import Chart from "../../components/admin/consultation/BarChartWithData";
+import Chart from "../../components/admin/bar-chart-with-data/BarChartWithData";
 import Content from "../../components/admin/content/Content";
 import StatisticsCard from "../../components/admin/statistics-card/StatisticsCard";
 import Statistics from "../../components/admin/statistics/Statistics";

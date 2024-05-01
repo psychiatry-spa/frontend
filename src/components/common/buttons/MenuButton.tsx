@@ -4,13 +4,15 @@ import Icon from "../Icon";
 interface Props {
   options: string[];
   isDots?: boolean;
+  updateState?: (arg: string) => void
 }
 
-const MenuButton = ({ options, isDots = false }: Props) => {
+const MenuButton = ({ options, isDots = false, updateState }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [buttonName, setButtonName] = useState(options[0]);
 
   const handleSelect = (index: number) => {
+    if (updateState) updateState(options[index])
     setIsOpen(false);
     setButtonName(options[index]);
   };

@@ -1,5 +1,5 @@
 import ClientLayout from "../../layouts/client/ClientLayout";
-import EventList from "../../components/common/event-list/EventList";
+import EventList from "../../components/common/event-list/UpcomingEvents";
 import Schedule from "../../components/client/schedule/Schedule";
 
 const SessionPage = () => (
