@@ -6,7 +6,7 @@ import useFetchData from "../../../../../hooks/api/useFetchData";
 import TableHeader from "./components/TableHeader";
 import TableNameItem from "./components/TableNameItem";
 import TableItem from "./components/TableItem";
-import Icon from "../../../../common/icon";
+import Icon from "../../../../common/Icon";
 
 import { format } from "date-fns";
 
@@ -125,9 +125,9 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
       <table className="table-auto w-full min-w-full mt-4">
         <thead className="border-b bg-primary-005 border-primary-200 dark:bg-dark-bg-hover dark:border-dark-border">
           <tr className="text-primary-600 dark:text-primary-400">
-            {["name", "role", "consultations", "country", "createdAt", ""].map(
+            {["name", "role", "consultations", "country", "createdAt", "none"].map(
               (name) => (
-                <TableHeader name={name} handleClick={() => handleSort(name)} />
+                <TableHeader name={name} handleClick={() => handleSort(name as "name" | "role" | "consultations" | "country" | "createdAt" | "none")} />
               )
             )}
           </tr>

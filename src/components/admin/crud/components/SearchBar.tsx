@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SearchQueryProps } from "../../../types/types";
-import Icon from "../../../common/icon";
+import Icon from "../../../common/Icon";
 
 const SearchBar = ({ setSearchQuery }: SearchQueryProps) => {
   const [inputValue, setInputValue] = useState<string>("");
