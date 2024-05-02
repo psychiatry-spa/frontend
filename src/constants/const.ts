@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "http://localhost:3000";
 const PROD_BASE_URL = "https://mi-project-backend-opa7fhbyqq-uc.a.run.app"
 export const API_ENDPOINTS = {
   signUp: `${process.env.NODE_ENV === "production" ? PROD_BASE_URL : BASE_URL}/api/auth/signUp`,
