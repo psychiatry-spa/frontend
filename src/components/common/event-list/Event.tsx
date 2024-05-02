@@ -1,4 +1,3 @@
-
 import MenuButton from "../buttons/MenuButton";
 import { format, isSameDay, parseISO } from "date-fns";
 import Icon from "../Icon";

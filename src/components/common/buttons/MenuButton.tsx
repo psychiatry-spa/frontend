@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Icon from "../Icon";
 
-
 interface Props {
   options: string[];
   isDots?: boolean;

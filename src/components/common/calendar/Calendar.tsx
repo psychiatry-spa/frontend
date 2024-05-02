@@ -130,8 +130,6 @@ import {
 // import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 // import { capitalizeFirstLetter } from "./utils/functions";
 import { useState } from "react";
-
-
 import Container from "../../../layouts/admin/Container";
 import Icon from "../Icon";
 
