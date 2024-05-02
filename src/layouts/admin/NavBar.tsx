@@ -1,7 +1,6 @@
 import Icon from "../../components/common/Icon";
 import { SearchBar } from "../../components/common/bars/SearchBar";
 import { useEffect, useState } from "react";
-// import useDarkMode from "../../hooks/useDarkMode";
 
 interface Props {
   handleClick: () => void;
