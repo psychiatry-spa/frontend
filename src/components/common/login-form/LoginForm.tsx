@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { API_ENDPOINTS } from "../../../constants/index";
+import { API_ENDPOINTS } from "../../../constants";
 import useSubmitForm from "../../../hooks/api/useSubmitForm";
 import InputField from "./components/InputField";
 import Button from "../buttons/Button";

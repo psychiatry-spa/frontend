@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Container from "../Container";
 import useSubmitForm from "../../../hooks/api/useSubmitForm";
-import { API_ENDPOINTS } from "../../../constants/index";
+import { API_ENDPOINTS } from "../../../constants";
 import { useNavigate } from "react-router-dom";
 import Button from "../buttons/Button";
 import InputField from "../login-form/components/InputField";
