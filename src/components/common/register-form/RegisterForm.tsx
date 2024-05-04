@@ -3,7 +3,7 @@ import InputField from "../login-form/components/InputField";
 import Socials from "../socials/Socials";
 import Button from "../buttons/Button";
 import { useState } from "react";
-import { API_ENDPOINTS } from "../../../constants/const";
+import { API_ENDPOINTS } from "../../../constants/index";
 import useSubmitForm from "../../../hooks/api/useSubmitForm";
 import Container from "../Container";
 
