@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { API_ENDPOINTS } from "../../../constants/index";
+import { API_ENDPOINTS } from "../../../constants";
 import PostsCards from "./components/PostsCards";
 import Loading from "../Loading";
 
