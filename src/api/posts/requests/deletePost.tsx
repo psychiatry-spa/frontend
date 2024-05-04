@@ -1,5 +1,5 @@
 import axios from "axios"
-import { API_ENDPOINTS } from "../../../constants/const"
+import { API_ENDPOINTS } from "../../../constants/index"
 
 export const deletePost = async (id: string) => {
   try {
