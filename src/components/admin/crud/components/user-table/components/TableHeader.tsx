@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Icon from "../../../../../common/icon";
+import Icon from "../../../../../common/Icon";
 import { Order } from "../../../Types";
 
 interface Props {

@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import { API_ENDPOINTS } from "../../../../../constants/const";
+import { API_ENDPOINTS } from "../../../../../constants";
 import { SearchQueryProps, UsersProps } from "../../../../types/types";
 import useFetchData from "../../../../../hooks/api/useFetchData";
 
 import TableHeader from "./components/TableHeader";
 import TableNameItem from "./components/TableNameItem";
 import TableItem from "./components/TableItem";
-import Icon from "../../../../common/icon";
+import Icon from "../../../../common/Icon";
 
 import { format } from "date-fns";
 

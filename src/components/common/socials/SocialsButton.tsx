@@ -1,5 +1,5 @@
-import Icon from "../icon";
-import { API_ENDPOINTS as api } from "../../../constants/const";
+import Icon from "../Icon";
+import { API_ENDPOINTS as api } from "../../../constants";
 import { Link } from "react-router-dom";
 
 interface Props {

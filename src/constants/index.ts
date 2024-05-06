@@ -9,3 +9,17 @@ export const API_ENDPOINTS = {
 
   posts: `${process.env.NODE_ENV === "production" ? PROD_BASE_URL : BASE_URL}/api/posts`,
 };
+
+type ErrorTypes = {
+  passwordShort: string;
+  passwordWeak: string;
+  emailInvalid: string;
+  fullNameInvalid: string;
+};
+
+export const ERROR_TYPES: ErrorTypes = {
+  passwordShort: "Short password",
+  passwordWeak: "Weak password",
+  emailInvalid: "Invalid email format",
+  fullNameInvalid: "Invalid full name format",
+};

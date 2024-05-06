@@ -5,7 +5,7 @@ import InputField from "./components/InputField";
 import Button from "../buttons/Button";
 import Socials from "../socials/Socials";
 import { Link, useNavigate } from "react-router-dom";
-import Icon from "../icon";
+import Icon from "../Icon";
 import Container from "../Container";
 import { useValidation } from "../../../hooks/useValidation";
 import { FormErrorFlags, FormData } from "../../types";
