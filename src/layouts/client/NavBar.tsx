@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const NavBar = () => {
   return (
     <nav className="fixed h-20 flex justify-between top-0 left-0 bg-white z-50 w-full border-b-2">
-      <img className="m-1 w-16 h-16" src="src\assets\images\monkey.png" />
+      {/* <img className="m-1 w-16 h-16" src="src\assets\images\monkey.png" /> */}
       <div className="flex">
         <Link
           className="flex items-center justify-center px-3 mx-1 hover:bg-gray-200 font-semibold text-coral"
