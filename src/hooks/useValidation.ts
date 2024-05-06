@@ -5,14 +5,12 @@ const fullnameRegex = /^[A-Za-z\s]+$/;
 interface ValidationResult {
   errors: string[];
 }
-
 export const useValidation = (formData: {
   fullName?: string;
   email: string;
   password: string;
 }): ValidationResult => {
   const errors: string[] = [];
-  
   if (formData.password.length < 6) {
     console.error("Password must be at least 6 characters long");
     errors.push("Short password");
