@@ -1,8 +1,8 @@
 const useSubmitForm = (endpoint: string) => {
   return async (formData: {
     fullname?: string;
-    email: string;
-    password: string;
+    email?: string;
+    password?: string;
   }) => {
     try {
       const options: RequestInit = {
