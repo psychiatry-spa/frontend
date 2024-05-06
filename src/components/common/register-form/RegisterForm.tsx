@@ -51,9 +51,10 @@ const RegisterForm = () => {
       e.preventDefault();
       const { errors: validationErrors } = await useValidation(formData);
       if (validationErrors.length > 0) {
-        const newErrors = {
+        const newErrors: FormErrorFlags = {
           passwordCharactersError: validationErrors.includes("Short password"),
           passwordError: validationErrors.includes("Weak password"),
+          fullNameError: validationErrors.includes("Invalid full name format"),
           incorrectError: false,
           emailError: validationErrors.includes("Invalid email format"),
         };

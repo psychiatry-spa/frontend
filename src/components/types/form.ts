@@ -3,7 +3,7 @@ export interface FormErrorFlags {
   emailError?: boolean;
   incorrectError?: boolean;
   passwordError?: boolean;
-  fullNameError?: false,
+  fullNameError?: boolean,
 }
 
 export interface FormData {
