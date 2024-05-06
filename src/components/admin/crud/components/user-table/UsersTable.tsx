@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { API_ENDPOINTS } from "../../../../../constants/const";
+import { API_ENDPOINTS } from "../../../../../constants";
 import { SearchQueryProps, UsersProps } from "../../../../types/types";
 import useFetchData from "../../../../../hooks/api/useFetchData";
 
