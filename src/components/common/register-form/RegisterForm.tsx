@@ -3,7 +3,7 @@ import InputField from "../login-form/components/InputField";
 import Socials from "../socials/Socials";
 import Button from "../buttons/Button";
 import { useCallback, useMemo, useState } from "react";
-import { API_ENDPOINTS } from "../../../constants/const";
+import { API_ENDPOINTS } from "../../../constants";
 import useSubmitForm from "../../../hooks/api/useSubmitForm";
 import Container from "../Container";
 import { useValidation } from "../../../hooks/useValidation";
@@ -51,9 +51,10 @@ const RegisterForm = () => {
       e.preventDefault();
       const { errors: validationErrors } = await useValidation(formData);
       if (validationErrors.length > 0) {
-        const newErrors = {
+        const newErrors: FormErrorFlags = {
           passwordCharactersError: validationErrors.includes("Short password"),
           passwordError: validationErrors.includes("Weak password"),
+          fullNameError: validationErrors.includes("Invalid full name format"),
           incorrectError: false,
           emailError: validationErrors.includes("Invalid email format"),
         };

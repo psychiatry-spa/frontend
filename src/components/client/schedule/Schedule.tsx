@@ -2,7 +2,7 @@ import Calendar from "../../common/calendar/Calendar";
 import TimeButton from "./TimeButton";
 import Container from "../../common/Container";
 
-import { startOfToday, firstDayCurrentMonth } from "date-fns";
+import { startOfToday } from "date-fns";
 import { useState } from "react";
 
 const Schedule = () => {
