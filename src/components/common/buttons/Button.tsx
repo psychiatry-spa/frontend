@@ -21,7 +21,7 @@ const Button = ({
     <button
       disabled={disabled}
       type={type}
-      className={`py-4 rounded-xl outline-none ${styles}`}
+      className={`py-4 rounded-xl ${styles}`}
     >
       {children}
     </button>

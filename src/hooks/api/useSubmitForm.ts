@@ -1,9 +1,5 @@
 const useSubmitForm = (endpoint: string) => {
-  return async (formData: {
-    fullname?: string;
-    email: string;
-    password: string;
-  }) => {
+  return async (formData?: {}) => {
     try {
       const options: RequestInit = {
         method: "POST",
@@ -18,8 +14,7 @@ const useSubmitForm = (endpoint: string) => {
 
       if (!response.ok) {
         console.error("Form submission failed");
-        const error = "Incorrect email or password";
-        return { ok: false, error: error };
+        return { ok: false };
       }
 
       const data = await response.json();

@@ -2,123 +2,66 @@ import { useNavigate } from "react-router-dom";
 import InputField from "../login-form/components/InputField";
 import Socials from "../socials/Socials";
 import Button from "../buttons/Button";
-import { useCallback, useMemo, useState } from "react";
-import { API_ENDPOINTS } from "../../../constants/const";
+import { useState } from "react";
+import { API_ENDPOINTS } from "../../../constants";
 import useSubmitForm from "../../../hooks/api/useSubmitForm";
 import Container from "../Container";
-import { useValidation } from "../../../hooks/useValidation";
-import { FormData, FormErrorFlags } from "../../types";
 
 const RegisterForm = () => {
-  const [formData, setFormData] = useState<FormData>({
-    fullName: "",
+  const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState<FormErrorFlags>({
-    passwordCharactersError: false,
-    emailError: false,
-    incorrectError: false,
-    passwordError: false,
-    fullNameError: false,
-  });
 
-  const navigate = useNavigate();
-  const submitForm = useSubmitForm(API_ENDPOINTS.signUp);
-  
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  // TODO: Refactor into separate method
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
-    let errorKeys: string[] = ["incorrectError"];
-    if (name === "email") {
-      errorKeys = ["emailError"];
-    } else if (name === "password") {
-      errorKeys = ["passwordError", "passwordCharactersError"];
-    } else if (name === "fullName") {
-      errorKeys = ["fullNameError"]
+  };
+  const navigate = useNavigate();
+  const submitForm = useSubmitForm(API_ENDPOINTS.signUp);
+
+  // TODO: Refactor into separate method
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const result = await submitForm(formData);
+    if (result.ok) {
+      navigate("/admin/dashboard");
     }
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      ...errorKeys.reduce((acc, key) => ({ ...acc, [key]: false }), {}),
-    }));
-  }, []);
+  };
 
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const { errors: validationErrors } = await useValidation(formData);
-      if (validationErrors.length > 0) {
-        const newErrors = {
-          passwordCharactersError: validationErrors.includes("Short password"),
-          passwordError: validationErrors.includes("Weak password"),
-          incorrectError: false,
-          emailError: validationErrors.includes("Invalid email format"),
-        };
-        setErrors(newErrors);
-        return;
-      }
-      const result = await submitForm(formData);
-      if (!result.ok) {
-        setErrors({ ...errors, incorrectError: true });
-      } else navigate("/admin/dashboard");
-    },
-    [formData]
-  );
-
-  const isDisabled = useMemo(
-    () => !formData.fullName || !formData.email || !formData.password,
-    [formData.fullName, formData.email, formData.password]
-  );
+  const isDisabled = () =>
+    !formData.name || !formData.email || !formData.password;
 
   return (
     <Container>
-      <form className="flex flex-col" onSubmit={handleSubmit} noValidate={true}>
+      <form className="flex flex-col" onSubmit={handleSubmit}>
         <h1 className="font-semibold font-sans mb-5 text-2xl text-primary">
           Create new Account
         </h1>
         <InputField
-          data={formData.fullName || ""}
-          type="fullName"
+          data={formData.name}
+          type="name"
           handleChange={handleChange}
         />
-        {errors.fullNameError && (
-          <p className="text-red-500 text-sm">
-            Full name should only contain alphabetic characters and spaces.
-          </p>
-        )}
         <InputField
           data={formData.email}
           type="email"
           handleChange={handleChange}
         />
-        {errors.emailError && (
-          <p className="text-red-500 text-sm">
-            Please enter a valid email address. Example: name@domain.com.
-          </p>
-        )}
         <InputField
           data={formData.password}
           type="password"
           handleChange={handleChange}
         />
-        {errors.passwordError && (
-          <p className="text-red-500 text-sm">
-            At least 1 uppercase, lowercase, number and special character.
-          </p>
-        )}
-        {errors.incorrectError && (
-          <p className="text-red-500 text-sm">Incorrect email or password</p>
-        )}
-        {errors.passwordCharactersError && (
-          <p className="text-red-500 text-sm">At least 6 characters</p>
-        )}
 
         <Button
           style={"primary"}
-          disabled={isDisabled}
+          disabled={isDisabled()}
           type="submit"
           styles="my-5 text-2xl font-medium"
         >
