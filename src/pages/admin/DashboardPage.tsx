@@ -1,4 +1,4 @@
-import Statistics from "../../components/admin/Statistics/Statistics";
+import Statistics from "../../components/admin/statistics/Statistics";
 import AreaChart from "../../components/admin/area-chart/AreaChart";
 import Chart from "../../components/admin/consultation/BarChartWithData";
 import Content from "../../components/admin/content/Content";
