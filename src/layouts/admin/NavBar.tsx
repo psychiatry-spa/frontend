@@ -1,7 +1,7 @@
 import Icon from "../../components/common/Icon";
 import { SearchBar } from "../../components/common/bars/SearchBar";
 import { useState } from "react";
-import { IconButton } from "../../components/common/buttons/IconButton";
+import IconButton from "../../components/common/buttons/IconButton";
 
 interface Props {
   handleClick: () => void;
@@ -50,7 +50,12 @@ const Navbar = ({ handleClick }: Props) => {
                        }`}
             />
           </button>
-          <IconButton name="bell" handleClick={() => {}} isBackground={true} styles="mx-2"/>
+          <IconButton
+            name="bell"
+            handleClick={() => {}}
+            isBackground={true}
+            styles="mx-2"
+          />
           <img
             className="size-12 rounded-full mx-2"
             src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"

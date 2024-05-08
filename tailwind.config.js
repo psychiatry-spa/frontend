@@ -25,6 +25,7 @@ export default {
         "primary-200": "#CCDCDD",
         "primary-100": "#E6F2F3",
         "primary-005": "#F2F6F7",
+        "primary-003": "#F7FAFA",
         "primary-001": "#FCFDFD",
 
 

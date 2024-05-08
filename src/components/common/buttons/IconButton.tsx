@@ -11,7 +11,7 @@ interface Props {
   handleClick?: () => void;
 }
 
-export const IconButton = ({
+const IconButton = ({
   name,
   handleClick,
   styles = "",
@@ -38,8 +38,19 @@ export const IconButton = ({
   };
 
   return (
-    <button type="button" className={getStyles()} onClick={handleClick}>
+    <button type="button" onClick={handleClick} className={getStyles()}>
       <Icon name={name} styles={`${iconSize}`} />
     </button>
   );
 };
+
+export default IconButton;
+
+// className={`cursor-pointer flex items-center justify-center font-semibold h-8 w-8 rounded-full
+// ${isDisabled && " text-primary-500 pointer-events-none"}
+// ${!isCurrentMonth && " text-primary-200 pointer-events-none"}
+// ${isSelected && " text-white bg-accent"}
+// ${isToday && " text-accent"}
+// ${!isSelected && " hover:bg-primary-900 hover:text-white"}
+
+// `}

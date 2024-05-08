@@ -2,7 +2,7 @@ import { useState } from "react";
 import SearchBar from "./components/SearchBar";
 import UsersTable from "./components/user-table/UsersTable";
 import Container from "../../../layouts/admin/Container";
-import { IconButton } from "../../common/buttons/IconButton";
+import IconButton from "../../common/buttons/IconButton";
 
 const Crud = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");

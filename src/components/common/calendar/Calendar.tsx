@@ -4,94 +4,179 @@ import {
   endOfMonth,
   endOfWeek,
   format,
-  isBefore,
-  isEqual,
-  isSameMonth,
-  isToday,
   parse,
+  startOfMonth,
   startOfWeek,
+  startOfYear,
 } from "date-fns";
 import { useState } from "react";
 
-import Icon from "../Icon";
-import Container from "../../../layouts/admin/Container";
-import CalendarButton from "./CalendarButton";
+import MonthCalendar from "./components/Month/MonthCalendar";
+import YearCalendar from "./components/YearCalendar";
+import WeekCalendar from "./components/WeekCalendar";
 
-import { IconButton } from "../buttons/IconButton";
+import Container from "../../../layouts/admin/Container";
+import IconButton from "../buttons/IconButton";
+import MenuButton from "../buttons/MenuButton";
+
+import { Event } from "../../../services/eventService";
 
 interface Props {
   today: Date;
+  events: Event[];
   selectedDay: Date;
   setSelectedDay: React.Dispatch<React.SetStateAction<Date>>;
 }
 
-const Calendar = ({ today, selectedDay, setSelectedDay }: Props) => {
-  const [currMonth, setCurrMonth] = useState(() => format(today, "MMM-yyyy"));
-  let firstDayOfMonth = parse(currMonth, "MMM-yyyy", new Date());
+const Calendar = ({ today, events, selectedDay, setSelectedDay }: Props) => {
+  const dateFormat = "dd-MMM-yyyy";
+  const [calendar, setCalendar] = useState("Month");
+  const [currDate, setCurrDate] = useState(() => format(today, dateFormat));
 
-  const daysInMonth = eachDayOfInterval({
-    start: startOfWeek(firstDayOfMonth),
-    end: endOfWeek(endOfMonth(firstDayOfMonth)),
+  const getMonth = (firstDay: Date) => {
+    let month = eachDayOfInterval({
+      start: startOfWeek(firstDay, { weekStartsOn: 1 }),
+      end: endOfWeek(endOfMonth(firstDay)),
+    });
+    while (month.length < 42) {
+      let tomorrow = new Date(+month[month.length - 1]);
+      month.push(new Date(tomorrow.setDate(tomorrow.getDate() + 1)));
+    }
+    return month;
+  };
+
+  let firstDayOfWeek = parse(currDate, dateFormat, new Date());
+  // console.log(firstDayOfWeek);
+
+  const week = eachDayOfInterval({
+    start: startOfWeek(firstDayOfWeek, { weekStartsOn: 1 }),
+    end: endOfWeek(firstDayOfWeek, { weekStartsOn: 1 }),
   });
 
-  while (daysInMonth.length < 42) {
-    let tomorrow = new Date(+daysInMonth[daysInMonth.length - 1]);
-    daysInMonth.push(new Date(tomorrow.setDate(tomorrow.getDate() + 1)));
+  // week.forEach((day) => console.log(day));
+
+  let firstDayOfMonth = startOfMonth(parse(currDate, dateFormat, new Date()));
+
+  const months: Date[][] = [];
+  let firstDay = startOfYear(parse(currDate, dateFormat, new Date()));
+
+  for (let i = 0; i < 12; i++) {
+    months.push(getMonth(firstDay));
+    firstDay = add(firstDay, { months: 1 });
   }
+  firstDay = parse(currDate, dateFormat, new Date());
 
-  const setPrevMonth = () =>
-    setCurrMonth(format(add(firstDayOfMonth, { months: -1 }), "MMM-yyyy"));
+  const handleDropdown = (name: string) => setCalendar(name);
 
-  const setNextMonth = () =>
-    setCurrMonth(format(add(firstDayOfMonth, { months: 1 }), "MMM-yyyy"));
+  const handleSetToday = () => {
+    setCurrDate(format(today, dateFormat));
+  };
+
+  const handleSetPrevMonth = () => {
+    if (calendar === "Week")
+      setCurrDate(format(add(firstDayOfWeek, { weeks: -1 }), dateFormat));
+    else if (calendar === "Month")
+      setCurrDate(format(add(firstDayOfMonth, { months: -1 }), dateFormat));
+    else if (calendar === "Year")
+      setCurrDate(format(add(firstDay, { years: -1 }), dateFormat));
+  };
+
+  const handleSetNextMonth = () => {
+    if (calendar === "Week")
+      setCurrDate(format(add(firstDayOfWeek, { weeks: 1 }), dateFormat));
+    else if (calendar === "Month")
+      setCurrDate(format(add(firstDayOfMonth, { months: 1 }), dateFormat));
+    else if (calendar === "Year")
+      setCurrDate(format(add(firstDay, { years: 1 }), dateFormat));
+  };
 
   return (
-    <Container styles="col-span-2">
-      <div className="w-full col-span-2">
-        <div className="flex items-center justify-between pb-4">
-          <IconButton name="arrow-left" handleClick={setPrevMonth} size="4" />
-          <p className="font-semibold text-lg text-primary">
-            {format(firstDayOfMonth, "MMMM yyyy")}
-          </p>
-          <IconButton name="arrow-right" handleClick={setNextMonth} size="4" />
-        </div>
-        <hr className="mb-6 bg-primary-200" />
-        <div className="grid grid-cols-7 gap-6 place-items-center">
-          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day, idx) => (
-            <div key={idx} className="font-semibold text-sm text-primary-800">
-              {day}
+    <>
+      <Container styles="col-span-4">
+        <div className="w-full col-span-2">
+          <div></div>
+          <div className="flex items-center justify-between pb-4">
+            <span className="font-semibold text-3xl text-primary">
+              {calendar === "Year"
+                ? format(firstDay, "yyyy")
+                : format(firstDayOfMonth, "MMMM yyyy")}
+            </span>
+            <div className="flex justify-between">
+              <MenuButton
+                options={["Day", "Week", "Month", "Year"]}
+                styles="mx-2"
+                updateState={handleDropdown}
+              />
+              <button
+                onClick={handleSetToday}
+                className="mx-2 p-1 px-3 rounded-lg bg-primary-100 hover:bg-primary-200 dark:bg-primary-800 dark:hover:bg-primary-700 text-primary-800 hover:text-primary dark:text-primary-200 dark:hover:text-primary-100 font-medium text-sm"
+              >
+                <span>Today</span>
+              </button>
+              <IconButton
+                name="arrow-left"
+                handleClick={handleSetPrevMonth}
+                isBackground={true}
+                styles="mx-2 mr-4"
+              />
+              <IconButton
+                name="arrow-right"
+                handleClick={handleSetNextMonth}
+                isBackground={true}
+              />
             </div>
-          ))}
-        </div>
-        <div className="grid grid-cols-7 gap-6 mt-5 place-items-center">
-          {daysInMonth.map((day, idx) => (
-            <CalendarButton
-              key={idx}
-              isDisabled={isBefore(day, today) && isSameMonth(day, today)}
-              isCurrentMonth={isSameMonth(day, today)}
-              isToday={isToday(day)}
-              isSelected={isEqual(day, selectedDay)}
-              day={day}
-              onClick={(d: Date) => setSelectedDay(d)}
+          </div>
+          <hr className="mb-5 bg-primary-200" />
+          {calendar === "Week" && <WeekCalendar week={week} />}
+          {calendar === "Month" && (
+            <MonthCalendar
+              today={today}
+              month={getMonth(firstDayOfMonth)}
+              events={events}
             />
-          ))}
+          )}{" "}
+          {calendar === "Year" && <YearCalendar months={months} />}
         </div>
-        <div className="flex justify-start pt-6">
-          <button className="flex items-center mx-2 px-4 py-2 rounded-sm font-medium bg-accent text-white">
-            <Icon name="plus" styles="size-5 mr-2" />
-            <span>Add schedule</span>
-          </button>
-          <button className="flex items-center mx-2 px-4 py-2 rounded-sm font-medium bg-accent text-white">
-            <Icon name="minus" styles="size-5 mr-2" />
-            <span>Remove schedule</span>
-          </button>
-          <button className="flex items-center mx-2 px-4 py-2 rounded-sm font-medium bg-accent text-white">
-            <Icon name="plus" styles="size-5 mr-2" />
-            <span>Add schedule</span>
-          </button>
+      </Container>
+      {/* <Container styles="col-span-4">
+        <div className="w-full col-span-2">
+          <div></div>
+          <div className="flex items-center justify-between pb-4">
+            <span className="font-semibold text-3xl text-primary">
+              {calendar === "Year"
+                ? format(firstDay, "yyyy")
+                : format(firstDayOfMonth, "MMMM yyyy")}
+            </span>
+            <div className="flex justify-between">
+              <MenuButton
+                options={["Day", "Week", "Month", "Year"]}
+                styles="mx-2"
+                updateState={handleDropdown}
+              />
+              <button
+                onClick={handleSetToday}
+                className="mx-2 p-1 px-3 rounded-lg bg-primary-100 hover:bg-primary-200 dark:bg-primary-800 dark:hover:bg-primary-700 text-primary-800 hover:text-primary dark:text-primary-200 dark:hover:text-primary-100 font-medium text-sm"
+              >
+                <span>Today</span>
+              </button>
+              <IconButton
+                name="arrow-left"
+                handleClick={handleSetPrevMonth}
+                isBackground={true}
+                styles="mx-2 mr-4"
+              />
+              <IconButton
+                name="arrow-right"
+                handleClick={handleSetNextMonth}
+                isBackground={true}
+              />
+            </div>
+          </div>
+          <hr className="mb-5 bg-primary-200" />
+          
         </div>
-      </div>
-    </Container>
+      </Container> */}
+    </>
   );
 };
 

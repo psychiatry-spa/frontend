@@ -22,11 +22,11 @@ const UpcomingEvents = ({ day, events }: Props) => {
             {header} Events
           </h2>
           <ol className="mt-4">
-            {events.length > 0 ? (
+            {/* {events.length > 0 ? (
               events.map(
-                ({ id, name, imageUrl, startDatetime, endDatetime }) => (
+                ({ _id, summary, user, start, end }, idx) => (
                   <EventItem
-                    id={id}
+                    id={_id}
                     name={name}
                     imageUrl={imageUrl}
                     start={startDatetime}
@@ -38,7 +38,7 @@ const UpcomingEvents = ({ day, events }: Props) => {
               <p className="text-primary">
                 No more {header.toLowerCase()} events.
               </p>
-            )}
+            )} */}
           </ol>
         </div>
         <div className="mt-4">

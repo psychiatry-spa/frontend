@@ -6,7 +6,7 @@ import useFetchData from "../../../../../hooks/api/useFetchData";
 import TableHeader from "./components/TableHeader";
 import TableNameItem from "./components/TableNameItem";
 import TableItem from "./components/TableItem";
-import { IconButton } from "../../../../common/buttons/IconButton";
+import IconButton from "../../../../common/buttons/IconButton";
 
 import { format } from "date-fns";
 
