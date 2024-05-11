@@ -12,3 +12,4 @@ export { default as ManagerPage} from "./admin/ManagerPage";
 export { default as CalendarPage} from "./admin/CalendarPage";
 export { default as PostPage} from "./admin/PostPage";
 export { default as Page404} from "./Page404";
+export { default as NewsPage} from "./NewsPage";

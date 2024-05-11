@@ -1,5 +1,11 @@
+import AdminLayout from "../../layouts/admin/AdminLayout";
+
 const SettingsPage = () => {
-  return <div>SettingsPage</div>;
+  return (
+  <AdminLayout>
+    <div>SettingsPage</div>
+  </AdminLayout>
+  )
 };
 
 export default SettingsPage;

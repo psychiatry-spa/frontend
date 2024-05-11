@@ -8,7 +8,7 @@ import Icon from "../../common/Icon";
 const Crud = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   return (
-    <div className="mx-4 my-4">
+    <div className="m-4">
       <Container>
         <h1 className="text-3xl font-medium mb-4 text-primary dark:text-primary-100">
           All users
