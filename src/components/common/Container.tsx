@@ -5,9 +5,9 @@ interface Props {
   styles?: string;
 }
 
-const Container = ({ children, styles = "col-span-7" }: Props) => {
+const Container = ({ children, styles }: Props) => {
   return (
-    <div className={`p-10 rounded-3xl border w-full bg-white ${styles}`}>
+    <div className={`${styles} p-10 md:m-2 md:rounded-b-3xl rounded-t-3xl border w-full bg-white`}>
       {children}
     </div>
   );
