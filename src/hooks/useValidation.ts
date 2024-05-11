@@ -12,7 +12,6 @@ export const useValidation = (formData: {
   password: string;
 }): ValidationResult => {
   const errors: string[] = [];
-  
   if (formData.password.length < 6) {
     errors.push("Short password");
   } else {
