@@ -9,8 +9,8 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <NavBar />
-      <div className="flex justify-center bg-primary-005">
-        <div className="pt-20 grid grid-cols-9 gap-4 w-full">
+      <div className="flex justify-center items-center h-full bg-primary-005">
+        <div className="mt-20">
           {children}
         </div>
       </div>

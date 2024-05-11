@@ -5,6 +5,7 @@ const fullnameRegex = /^[A-Za-z\s]+$/;
 interface ValidationResult {
   errors: string[];
 }
+
 export const useValidation = (formData: {
   fullName?: string;
   email: string;
