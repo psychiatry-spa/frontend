@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { API_ENDPOINTS } from "../../../../../constants/const";
+import { API_ENDPOINTS } from "../../../../../constants";
 import { SearchQueryProps, UsersProps } from "../../../../types/types";
 import useFetchData from "../../../../../hooks/api/useFetchData";
 
@@ -125,9 +125,9 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
       <table className="table-auto w-full min-w-full mt-4">
         <thead className="border-b bg-primary-005 border-primary-200 dark:bg-dark-bg-hover dark:border-dark-border">
           <tr className="text-primary-600 dark:text-primary-400">
-            {["name", "role", "consultations", "country", "createdAt", ""].map(
+            {["name", "role", "consultations", "country", "createdAt", "none"].map(
               (name) => (
-                <TableHeader name={name} handleClick={() => handleSort(name)} />
+                <TableHeader name={name} handleClick={() => handleSort(name as "name" | "role" | "consultations" | "country" | "createdAt" | "none")} />
               )
             )}
           </tr>

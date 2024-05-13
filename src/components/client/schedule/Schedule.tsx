@@ -1,8 +1,8 @@
-import Container from "../../common/Container";
 import Calendar from "../../common/calendar/Calendar";
 import TimeButton from "./TimeButton";
+import Container from "../../common/Container";
 
-import { startOfToday, firstDayCurrentMonth } from "date-fns";
+import { startOfToday } from "date-fns";
 import { useState } from "react";
 
 const Schedule = () => {
@@ -24,15 +24,15 @@ const Schedule = () => {
             setSelectedDay={setSelectedDay}
           />
           <div className="flex flex-col w-full col-span-1">
-          <TimeButton isActive={true} isSelected={true} text="5:00 PM"/>
-          <TimeButton isActive={true} isSelected={false} text="5:30 PM"/>
-          <TimeButton isActive={false} isSelected={false} text="6:00 PM"/>
-          <TimeButton isActive={false} isSelected={false} text="6:30 PM"/>
-          <TimeButton isActive={false} isSelected={false} text="7:00 PM"/>
-          <TimeButton isActive={true} isSelected={false} text="7:30 PM"/>
-          <TimeButton isActive={false} isSelected={false} text="8:00 PM"/>
-          <TimeButton isActive={true} isSelected={false} text="8:30 PM"/>
-          <TimeButton isActive={false} isSelected={false} text="9:00 PM"/>
+            <TimeButton isActive={true} isSelected={true} text="5:00 PM" />
+            <TimeButton isActive={true} isSelected={false} text="5:30 PM" />
+            <TimeButton isActive={false} isSelected={false} text="6:00 PM" />
+            <TimeButton isActive={false} isSelected={false} text="6:30 PM" />
+            <TimeButton isActive={false} isSelected={false} text="7:00 PM" />
+            <TimeButton isActive={true} isSelected={false} text="7:30 PM" />
+            <TimeButton isActive={false} isSelected={false} text="8:00 PM" />
+            <TimeButton isActive={true} isSelected={false} text="8:30 PM" />
+            <TimeButton isActive={false} isSelected={false} text="9:00 PM" />
           </div>
         </div>
       </section>

@@ -12,7 +12,8 @@ import {
   SignInPage,
   SignOutPage,
   SignUpPage,
-  Page404
+  Page404,
+  NewsPage
 } from "./pages";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         {/* Everyone */}
         <Route path="" element={<MainPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/news" element={<NewsPage />} />
         <Route path="/login" element={<SignInPage />} />
         <Route path="/register" element={<SignUpPage />} />
         <Route path="/logout" element={<SignOutPage />} />

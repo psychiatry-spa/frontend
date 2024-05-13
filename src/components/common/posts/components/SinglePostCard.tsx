@@ -1,6 +1,6 @@
 import { deletePost } from "../../../../api/posts/requests/deletePost";
+import Icon from "../../Icon";
 import PostContent from "./PostContent";
-import Icon from "../../icon/icon";
 
 const SinglePostCard = ({ post }: any) => {
   const formatDate = (date: any) => {
@@ -38,7 +38,7 @@ const SinglePostCard = ({ post }: any) => {
       </div>
 
       <button onClick={() => deletePost(post._id)}>
-        <Icon name="bucket" styles="size-6" />
+        <Icon name="delete" styles="size-6" />
       </button>
     </div>
   )

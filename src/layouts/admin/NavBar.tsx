@@ -2,6 +2,7 @@ import Icon from "../../components/common/Icon";
 import { SearchBar } from "../../components/common/bars/SearchBar";
 import { useState } from "react";
 import IconButton from "../../components/common/buttons/IconButton";
+import { useEffect } from "react";
 
 interface Props {
   handleClick: () => void;
@@ -9,29 +10,25 @@ interface Props {
 
 const Navbar = ({ handleClick }: Props) => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(
-    localStorage.darkMode === "true"
+    localStorage.getItem('darkMode') === "true"
   );
+  
+  useEffect(() => {
+    isDarkMode ? document.documentElement.classList.add("dark") : document.documentElement.classList.remove("dark");
+    localStorage.setItem("darkMode", isDarkMode.toString());
+  }, [isDarkMode]);
 
-  const toggleDarkMode = () => {
-    const newMode = !isDarkMode;
-    setIsDarkMode(newMode);
-    localStorage.setItem("darkMode", newMode.toString()); // Store dark mode preference in local storage
-    if (newMode) {
-      document.documentElement.classList.add("dark"); // Apply dark mode classes to HTML element
-    } else {
-      document.documentElement.classList.remove("dark"); // Remove dark mode classes from HTML element
-    }
-  };
+  const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
 
   return (
-    <nav className="fixed lg:p-4 p-2 z-10 w-full border-b bg-white border-primary-200 dark:bg-dark-container dark:border-dark-border">
-      <div className="lg:hidden p-2">
+    <nav className="fixed py-2 z-10 w-full border-b bg-white border-primary-200 dark:bg-dark-container dark:border-dark-border">
+      <div className="hidden p-2">
         <button onClick={handleClick}>
           <Icon name="sun" />
         </button>
       </div>
       <div className="flex justify-between">
-        <div className="ml-60 w-96 hidden lg:block">
+        <div className="ml-0 w-80  block lg:ml-64">
           <SearchBar />
         </div>
 

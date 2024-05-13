@@ -1,5 +1,4 @@
 import React, { Suspense } from "react"
-// import SinglePostCard from "./SinglePostCard"
 import LoadingDemo from "../../LoadingDemo"
 
 const LazyComponent = React.lazy(() => import("./SinglePostCard"))
