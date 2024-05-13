@@ -2,14 +2,18 @@ import { format, isSameMonth, isToday } from "date-fns";
 
 interface Props {
   days: Date[];
+  handleClick: (day: Date) => void;
 }
 
-const SmallMonthCalendar = ({ days }: Props) => {
+const SmallMonthCalendar = ({ days, handleClick }: Props) => {
   return (
     <div>
-      <span className="text-accent pl-1 text-sm">
+      <button
+        onClick={() => handleClick(days[15])}
+        className="text-accent font-medium pl-1 text-sm hover:text-accent-focus"
+      >
         {format(days[15], "MMMM")}
-      </span>
+      </button>
       <div className="mt-2 grid grid-cols-7 text-[10px] place-items-center">
         {["M", "T", "W", "T", "F", "S", "S"].map((day, idx) => (
           <div key={idx} className="text-primary-600">
@@ -21,11 +25,11 @@ const SmallMonthCalendar = ({ days }: Props) => {
         {days.map((day, idx) => (
           <span
             key={idx}
-            className={`${
+            className={`text-center ${
               !isSameMonth(day, days[15])
                 ? "text-primary-300"
                 : isToday(day)
-                ? "px-1 rounded-full bg-accent text-white"
+                ? "w-3.5 rounded-full bg-accent text-white"
                 : day.getDay() % 6 == 0
                 ? "text-primary-600"
                 : "text-primary-900"

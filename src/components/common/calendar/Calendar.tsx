@@ -12,8 +12,8 @@ import {
 import { useState } from "react";
 
 import MonthCalendar from "./components/Month/MonthCalendar";
-import YearCalendar from "./components/YearCalendar";
-import WeekCalendar from "./components/WeekCalendar";
+import YearCalendar from "./components/Year/YearCalendar";
+import WeekCalendar from "./components/Week/WeekCalendar";
 
 import Container from "../../../layouts/admin/Container";
 import IconButton from "../buttons/IconButton";
@@ -90,6 +90,12 @@ const Calendar = ({ today, events, selectedDay, setSelectedDay }: Props) => {
       setCurrDate(format(add(firstDay, { years: 1 }), dateFormat));
   };
 
+  const handleSetMonth = (month: Date) => {
+    setCurrDate(format(month, dateFormat));
+    setCalendar("Month");
+    handleDropdown("Month");
+  };
+
   return (
     <>
       <Container styles="col-span-4">
@@ -127,7 +133,7 @@ const Calendar = ({ today, events, selectedDay, setSelectedDay }: Props) => {
             </div>
           </div>
           <hr className="mb-5 bg-primary-200" />
-          {calendar === "Week" && <WeekCalendar week={week} />}
+          {calendar === "Week" && <WeekCalendar week={week} events={events} />}
           {calendar === "Month" && (
             <MonthCalendar
               today={today}
@@ -135,7 +141,9 @@ const Calendar = ({ today, events, selectedDay, setSelectedDay }: Props) => {
               events={events}
             />
           )}{" "}
-          {calendar === "Year" && <YearCalendar months={months} />}
+          {calendar === "Year" && (
+            <YearCalendar months={months} handleMonth={handleSetMonth} />
+          )}
         </div>
       </Container>
       {/* <Container styles="col-span-4">
