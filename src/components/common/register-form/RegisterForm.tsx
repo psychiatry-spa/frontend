@@ -25,7 +25,7 @@ const RegisterForm = () => {
 
   const navigate = useNavigate();
   const submitForm = useSubmitForm(API_ENDPOINTS.signUp);
-  
+
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -38,7 +38,7 @@ const RegisterForm = () => {
     } else if (name === "password") {
       errorKeys = ["passwordError", "passwordCharactersError"];
     } else if (name === "fullName") {
-      errorKeys = ["fullNameError"]
+      errorKeys = ["fullNameError"];
     }
     setErrors((prevErrors) => ({
       ...prevErrors,
@@ -75,7 +75,7 @@ const RegisterForm = () => {
   );
 
   return (
-    <Container>
+    <Container styles="mt-10 h-[550px] lg:h-max m-0 w-[400px] h-full rounded-b md:w-[350px] lg:w-[450px] md:mr-5">
       <form className="flex flex-col" onSubmit={handleSubmit} noValidate={true}>
         <h1 className="font-semibold font-sans mb-5 text-2xl text-primary">
           Create new Account
@@ -101,6 +101,7 @@ const RegisterForm = () => {
           </p>
         )}
         <InputField
+          styles="pr-11"
           data={formData.password}
           type="password"
           handleChange={handleChange}
@@ -116,7 +117,6 @@ const RegisterForm = () => {
         {errors.passwordCharactersError && (
           <p className="text-red-500 text-sm">At least 6 characters</p>
         )}
-
         <Button
           style={"primary"}
           disabled={isDisabled}

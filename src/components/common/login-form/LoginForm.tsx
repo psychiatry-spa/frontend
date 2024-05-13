@@ -71,7 +71,7 @@ const LoginForm = () => {
   );
 
   return (
-    <Container styles="mt-10 m-0 w-[400px] h-full rounded-b md:w-[375px] lg:w-[450px] md:mr-5">
+    <Container styles="mt-10 h-[550px] lg:h-max m-0 w-[400px] h-full rounded-b md:w-[350px] lg:w-[450px] md:mr-5">
       <form className="flex flex-col" onSubmit={handleSubmit} noValidate={true}>
         <h1 className="font-semibold font-sans mb-5 text-2xl text-primary">
           Log in to Your Account
