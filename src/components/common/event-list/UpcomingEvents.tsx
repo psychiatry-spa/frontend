@@ -8,11 +8,10 @@ import Icon from "../Icon";
 import { useState } from "react";
 
 interface Props {
-  day: Date;
   events: Event[];
 }
 
-const UpcomingEvents = ({ day, events }: Props) => {
+const UpcomingEvents = ({ events }: Props) => {
   const [header, setHeader] = useState("Upcoming");
   return (
     <Container styles="col-span-2">
@@ -22,23 +21,19 @@ const UpcomingEvents = ({ day, events }: Props) => {
             {header} Events
           </h2>
           <ol className="mt-4">
-            {/* {events.length > 0 ? (
-              events.map(
-                ({ _id, summary, user, start, end }, idx) => (
-                  <EventItem
-                    id={_id}
-                    name={name}
-                    imageUrl={imageUrl}
-                    start={startDatetime}
-                    end={endDatetime}
-                  />
-                )
-              )
+            {events.length > 0 ? (
+              events.map(({ summary, start, end }, idx) => (
+                <EventItem
+                  summary={summary}
+                  start={start.dateTime}
+                  end={end.dateTime}
+                />
+              ))
             ) : (
               <p className="text-primary">
                 No more {header.toLowerCase()} events.
               </p>
-            )} */}
+            )}
           </ol>
         </div>
         <div className="mt-4">

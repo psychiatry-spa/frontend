@@ -11,4 +11,4 @@ export interface Event {
 
 export const CACHE_KEY_EVENTS = ["events"];
 
-export default new ApiClient<Event>("");
+export default new ApiClient<Event>("/admin/events");

@@ -1,4 +1,4 @@
-import SmallMonthCalendar from "../SmallMonthCalendar";
+import SmallMonthCalendar from "./SmallMonthCalendar";
 
 interface Props {
   months: Date[][];
