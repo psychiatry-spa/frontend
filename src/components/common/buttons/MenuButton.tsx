@@ -14,6 +14,7 @@ const MenuButton = ({ options, isDots = false }: Props) => {
     setIsOpen(false);
     setButtonName(options[index]);
   };
+  
   return (
     <div className=" flex justify-end text-primary-700 hover:text-primary-800 dark:text-primary-300 dark:hover:text-primary-200">
       <div className="relative py-1 px-3 rounded-lg hover:bg-primary-005 dark:hover:bg-dark-bg-hover">

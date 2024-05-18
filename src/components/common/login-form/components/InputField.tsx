@@ -2,6 +2,7 @@ import { useState } from "react";
 import Icon from "../../Icon";
 
 interface Props {
+  name: string;
   data: string;
   type: string;
   styles?: string;
@@ -9,7 +10,7 @@ interface Props {
   placeholder?: string;
 }
 
-const InputField = ({ data, type, styles, handleChange, placeholder }: Props) => {
+const InputField = ({ name, data, type, styles, handleChange, placeholder }: Props) => {
   const [isActive, setIsActive] = useState(false);
   const handleClick = () => setIsActive(!isActive);
 
@@ -27,7 +28,7 @@ const InputField = ({ data, type, styles, handleChange, placeholder }: Props) =>
       <input
         className={`pl-10 placeholder-secondary border rounded-xl border-primary-500 w-full p-3 my-2 outline-none bg-primary-005 focus:bg-white ${styles}`}
         type={isActive ? "text" : type}
-        name={type}
+        name={name}
         value={data}
         onChange={handleChange}
         placeholder={!placeholder ? `Enter your ${type}` : placeholder}

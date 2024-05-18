@@ -122,7 +122,7 @@ const LoginForm = () => {
           <Link to="/">Forgot password?</Link>
         </div>
         <Button
-          style={"primary"}
+          style="primary"
           disabled={isDisabled}
           type="submit"
           styles="my-5 text-2xl font-medium"
