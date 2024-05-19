@@ -2,9 +2,10 @@ import AdminLayout from "../../layouts/admin/AdminLayout";
 import { useCallback, useEffect, useRef, useState } from "react";
 import InputField from "../../components/common/login-form/components/InputField";
 import Button from "../../components/common/buttons/Button";
-import useFetchData from "../../hooks/api/useFetchData";
 import { API_ENDPOINTS } from "../../constants";
-import useSubmitForm from "../../hooks/api/useSubmitForm";
+import usePost from "../../api/base/usePost";
+import useGet from "../../api/base/useGet";
+import usePut from "../../api/base/usePut";
 
 interface StringObject {
   [key: string]: string;
@@ -21,35 +22,37 @@ const SettingsPage: React.FC = () => {
     newPassword: "",
     confirmPassword: "",
   });
+  const [passwordError, setPasswordError] = useState<boolean>(false);
   const initialDataRef = useRef(fullName);
   const initialAvatarData = useRef(avatar);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  // API
+  const fetchCurrentUser = useGet<any>(API_ENDPOINTS.currentUser);
+  const submitPasswordForm = usePost(API_ENDPOINTS.signIn);
+  const changePassword = usePut(API_ENDPOINTS.currentUser);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const currentUser = useFetchData(API_ENDPOINTS.currentUser);
-      const response = await currentUser();
-      if (response.ok) {
-        const data = await response.data.profile;
-        setAvatar(data.imageUrl || "");
-        setFullName(data.fullName || "");
-        initialDataRef.current = data.fullName || "";
-        initialAvatarData.current = data.avatar || "";
-      } else {
-        console.error("Failed to fetch current user");
+    fetchCurrentUser.refetch().then((response) => {
+      const data = response.data.profile;
+      let imageUrl = data.imageUrl || "";
+      if (imageUrl.includes("lh3.googleusercontent.com")) {
+        imageUrl = imageUrl.replace(/=s\d+-c$/, "=s512");
       }
-    };
-
-    fetchData();
+      setAvatar(imageUrl);
+      setFullName(data.fullName || "");
+      initialDataRef.current = data.fullName || "";
+      initialAvatarData.current = imageUrl || "";
+    });
   }, []);
 
   useEffect(() => {
-    if (initialAvatarData.current !== avatar) {
-      setIsDisabled(false);
-    } else if (
-      !fullName ||
-      JSON.stringify(initialDataRef.current) === JSON.stringify(fullName)
+    if (
+      initialAvatarData.current === avatar &&
+      (!fullName ||
+        JSON.stringify(initialDataRef.current) === JSON.stringify(fullName))
     ) {
+      setIsDisabled(true);
+    } else if (!fullName && isDisabled === false) {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
@@ -85,10 +88,10 @@ const SettingsPage: React.FC = () => {
       const { name, value } = e.target;
       if (name === "password") {
         setCurrentPassword({
-          password: name,
+          [name]: value,
         });
       } else {
-        setCurrentPassword((prevState) => ({
+        setNewPassword((prevState) => ({
           ...prevState,
           [name]: value,
         }));
@@ -97,10 +100,22 @@ const SettingsPage: React.FC = () => {
     []
   );
   // handleSubmit
-  const handlePasswordSubmit = useCallback(async () => {
-    const submitForm = useSubmitForm(API_ENDPOINTS.signIn);
-    const response = await submitForm();
-  }, [currentPassword, newPassword]);
+  const handlePasswordSubmit = useCallback(
+    async (e: React.FormEvent<HTMLInputElement>) => {
+      e.preventDefault();
+      const result = await submitPasswordForm.post(currentPassword);
+      if (newPassword.newPassword === newPassword.confirmPassword) {
+        if (result.ok) {
+          const result = await changePassword.put({ body: { password: newPassword.newPassword } });
+          if (result.ok) {
+            console.log("Password succesefully changed!")
+          }
+        } else {
+        }
+      }
+    },
+    [currentPassword, newPassword]
+  );
 
   return (
     <AdminLayout>
@@ -143,9 +158,9 @@ const SettingsPage: React.FC = () => {
           styles="md:w-96 mx-auto"
           data={currentPassword.password || ""}
           type="password"
-          name="oldPassword"
+          name="password"
           handleChange={handlePasswordChange}
-          placeholder="Old password"
+          placeholder="Current password"
           autocomplete="current-password"
         />
         <InputField

@@ -9,6 +9,7 @@ import Icon from "../Icon";
 import Container from "../Container";
 import { useValidation } from "../../../hooks/useValidation";
 import { FormErrorFlags, FormData } from "../../types";
+import usePost from "../../../api/base/usePost";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -23,7 +24,7 @@ const LoginForm = () => {
   });
 
   const navigate = useNavigate();
-  const submitForm = useSubmitForm(API_ENDPOINTS.signIn);
+  const submitForm = usePost(API_ENDPOINTS.signIn);
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
@@ -39,7 +40,7 @@ const LoginForm = () => {
         setErrors(newErrors);
         return;
       }
-      const result = await submitForm(formData);
+      const result = await submitForm.post(formData);
       if (!result.ok) {
         setErrors({ ...errors, incorrectError: true });
       } else navigate("/admin/dashboard");

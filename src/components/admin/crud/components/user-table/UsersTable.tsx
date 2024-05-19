@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { API_ENDPOINTS } from "../../../../../constants";
 import { SearchQueryProps, UsersProps } from "../../../../types/types";
-import useFetchData from "../../../../../hooks/api/useFetchData";
 
 import TableHeader from "./components/TableHeader";
 import TableNameItem from "./components/TableNameItem";
@@ -21,18 +20,18 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
 
   const itemsPerPage = 20;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      const fetchUsers = useFetchData(API_ENDPOINTS.usersList);
-      const response = await fetchUsers();
-      if (response.ok) setData(response.data.users);
-      else console.error("Failed to fetch Users");
-      setLoading(false);
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setLoading(true);
+  //     const fetchUsers = useFetchData(API_ENDPOINTS.usersList);
+  //     const response = await fetchUsers();
+  //     if (response.ok) setData(response.data.users);
+  //     else console.error("Failed to fetch Users");
+  //     setLoading(false);
+  //   };
 
-    fetchData();
-  }, [searchQuery]);
+  //   fetchData();
+  // }, [searchQuery]);
 
   // TODO: refactor this:
 

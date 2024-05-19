@@ -21,7 +21,7 @@ const useFetchData = <T,>(url: string, options: FetchOptions = {}) => {
   const fetchData = useCallback(async (overrideOptions: FetchOptions = {}) => {
     setIsLoading(true);
 
-    const { method = 'GET', headers = {}, body} = {...options, ...overrideOptions };
+    const { method = 'GET', headers = {}, body } = { ...options, ...overrideOptions };
 
     const combinedOptions: RequestInit = {
       method,
@@ -29,6 +29,7 @@ const useFetchData = <T,>(url: string, options: FetchOptions = {}) => {
         'Content-Type': 'application/json',
         ...headers,
       },
+      credentials: "include",
     };
 
     if (body && (method === 'POST' || method === 'PUT')) {
