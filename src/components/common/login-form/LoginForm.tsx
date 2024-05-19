@@ -77,6 +77,7 @@ const LoginForm = () => {
           Log in to Your Account
         </h1>
         <InputField
+          name="email"
           styles={
             errors.emailError || errors.incorrectError ? "border-red-500" : ""
           }
@@ -90,6 +91,7 @@ const LoginForm = () => {
           </p>
         )}
         <InputField
+          name="password"
           styles={
             errors.passwordError ||
             errors.incorrectError ||

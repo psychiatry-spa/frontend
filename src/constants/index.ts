@@ -5,7 +5,7 @@ export const API_ENDPOINTS = {
   signIn: `${process.env.NODE_ENV === "production" ? PROD_BASE_URL : BASE_URL}/api/auth/signIn`,
   googleLogin: `${process.env.NODE_ENV === "production" ? PROD_BASE_URL : BASE_URL}/api/auth/provider/google`,
   usersList: `${process.env.NODE_ENV === "production" ? PROD_BASE_URL : BASE_URL}/api/admin/users`,
-  currentUser: `${process.env.NODE_ENV === "production" ? PROD_BASE_URL : BASE_URL}/api/user/me`,
+  currentUser: `${process.env.NODE_ENV === "production" ? PROD_BASE_URL : BASE_URL}/api/client/me`,
 
   posts: `${process.env.NODE_ENV === "production" ? PROD_BASE_URL : BASE_URL}/api/posts`,
 };

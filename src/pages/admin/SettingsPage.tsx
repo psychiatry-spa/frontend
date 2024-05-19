@@ -2,27 +2,51 @@ import AdminLayout from "../../layouts/admin/AdminLayout";
 import { useCallback, useEffect, useRef, useState } from "react";
 import InputField from "../../components/common/login-form/components/InputField";
 import Button from "../../components/common/buttons/Button";
+import useFetchData from "../../hooks/api/useFetchData";
+import { API_ENDPOINTS } from "../../constants";
+import useSubmitForm from "../../hooks/api/useSubmitForm";
 
 interface StringObject {
   [key: string]: string;
 }
 
 const SettingsPage: React.FC = () => {
-  const [avatar, setAvatar] = useState<string>(
-    "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-  );
+  const [avatar, setAvatar] = useState<string>("");
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
-  const [fullName, setFullName] = useState<string>("Max Maxbetov");
-  const [passwordData, setPasswordData] = useState<StringObject>({
-    oldPassword: "",
+  const [fullName, setFullName] = useState<string>("");
+  const [currentPassword, setCurrentPassword] = useState<StringObject>({
+    password: "",
+  });
+  const [newPassword, setNewPassword] = useState<StringObject>({
     newPassword: "",
     confirmPassword: "",
   });
   const initialDataRef = useRef(fullName);
+  const initialAvatarData = useRef(avatar);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (
+    const fetchData = async () => {
+      const currentUser = useFetchData(API_ENDPOINTS.currentUser);
+      const response = await currentUser();
+      if (response.ok) {
+        const data = await response.data.profile;
+        setAvatar(data.imageUrl || "");
+        setFullName(data.fullName || "");
+        initialDataRef.current = data.fullName || "";
+        initialAvatarData.current = data.avatar || "";
+      } else {
+        console.error("Failed to fetch current user");
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (initialAvatarData.current !== avatar) {
+      setIsDisabled(false);
+    } else if (
       !fullName ||
       JSON.stringify(initialDataRef.current) === JSON.stringify(fullName)
     ) {
@@ -30,7 +54,7 @@ const SettingsPage: React.FC = () => {
     } else {
       setIsDisabled(false);
     }
-  }, [fullName]);
+  }, [fullName, avatar]);
   // handleClick
   const handleAvatarClick = () => {
     if (fileInputRef.current) {
@@ -59,23 +83,30 @@ const SettingsPage: React.FC = () => {
   const handlePasswordChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
-      setPasswordData((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
+      if (name === "password") {
+        setCurrentPassword({
+          password: name,
+        });
+      } else {
+        setCurrentPassword((prevState) => ({
+          ...prevState,
+          [name]: value,
+        }));
+      }
     },
     []
   );
   // handleSubmit
-  const handlePasswordSubmit = () => {
-    console.log("handlePasswordSubmit");
-  };
+  const handlePasswordSubmit = useCallback(async () => {
+    const submitForm = useSubmitForm(API_ENDPOINTS.signIn);
+    const response = await submitForm();
+  }, [currentPassword, newPassword]);
 
   return (
     <AdminLayout>
       <div>
         <img
-          className="size-72 rounded-full mx-auto"
+          className="size-72 object-contain rounded-full mx-auto cursor-pointer hover:brightness-75 transition duration-300"
           src={avatar}
           onClick={handleAvatarClick}
           alt="avatar"
@@ -89,45 +120,57 @@ const SettingsPage: React.FC = () => {
         />
       </div>
       <form>
-        <InputField
+        <input
+          className="text-3xl text-center mt-4 mx-auto block w-96 bg-primary-005 outline-none"
           name="fullName"
-          data={fullName || ""}
-          type="fullName"
-          handleChange={handleFullNameChange}
+          value={fullName}
+          onChange={handleFullNameChange}
         />
         <Button
           style="primary"
           disabled={isDisabled}
           type="submit"
-          styles="my-5 text-2xl font-medium"
+          styles="my-5 text-2xl font-medium mx-auto block px-2"
         >
           Save changes
         </Button>
       </form>
-      <h2>Change password</h2>
+      <h2 className="text-3xl text-center font-bold text-primary">
+        Change password
+      </h2>
       <form onSubmit={handlePasswordSubmit}>
         <InputField
-          data={passwordData.oldPassword || ""}
+          styles="md:w-96 mx-auto"
+          data={currentPassword.password || ""}
           type="password"
           name="oldPassword"
           handleChange={handlePasswordChange}
           placeholder="Old password"
+          autocomplete="current-password"
         />
         <InputField
-          data={passwordData.newPassword || ""}
+          styles="md:w-96 mx-auto"
+          data={newPassword.newPassword || ""}
           type="password"
           name="newPassword"
           handleChange={handlePasswordChange}
           placeholder="New password"
+          autocomplete="new-password"
         />
         <InputField
-          data={passwordData.confirmPassword || ""}
+          styles="md:w-96 mx-auto"
+          data={newPassword.confirmPassword || ""}
           type="password"
           name="confirmPassword"
           handleChange={handlePasswordChange}
           placeholder="Confirm new password"
+          autocomplete="new-password"
         />
-        <Button style="primary" type="submit">
+        <Button
+          styles="px-2 mx-auto block text-xl font-bold mt-2"
+          style="primary"
+          type="submit"
+        >
           Change Password
         </Button>
       </form>

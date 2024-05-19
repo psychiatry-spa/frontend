@@ -81,6 +81,7 @@ const RegisterForm = () => {
           Create new Account
         </h1>
         <InputField
+          name="fullName"
           data={formData.fullName || ""}
           type="fullName"
           handleChange={handleChange}
@@ -91,6 +92,7 @@ const RegisterForm = () => {
           </p>
         )}
         <InputField
+          name="email"
           data={formData.email}
           type="email"
           handleChange={handleChange}
@@ -101,6 +103,7 @@ const RegisterForm = () => {
           </p>
         )}
         <InputField
+          name="password"
           styles="pr-11"
           data={formData.password}
           type="password"
