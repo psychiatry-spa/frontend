@@ -29,7 +29,7 @@ const LoginForm = () => {
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const { errors: validationErrors } = await useValidation(formData);
+      const { validationErrors } = await useValidation(formData);
       if (validationErrors.length > 0) {
         const newErrors = {
           passwordCharactersError: validationErrors.includes("Short password"),
