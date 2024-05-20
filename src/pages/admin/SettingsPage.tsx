@@ -6,23 +6,37 @@ import { API_ENDPOINTS } from "../../constants";
 import usePost from "../../api/base/usePost";
 import useGet from "../../api/base/useGet";
 import usePut from "../../api/base/usePut";
+import { useValidation } from "../../hooks/useValidation";
+import { FormErrorFlags } from "../../components/types";
+import Modal from "../../components/admin/Modal";
 
 interface StringObject {
   [key: string]: string;
+}
+
+interface PasswordState {
+  password: string;
 }
 
 const SettingsPage: React.FC = () => {
   const [avatar, setAvatar] = useState<string>("");
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const [fullName, setFullName] = useState<string>("");
-  const [currentPassword, setCurrentPassword] = useState<StringObject>({
+  const [currentPassword, setCurrentPassword] = useState<PasswordState>({
     password: "",
   });
   const [newPassword, setNewPassword] = useState<StringObject>({
     newPassword: "",
     confirmPassword: "",
   });
+  const [errors, setError] = useState<FormErrorFlags>({
+    incorrectError: false,
+    passwordCharactersError: false,
+    passwordError: false,
+    fullNameError: false,
+  })
   const [passwordError, setPasswordError] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const initialDataRef = useRef(fullName);
   const initialAvatarData = useRef(avatar);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -101,40 +115,81 @@ const SettingsPage: React.FC = () => {
   );
   // handleSubmit
   const handlePasswordSubmit = useCallback(
-    async (e: React.FormEvent<HTMLInputElement>) => {
+    async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const result = await submitPasswordForm.post(currentPassword);
-      if (newPassword.newPassword === newPassword.confirmPassword) {
-        if (result.ok) {
-          const result = await changePassword.put({ body: { password: newPassword.newPassword } });
-          if (result.ok) {
-            console.log("Password succesefully changed!")
-          }
-        } else {
+
+      if (newPassword.newPassword !== newPassword.confirmPassword) {
+        setPasswordError(true);
+        return;
+      }
+
+      // const { errors: validationErrors } = useValidation(currentPassword)
+      // if (validationErrors.length > 0) {
+      //   const newErrors = {
+      //     passwordCharactersError.includes
+      //   }
+      // }
+      try {
+        const authResult = await submitPasswordForm.post(currentPassword);
+        if (!authResult.ok) {
+          console.error("Error authenticating current password");
+          return;
         }
+
+        const changeResult = await changePassword.put({
+          body: { password: newPassword },
+        });
+        if (changeResult.ok) {
+          console.log("Password succesefully changed!");
+        } else {
+          console.error("Error changing password");
+        }
+      } catch (err) {
+        console.log("An error occured while changing the password:", err);
       }
     },
-    [currentPassword, newPassword]
+    [currentPassword, newPassword, submitPasswordForm, changePassword]
   );
+
+  // const handleProfileSubmit = useCallback(
+  //   async (e.React.FormEvent<HTMLFormElement>) => {
+  //     e.preventDefault();
+
+
+  //   }, [avatar, fullName])
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+    console.log('fwfewrfew')
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleConfirmModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <AdminLayout>
-      <div>
-        <img
-          className="size-72 object-contain rounded-full mx-auto cursor-pointer hover:brightness-75 transition duration-300"
-          src={avatar}
-          onClick={handleAvatarClick}
-          alt="avatar"
-        />
-        <input
-          type="file"
-          accept="image/*"
-          ref={fileInputRef}
-          className="hidden"
-          onChange={handleFileChange}
-        />
-      </div>
       <form>
+        <div>
+          <img
+            className="size-72 object-contain rounded-full mx-auto cursor-pointer hover:brightness-75 transition duration-300"
+            src={avatar}
+            onClick={handleAvatarClick}
+            alt="avatar"
+          />
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            className="hidden"
+            onChange={handleFileChange}
+          />
+        </div>
+
         <input
           className="text-3xl text-center mt-4 mx-auto block w-96 bg-primary-005 outline-none"
           name="fullName"
@@ -154,15 +209,6 @@ const SettingsPage: React.FC = () => {
         Change password
       </h2>
       <form onSubmit={handlePasswordSubmit}>
-        <InputField
-          styles="md:w-96 mx-auto"
-          data={currentPassword.password || ""}
-          type="password"
-          name="password"
-          handleChange={handlePasswordChange}
-          placeholder="Current password"
-          autocomplete="current-password"
-        />
         <InputField
           styles="md:w-96 mx-auto"
           data={newPassword.newPassword || ""}
@@ -185,10 +231,12 @@ const SettingsPage: React.FC = () => {
           styles="px-2 mx-auto block text-xl font-bold mt-2"
           style="primary"
           type="submit"
+          onClick={handleOpenModal}
         >
           Change Password
         </Button>
       </form>
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal} onConfirm={handleConfirmModal} />
     </AdminLayout>
   );
 };

@@ -8,7 +8,7 @@ interface ValidationResult {
 
 export const useValidation = (formData: {
   fullName?: string;
-  email: string;
+  email?: string;
   password: string;
 }): ValidationResult => {
   const errors: string[] = [];
@@ -19,7 +19,7 @@ export const useValidation = (formData: {
       errors.push("Weak password");
     }
   }
-  if (!emailRegex.test(formData.email)) {
+  if (formData.email && !emailRegex.test(formData.email)) {
     errors.push("Invalid email format");
   }
 
