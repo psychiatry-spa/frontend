@@ -1,15 +1,35 @@
-// common
-export { default as MainPage} from "./MainPage";
-export { default as AboutPage} from "./AboutPage";
-export { default as SignOutPage} from "./SignOutPage";
-export { default as SignUpPage} from "./SignUpPage";
-export { default as BookingPage} from "./client/BookingPage";
-export { default as SessionPage} from "./client/SessionPage";
-export { default as SettingsPage} from "./client/SettingsPage";
-export { default as SignInPage} from "./LoginPage";
-export { default as DashboardPage} from "./admin/DashboardPage";
-export { default as ManagerPage} from "./admin/ManagerPage";
-export { default as CalendarPage} from "./admin/CalendarPage";
-export { default as PostPage} from "./admin/PostPage";
-export { default as Page404} from "./Page404";
-export { default as NewsPage} from "./NewsPage";
+import MainPage from "./MainPage";
+import AboutPage from "./AboutPage";
+import SignOutPage from "./SignOutPage";
+import SignUpPage from "./SignUpPage";
+import BookingPage from "./client/BookingPage";
+import SessionPage from "./client/SessionPage";
+import SettingsPage from "./client/SettingsPage";
+import SignInPage from "./LoginPage";
+import DashboardPage from "./admin/DashboardPage";
+import ManagerPage from "./admin/ManagerPage";
+import CalendarPage from "./admin/CalendarPage";
+import PostPage from "./admin/PostPage";
+import Page404 from "./Page404";
+import NewsPage from "./NewsPage";
+
+const pages = {
+  MainPage,
+  AboutPage,
+  SignOutPage,
+  SignUpPage,
+  BookingPage,
+  SessionPage,
+  SettingsPage,
+  SignInPage,
+  DashboardPage,
+  ManagerPage,
+  CalendarPage,
+  PostPage,
+  Page404,
+  NewsPage,
+};
+
+export type PageName = keyof typeof pages;
+
+export { pages };
