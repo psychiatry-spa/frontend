@@ -1,17 +1,19 @@
-import MainPage from "./MainPage";
-import AboutPage from "./AboutPage";
-import SignOutPage from "./SignOutPage";
-import SignUpPage from "./SignUpPage";
-import BookingPage from "./client/BookingPage";
-import SessionPage from "./client/SessionPage";
-import SettingsPage from "./client/SettingsPage";
-import SignInPage from "./LoginPage";
-import DashboardPage from "./admin/DashboardPage";
-import ManagerPage from "./admin/ManagerPage";
-import CalendarPage from "./admin/CalendarPage";
-import PostPage from "./admin/PostPage";
-import Page404 from "./Page404";
-import NewsPage from "./NewsPage";
+import { lazy } from "react";
+
+const AboutPage = lazy(() => import( "./AboutPage"))
+const SignOutPage = lazy(() => import( "./SignOutPage"))
+const SignUpPage = lazy(() => import( "./SignUpPage"))
+const BookingPage = lazy(() => import( "./client/BookingPage"))
+const SessionPage = lazy(() => import( "./client/SessionPage"))
+const SettingsPage = lazy(() => import( "./client/SettingsPage"))
+const SignInPage = lazy(() => import( "./LoginPage"))
+const DashboardPage = lazy(() => import( "./admin/DashboardPage"))
+const ManagerPage = lazy(() => import( "./admin/ManagerPage"))
+const CalendarPage = lazy(() => import( "./admin/CalendarPage"))
+const PostPage = lazy(() => import( "./admin/PostPage"))
+const Page404 = lazy(() => import( "./Page404"))
+const NewsPage = lazy(() => import( "./NewsPage"))
+const MainPage = lazy(() => import( "./MainPage"))
 
 const pages = {
   MainPage,
