@@ -104,7 +104,7 @@ const RegisterForm = () => {
         )}
         <InputField
           name="password"
-          styles="pr-11"
+          inputStyles="pr-11"
           data={formData.password}
           type="password"
           handleChange={handleChange}

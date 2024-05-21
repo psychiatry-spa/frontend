@@ -1,11 +1,24 @@
-import useFetchData from "./useFetchData";
+import { useMutation, useQueryClient } from "react-query";
+import fetchData from "./fetchData";
 
-const useDelete = <T,>(url: string) => {
-  const { isLoading, data, error, fetchData } = useFetchData<T>(url, { method: 'DELETE' });
+const useDelete = <T>(url: string) => {
+  const queryClient = useQueryClient();
 
-  const del = () => fetchData();
+  const mutation = useMutation<T, Error, any>(
+    (body: any) => fetchData<T>(url, { method: "DELETE", body }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(url);
+      }
+    }
+  );
 
-  return { isLoading, data, error, del };
+  return {
+    isLoading: mutation.isLoading, 
+    data: mutation.data, 
+    error: mutation.error, 
+    delete: mutation.mutateAsync,
+  };
 };
 
 export default useDelete;

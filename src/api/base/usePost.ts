@@ -1,11 +1,24 @@
-import useFetchData from "./useFetchData";
+import { useMutation, useQueryClient } from "react-query";
+import fetchData from "./fetchData";
 
 const usePost = <T>(url: string) => {
-  const { isLoading, data, error, fetchData } = useFetchData<T>(url, { method: "POST" });
+  const queryClient = useQueryClient();
 
-  const post = (body: any) => fetchData({ body });
+  const mutation = useMutation<T, Error, any>(
+    (body: any) => fetchData<T>(url, { method: "POST", body }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(url);
+      }
+    }
+  );
 
-  return { isLoading, data, error, post };
+  return {
+    isLoading: mutation.isLoading,
+    data: mutation.data,
+    error: mutation.error,
+    post: mutation.mutateAsync,
+  };
 };
 
 export default usePost;

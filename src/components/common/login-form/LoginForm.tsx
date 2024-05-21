@@ -1,6 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
 import { API_ENDPOINTS } from "../../../constants";
-import useSubmitForm from "../../../hooks/api/useSubmitForm";
 import InputField from "./components/InputField";
 import Button from "../buttons/Button";
 import Socials from "../socials/Socials";
@@ -24,7 +23,7 @@ const LoginForm = () => {
   });
 
   const navigate = useNavigate();
-  const submitForm = usePost(API_ENDPOINTS.signIn);
+  const { post, isLoading, error } = usePost(API_ENDPOINTS.signIn);
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
@@ -40,12 +39,14 @@ const LoginForm = () => {
         setErrors(newErrors);
         return;
       }
-      const result = await submitForm.post(formData);
-      if (!result.ok) {
+      try {
+        await post(formData);
+        navigate("/admin/dashboard");
+      } catch (err) {
         setErrors({ ...errors, incorrectError: true });
-      } else navigate("/admin/dashboard");
+      }
     },
-    [formData]
+    [formData, post, navigate, errors]
   );
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +80,7 @@ const LoginForm = () => {
         </h1>
         <InputField
           name="email"
-          styles={
+          inputStyles={
             errors.emailError || errors.incorrectError ? "border-red-500" : ""
           }
           data={formData.email}
@@ -93,7 +94,7 @@ const LoginForm = () => {
         )}
         <InputField
           name="password"
-          styles={
+          inputStyles={
             errors.passwordError ||
             errors.incorrectError ||
             errors.passwordCharactersError
@@ -130,7 +131,7 @@ const LoginForm = () => {
           type="submit"
           styles="my-5 text-2xl font-medium"
         >
-          Log in
+          { isLoading ? "Logging in..." : "Log in"}
         </Button>
       </form>
       <Socials text="Or log in with" />

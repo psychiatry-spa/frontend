@@ -5,18 +5,28 @@ interface Props {
   name: string;
   data: string;
   type: string;
-  styles?: string;
+  fieldStyles?: string;
+  inputStyles?: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   autocomplete?: string;
 }
 
-const InputField = ({ name, data, type, styles, handleChange, placeholder, autocomplete }: Props) => {
+const InputField = ({
+  name,
+  data,
+  type,
+  fieldStyles,
+  inputStyles,
+  handleChange,
+  placeholder,
+  autocomplete,
+}: Props) => {
   const [isActive, setIsActive] = useState(false);
   const handleClick = () => setIsActive(!isActive);
 
   return (
-    <div className={`relative ${styles}`}>
+    <div className={`relative ${fieldStyles}`}>
       <Icon name={type} styles="size-8 absolute inset-y-0 left-0 pl-3 mt-4" />
       {type === "password" && (
         <button type="button" onClick={handleClick}>
@@ -27,7 +37,7 @@ const InputField = ({ name, data, type, styles, handleChange, placeholder, autoc
         </button>
       )}
       <input
-        className={`pl-10 placeholder-secondary border rounded-xl border-primary-500 w-full p-3 my-2 outline-none bg-primary-005 focus:bg-white`}
+        className={`pl-10 placeholder-secondary border rounded-xl border-primary-500 w-full p-3 my-2 outline-none bg-primary-005 focus:bg-white ${inputStyles}`}
         type={isActive && type === "password" ? "text" : type}
         name={name}
         value={data}
