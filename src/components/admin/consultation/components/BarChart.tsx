@@ -7,6 +7,7 @@ import {
   TooltipProps as RechartsTooltipProps,
   ResponsiveContainer,
 } from "recharts";
+import { useDarkMode } from "../../../../context/DarkModeContext";
 
 interface CustomTooltipProps extends RechartsTooltipProps<number, string> {
   payload?: any[];
@@ -14,7 +15,7 @@ interface CustomTooltipProps extends RechartsTooltipProps<number, string> {
 }
 
 const ChartBar = () => {
-  const [chartWidth, setChartWidth] = useState(0);
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
   const chartContainerRef = useRef<HTMLDivElement>(null);
 
   // Information on the number of consultations during a certain period
@@ -49,27 +50,7 @@ const ChartBar = () => {
 
     return null;
   };
-
-  // update width of ChartBar dynamically(it's imposible without this useEffect)
-  useEffect(() => {
-    const updateWidth = () => {
-      if (chartContainerRef.current) {
-        setChartWidth(chartContainerRef.current.offsetWidth);
-      }
-    };
-
-    updateWidth();
-
-    const resizeObserver = new ResizeObserver(() => {
-      updateWidth();
-    });
-
-    if (chartContainerRef.current) {
-      resizeObserver.observe(chartContainerRef.current);
-    }
-  }, []);
-
-  // To ensure the BarChart always displays only the last 7 items
+  
   useEffect(() => {
     data.length > 7 && setData((data) => data.slice(-7));
   }, [data]);
@@ -80,7 +61,7 @@ const ChartBar = () => {
         <XAxis dataKey="name" hide={true} />
         {/* cursor={{fill: "color"}} */}
         <Tooltip cursor={false} content={<CustomTooltip />} />
-        <Bar radius={[3, 3, 0, 0]} dataKey="consultations" fill="#F2957C" />
+        <Bar radius={[3, 3, 0, 0]} dataKey="consultations" fill={isDarkMode ? "#347178" : "#F2957C"} />
       </BarChart>
     </ResponsiveContainer>
   );

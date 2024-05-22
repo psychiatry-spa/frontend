@@ -210,7 +210,7 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
             )
           ) : (
             <tr>
-              <td colSpan={9999} className="text-5xl text-center py-32 pr-32">
+              <td colSpan={9999} className="text-5xl text-center py-32 pr-32 dark:text-gray-400">
                 No results
               </td>
             </tr>
