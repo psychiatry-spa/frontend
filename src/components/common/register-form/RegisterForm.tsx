@@ -85,6 +85,7 @@ const RegisterForm = () => {
           data={formData.fullName || ""}
           type="fullName"
           handleChange={handleChange}
+          placeholder=" Enter your full name"
         />
         {errors.fullNameError && (
           <p className="text-red-500 text-sm">

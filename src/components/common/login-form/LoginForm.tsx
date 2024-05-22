@@ -1,14 +1,15 @@
 import { useCallback, useMemo, useState } from "react";
 import { API_ENDPOINTS } from "../../../constants";
+import { useValidation } from "../../../hooks/useValidation";
+import { FormErrorFlags, FormData } from "../../types";
+import { Link, useNavigate } from "react-router-dom";
 import InputField from "./components/InputField";
 import Button from "../buttons/Button";
 import Socials from "../socials/Socials";
-import { Link, useNavigate } from "react-router-dom";
 import Icon from "../Icon";
 import Container from "../Container";
-import { useValidation } from "../../../hooks/useValidation";
-import { FormErrorFlags, FormData } from "../../types";
 import usePost from "../../../api/base/usePost";
+import LoadingDemo from "../LoadingDemo";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -131,7 +132,7 @@ const LoginForm = () => {
           type="submit"
           styles="my-5 text-2xl font-medium"
         >
-          { isLoading ? "Logging in..." : "Log in"}
+          { isLoading ? <LoadingDemo /> : "Log in"}
         </Button>
       </form>
       <Socials text="Or log in with" />
