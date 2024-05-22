@@ -129,7 +129,7 @@ const Settings = () => {
 
         <div className="relative text-center mt-4 mx-auto block w-max group">
           <input
-            className="text-3xl bg-transparent text-center  bg-primary-005 outline-none border-none"
+            className="text-3xl bg-transparent text-center bg-primary-005 outline-none border-none"
             name="fullName"
             value={fullName}
             onChange={handleFullNameChange}
@@ -148,14 +148,14 @@ const Settings = () => {
           style="primary"
           disabled={isDisabled}
           type="submit"
-          styles="my-5 text-2xl font-medium mx-auto block px-2"
+          styles="my-5 px-4 text-2xl font-medium mx-auto block"
         >
           Save changes
         </Button>
       </form>
 
       <Button
-        styles="px-2 mx-auto block text-xl font-bold mt-10"
+        styles="px-4 mx-auto block text-xl font-bold"
         style="primary"
         type="submit"
         onClick={handleOpenModal}
