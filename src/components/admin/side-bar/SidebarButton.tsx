@@ -3,11 +3,15 @@ import Icon from "../../common/Icon";
 
 interface Props {
   name: string;
+  setIsSidebar: (isSidebar: boolean) => void;
 }
 
-export const SidebarButton = ({ name }: Props) => {
+export const SidebarButton = ({ name, setIsSidebar }: Props) => {
   const isActive = location.pathname === `/admin/${name.toLowerCase()}`;
-
+  
+  const handleClick = () => {
+    setIsSidebar(false);
+  }
   return (
     <Link
       className={`w-56 py-2 mx-2 my-1 flex items-center rounded-lg
@@ -19,6 +23,7 @@ export const SidebarButton = ({ name }: Props) => {
           : " text-primary-700 dark:text-primary-200"
       }`}
       to={`/admin/${name.toLowerCase()}`}
+      onClick={handleClick}
     >
       <Icon name={name.toLowerCase()} styles="m-1 mr-3 size-5" />
       <span className="text-[1.1rem]">
