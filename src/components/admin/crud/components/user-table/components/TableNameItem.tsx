@@ -10,10 +10,7 @@ const TableNameItem = ({ name, surname, email, imageUrl }: Props) => {
     <td className="pl-2 py-3 flex items-center gap-x-5">
       <img
         className="size-10 rounded-full"
-        src={
-          imageUrl ||
-          "https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png"
-        }
+        src={imageUrl}
         alt="avatar"
       />
       <div className="flex flex-col">

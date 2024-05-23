@@ -5,7 +5,7 @@ export { default as SignOutPage} from "./SignOutPage";
 export { default as SignUpPage} from "./SignUpPage";
 export { default as BookingPage} from "./client/BookingPage";
 export { default as SessionPage} from "./client/SessionPage";
-export { default as SettingsPage} from "./client/SettingsPage";
+export { default as SettingsPage} from "./admin/SettingsPage";
 export { default as SignInPage} from "./LoginPage";
 export { default as DashboardPage} from "./admin/DashboardPage";
 export { default as ManagerPage} from "./admin/ManagerPage";

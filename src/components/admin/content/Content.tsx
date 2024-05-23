@@ -6,7 +6,7 @@ interface Props extends ChildrenProps {
 
 const Content = ({ children, columns = "grid-cols-12" }: Props) => {
   return (
-    <main className="relative max-w-full h-full px-4">
+    <main className="relative max-w-full h-full mx-4">
       <div className={`pt-4 grid gap-4 ${columns}`}>{children}</div>
     </main>
   );

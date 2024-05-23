@@ -31,7 +31,6 @@ function App() {
         <Route path="/reset" element={<ResetPasswordPage />} /> */}
         {/* User */}
         <Route path="/sessions" element={<SessionPage />} />
-        <Route path="/settings" element={<SettingsPage />} />
         <Route path="/booking" element={<BookingPage />} />
         {/* Admin */}
         <Route path="/admin/dashboard" element={<DashboardPage />} />

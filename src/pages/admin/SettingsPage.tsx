@@ -1,9 +1,10 @@
+import Settings from "../../components/admin/settings/Settings";
 import AdminLayout from "../../layouts/admin/AdminLayout";
 
-const SettingsPage = () => {
+const SettingsPage: React.FC = () => {
   return (
     <AdminLayout>
-      <div>SettingsPage</div>
+      <Settings />
     </AdminLayout>
   );
 };
