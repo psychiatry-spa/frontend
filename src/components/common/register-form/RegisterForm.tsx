@@ -49,7 +49,7 @@ const RegisterForm = () => {
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const { errors: validationErrors } = await useValidation(formData);
+      const { validationErrors } = await useValidation(formData);
       if (validationErrors.length > 0) {
         const newErrors: FormErrorFlags = {
           passwordCharactersError: validationErrors.includes("Short password"),
@@ -81,9 +81,11 @@ const RegisterForm = () => {
           Create new Account
         </h1>
         <InputField
+          name="fullName"
           data={formData.fullName || ""}
           type="fullName"
           handleChange={handleChange}
+          placeholder=" Enter your full name"
         />
         {errors.fullNameError && (
           <p className="text-red-500 text-sm">
@@ -91,6 +93,7 @@ const RegisterForm = () => {
           </p>
         )}
         <InputField
+          name="email"
           data={formData.email}
           type="email"
           handleChange={handleChange}
@@ -101,7 +104,8 @@ const RegisterForm = () => {
           </p>
         )}
         <InputField
-          styles="pr-11"
+          name="password"
+          inputStyles="pr-11"
           data={formData.password}
           type="password"
           handleChange={handleChange}
