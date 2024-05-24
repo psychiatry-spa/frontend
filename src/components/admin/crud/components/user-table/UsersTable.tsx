@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { API_ENDPOINTS } from "../../../../../constants";
 import { SearchQueryProps, UsersProps } from "../../../../types/types";
-import useFetchData from "../../../../../hooks/api/useFetchData";
 
 import TableHeader from "./components/TableHeader";
 import TableNameItem from "./components/TableNameItem";
@@ -9,6 +8,7 @@ import TableItem from "./components/TableItem";
 import Icon from "../../../../common/Icon";
 
 import { format } from "date-fns";
+import useGet from "../../../../../api/base/useGet";
 
 const UsersTable = ({ searchQuery }: SearchQueryProps) => {
   const [data, setData] = useState<UsersProps[]>([]);
@@ -18,17 +18,25 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
     order: "asc" | "desc" | "none";
   }>({ field: "none", order: "none" });
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const { refetch } = useGet<any>(API_ENDPOINTS.usersList);
 
   const itemsPerPage = 20;
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
-      const fetchUsers = useFetchData(API_ENDPOINTS.usersList);
-      const response = await fetchUsers();
-      if (response.ok) setData(response.data.users);
-      else console.error("Failed to fetch Users");
-      setLoading(false);
+      try {
+        setLoading(true);
+        const response = await refetch();
+        if (Array.isArray(response?.data?.users)) {
+          setData(response.data.users);
+        } else {
+          setData([]);
+        }
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchData();
@@ -125,11 +133,30 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
       <table className="table-auto w-full min-w-full mt-4">
         <thead className="border-b bg-primary-005 border-primary-200 dark:bg-dark-bg-hover dark:border-dark-border">
           <tr className="text-primary-600 dark:text-primary-400">
-            {["name", "role", "consultations", "country", "createdAt", "none"].map(
-              (name) => (
-                <TableHeader name={name} handleClick={() => handleSort(name as "name" | "role" | "consultations" | "country" | "createdAt" | "none")} />
-              )
-            )}
+            {[
+              "name",
+              "role",
+              "consultations",
+              "country",
+              "createdAt",
+              "none",
+            ].map((name) => (
+              <TableHeader
+                key={name}
+                name={name}
+                handleClick={() =>
+                  handleSort(
+                    name as
+                      | "name"
+                      | "role"
+                      | "consultations"
+                      | "country"
+                      | "createdAt"
+                      | "none"
+                  )
+                }
+              />
+            ))}
           </tr>
         </thead>
         <tbody>
@@ -143,7 +170,6 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
                   surname,
                   email,
                   role,
-                  country,
                   consultations,
                   createdAt,
                 },
@@ -163,12 +189,11 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
                   />
 
                   {[
-                    role,
-                    consultations.length.toString(),
-                    (country = ""),
-                    format(createdAt, "MM.dd.yyyy H:mm:ss"),
-                  ].map((text) => (
-                    <TableItem text={text} />
+                    { key: `${_id}-role`, text: role },
+                    { key: `${_id}-consultations`, text:consultations.length.toString() },
+                    { key: `${_id}-createdAt`, text: format(new Date(createdAt), "MM.dd.yyyy H:mm:ss") },
+                  ].map(({ key, text }) => (
+                    <TableItem key={key} text={text} />
                   ))}
 
                   <td>
@@ -185,7 +210,7 @@ const UsersTable = ({ searchQuery }: SearchQueryProps) => {
             )
           ) : (
             <tr>
-              <td colSpan={9999} className="text-5xl text-center py-32 pr-32">
+              <td colSpan={9999} className="text-5xl text-center py-32 pr-32 dark:text-gray-400">
                 No results
               </td>
             </tr>

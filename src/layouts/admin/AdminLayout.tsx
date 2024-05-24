@@ -13,7 +13,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div className="bg-primary-005 h-full dark:bg-dark-background">
       <NavBar handleClick={handleSidebar} />
       <Sidebar isSidebar={isSidebar} />
-      <div className="pt-20 lg:ml-60">{children}</div>
+      <div className="pt-20 mx-2 lg:ml-60">{children}</div>
     </div>
   );
 };

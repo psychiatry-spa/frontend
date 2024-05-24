@@ -1,14 +1,15 @@
 import { useCallback, useMemo, useState } from "react";
 import { API_ENDPOINTS } from "../../../constants";
-import useSubmitForm from "../../../hooks/api/useSubmitForm";
+import { useValidation } from "../../../hooks/useValidation";
+import { FormErrorFlags, FormData } from "../../types";
+import { Link, useNavigate } from "react-router-dom";
 import InputField from "./components/InputField";
 import Button from "../buttons/Button";
 import Socials from "../socials/Socials";
-import { Link, useNavigate } from "react-router-dom";
 import Icon from "../Icon";
 import Container from "../Container";
-import { useValidation } from "../../../hooks/useValidation";
-import { FormErrorFlags, FormData } from "../../types";
+import usePost from "../../../api/base/usePost";
+import LoadingDemo from "../LoadingDemo";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -23,12 +24,12 @@ const LoginForm = () => {
   });
 
   const navigate = useNavigate();
-  const submitForm = useSubmitForm(API_ENDPOINTS.signIn);
+  const { post, isLoading, error } = usePost(API_ENDPOINTS.signIn);
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const { errors: validationErrors } = await useValidation(formData);
+      const { validationErrors } = await useValidation(formData);
       if (validationErrors.length > 0) {
         const newErrors = {
           passwordCharactersError: validationErrors.includes("Short password"),
@@ -39,12 +40,14 @@ const LoginForm = () => {
         setErrors(newErrors);
         return;
       }
-      const result = await submitForm(formData);
-      if (!result.ok) {
+      try {
+        await post(formData);
+        navigate("/admin/dashboard");
+      } catch (err) {
         setErrors({ ...errors, incorrectError: true });
-      } else navigate("/admin/dashboard");
+      }
     },
-    [formData]
+    [formData, post, navigate, errors]
   );
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +80,8 @@ const LoginForm = () => {
           Log in to Your Account
         </h1>
         <InputField
-          styles={
+          name="email"
+          inputStyles={
             errors.emailError || errors.incorrectError ? "border-red-500" : ""
           }
           data={formData.email}
@@ -90,7 +94,8 @@ const LoginForm = () => {
           </p>
         )}
         <InputField
-          styles={
+          name="password"
+          inputStyles={
             errors.passwordError ||
             errors.incorrectError ||
             errors.passwordCharactersError
@@ -122,12 +127,12 @@ const LoginForm = () => {
           <Link to="/">Forgot password?</Link>
         </div>
         <Button
-          style={"primary"}
+          style="primary"
           disabled={isDisabled}
           type="submit"
           styles="my-5 text-2xl font-medium"
         >
-          Log in
+          { isLoading ? <LoadingDemo /> : "Log in"}
         </Button>
       </form>
       <Socials text="Or log in with" />

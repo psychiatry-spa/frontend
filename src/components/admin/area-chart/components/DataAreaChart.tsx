@@ -8,18 +8,19 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { useDarkMode } from "../../../../context/DarkModeContext";
 
 const DataAreaChart = () => {
-  console.log(localStorage.getItem("darkMode"));
-  const data = [
-    { name: "1 Feb", uv: 4000, pv: 2400 },
-    { name: "2 Feb", uv: 3000, pv: 1398 },
-    { name: "3 Feb", uv: 2000, pv: 9800 },
-    { name: "4 Feb", uv: 2780, pv: 3908 },
-    { name: "5 Feb", uv: 1890, pv: 4800 },
-    { name: "6 Feb", uv: 2390, pv: 3800 },
-    { name: "7 Feb", uv: 3490, pv: 4300 },
-  ];
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
+
+  const data = [];
+
+  for (let i = 1; i <= 7; i++) {
+    const date = `${i} Feb`;
+    const uv = Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000; // Random value between 1000 and 5000
+    const pv = Math.floor(Math.random() * (10000 - 1000 + 1)) + 1000; // Random value between 1000 and 10000
+    data.push({ name: date, uv, pv });
+  }
 
   return (
     <ResponsiveContainer width="100%" height={430}>
@@ -40,19 +41,21 @@ const DataAreaChart = () => {
         <XAxis
           stroke="#CCDCDD"
           dataKey="name"
-          tick={{ fill: "#4D8389" }}
+          tick={{ fill: isDarkMode ? "#fff" : "#4D8389" }}
           tickLine={{ stroke: "#CCDCDD" }}
         />
-        <YAxis tickLine={false} axisLine={false} tick={{ fill: "#4D8389" }} />
+        <YAxis
+          tickLine={false}
+          axisLine={false}
+          tick={{ fill: isDarkMode ? "#fff" : "#4D8389" }}
+        />
         <CartesianGrid strokeDasharray="3 0.5" vertical={false} />
         <Tooltip cursor={false} />
         <Area
           name="Income (previous)"
           type="monotone"
           dataKey="uv"
-          stroke={
-            localStorage.getItem("darkMode") === "true" ? "#E6F2F3" : "#014E56"
-          }
+          stroke={isDarkMode ? "#E6F2F3" : "#014E56"}
           strokeWidth="2"
           fillOpacity={0}
           fill="url(#colorUv)"
