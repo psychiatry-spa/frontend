@@ -1,5 +1,4 @@
 import Icon from "../../components/common/Icon";
-import { SearchBar } from "../../components/common/bars/SearchBar";
 import { useDarkMode } from "../../context/DarkModeContext";
 
 interface Props {
