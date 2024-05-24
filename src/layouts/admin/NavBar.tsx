@@ -13,11 +13,11 @@ const Navbar = ({ isSidebar, setIsSidebar }: Props) => {
   return (
     <nav className="fixed py-2 z-20 w-full border-b bg-white border-primary-200 dark:bg-dark-container dark:border-dark-border">
       <div className="flex justify-between">
-        { !isSidebar && <div className="w-80 text-left text-3xl mt-1 ml-2">
+        <div className="w-80 text-left text-3xl mt-1 ml-2">
           <button className="" onClick={toggleSidebar}>
             XX
           </button>
-        </div>}
+        </div>
         <div className="flex items-center justify-end w-full">
           <button
             onClick={toggleDarkMode}
