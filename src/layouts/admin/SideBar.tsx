@@ -1,58 +1,50 @@
 import { SidebarButton } from "../../components/admin/side-bar/SidebarButton";
 import { SearchBar } from "../../components/common/bars/SearchBar";
-import { Link } from "react-router-dom";
 import Icon from "../../components/common/Icon";
-import { useState } from "react";
 
 interface Props {
   isSidebar: boolean;
+  setIsSidebar: (isSidebar: boolean) => void;
 }
 
-const Sidebar = ({ isSidebar }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleSidebar = () => setIsOpen(!isOpen);
+const Sidebar = ({ isSidebar, setIsSidebar }: Props) => {
+  const toggleSidebar = () => setIsSidebar(!isSidebar);
   return (
     <>
+      <div
+        className={`${
+          !isSidebar ? "" : "bg-slate-700 md:opacity-0 inset-0 fixed z-20 opacity-50"
+        }`}
+      ></div>
       <aside
         id="sidebar"
-        className={`fixed h-full z-10 w-60 font-normal transition-all duration-300 ${
-          isOpen ? "flex" : "hidden"
-        } lg:flex flex-col`}
+        className={`fixed left-0 h-full z-20 font-normal transition-all duration-300 overflow-hidden ${
+          isSidebar ? "w-60" : "w-0"
+        } flex-col`}
       >
         <div className="flex flex-col h-full bg-white border-r border-primary-200 dark:bg-dark-container dark:border-dark-border">
-          <Link to="/" className="flex justify-around items-center py-3">
-            <Icon name="google" styles="size-10" />
-            <span className="font-bold text-primary text-2xl dark:text-white">
-              Admin Panel
-            </span>
-          </Link>
+          <div className="w-80 text-left mt-3 text-3xl ml-2">
+            <button className="" onClick={toggleSidebar}>
+              XX
+            </button>
+          </div>
           <ul>
-            <li className="m-2 lg:hidden">
-              <SearchBar />
-            </li>
-            {["dashboard", "calendar", "manager", "posts", "settings"].map((name) => (
-              <li key={name}>
-                <SidebarButton name={name} />
-              </li>
-            ))}
+            {["dashboard", "calendar", "manager", "posts", "settings"].map(
+              (name) => (
+                <li key={name}>
+                  <SidebarButton name={name} setIsSidebar={setIsSidebar} />
+                </li>
+              )
+            )}
             <li className="border-b border-primary-200 mx-3"></li>
             {["repository", "support", "logout"].map((name) => (
               <li key={name}>
-                <SidebarButton name={name} />
+                <SidebarButton name={name} setIsSidebar={setIsSidebar} />
               </li>
             ))}
           </ul>
         </div>
       </aside>
-      <button 
-        onClick={toggleSidebar} 
-        className={`fixed top-3/4 left-0 z-30 lg:hidden transform transition-transform ${
-          isOpen ? 'translate-x-full rotate-180' : 'translate-x-0 rotate-0'
-        }`}
-      >
-        <Icon name="arrow-right" styles="size-6" />
-      </button>
     </>
   );
 };
