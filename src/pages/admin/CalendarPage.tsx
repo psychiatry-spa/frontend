@@ -61,7 +61,7 @@ const CalendarPage = () => {
   return (
     <AdminLayout>
       <Content columns="grid-cols-6">
-        <UpcomingEvents events={events || []} />
+        <UpcomingEvents events={events?.slice(0, 3) || []} />
         <Calendar
           today={today}
           events={events || []}

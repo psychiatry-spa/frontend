@@ -1,14 +1,15 @@
 import { isBefore, isSameMonth, isToday, isEqual } from "date-fns";
-import CalendarButton from "./CalendarButton";
+import CalendarButton from "./components/CalendarButton";
 import { Event } from "../../../../../services/eventService";
 
 interface Props {
   today: Date;
   month: Date[];
   events?: Event[];
+  handleWeek: (day: Date) => void;
 }
 
-const MonthCalendar = ({ today, month, events = [] }: Props) => {
+const MonthCalendar = ({ today, month, events = [], handleWeek }: Props) => {
   const filterEventsByDayAndMonth = (event1: string, event2: string) => {
     const time1 = new Date(event1);
     const time2 = new Date(event2);
@@ -44,7 +45,7 @@ const MonthCalendar = ({ today, month, events = [] }: Props) => {
             // isSelected={isEqual(day, selectedDay)}
             isWeekend={day.getDay() % 6 == 0}
             day={day}
-            // onClick={(d: Date) => setSelectedDay(d)}
+            handleClick={handleWeek}
           />
         ))}
       </div>

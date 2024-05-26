@@ -2,6 +2,9 @@ import { format, isToday } from "date-fns";
 import { Event } from "../../../../../services/eventService";
 import { useEffect, useState } from "react";
 
+import WeekEventButton from "./WeekEventButton";
+import EventWindow from "../EventWindow";
+
 interface Props {
   week: Date[];
   events?: Event[];
@@ -51,6 +54,16 @@ const WeekCalendar = ({ week, events = [] }: Props) => {
     return calculateTopPosition(eventDate.getHours(), eventDate.getMinutes());
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [event, setEvent] = useState(null);
+
+  const openEvent = (e: React.MouseEvent, ev: Event) => {
+    e.stopPropagation();
+    setIsOpen(!isOpen);
+    setEvent(ev);
+    console.log(isOpen);
+  };
+
   return (
     <>
       <div className="w-full h-full">
@@ -70,25 +83,24 @@ const WeekCalendar = ({ week, events = [] }: Props) => {
             </div>
           ))}
         </div>
+        <EventWindow isOpen={isOpen} event={event} />
         <div className="relative flex max-h-[26.5rem] overflow-y-scroll">
-          {filtered.map((event, idx) => {
-            console.log(event.summary);
-            return (
-              <button
-                key={idx}
-                className="ml-[2.4rem] w-[13%] absolute h-px rounded-md flex justify-start items-center px-2 bg-accent/[.2] border-l-[3px] text-accent border-accent hover:text-accent-focus hover:bg-accent/[.3]"
-                style={{
-                  top: `calc(${getEventTopPosition(event)}% - 1px)`,
-                  left: `calc(${calculateEventDayPosition(event)}% - 1px)`,
-                  height: `calc(${calculateEventHeight(event)}% - 2px)`,
-                }}
-              >
-                <span className="text-sm font-medium truncate">
-                  {event.summary}
-                </span>
-              </button>
-            );
-          })}
+          {filtered.map((ev, idx) => (
+            // <WeekEventButton key={idx} event={event} />
+            <button
+              onClick={(e) => openEvent(e, ev)}
+              className="ml-[2.4rem] w-[13%] absolute h-px rounded-md flex justify-start items-center px-2 bg-accent/[.2] border-l-[3px] text-accent border-accent hover:text-accent-focus hover:bg-accent/[.3]"
+              style={{
+                top: `calc(${getEventTopPosition(event)}% - 1px)`,
+                left: `calc(${calculateEventDayPosition(event)}% - 1px)`,
+                height: `calc(${calculateEventHeight(event)}% - 2px)`,
+              }}
+            >
+              <span className="text-sm font-medium truncate">
+                {event.summary}
+              </span>
+            </button>
+          ))}
           <div
             className="absolute left-0 right-0 h-0.5 bg-accent"
             style={{
@@ -118,10 +130,7 @@ const WeekCalendar = ({ week, events = [] }: Props) => {
                     <button
                       onClick={() => "void"}
                       className="h-full w-full flex flex-col hover:bg-primary-005"
-                    >
-                      {/* <button /> */}
-                      {/* <button /> */}
-                    </button>
+                    />
                   </div>
                 ))
               )}

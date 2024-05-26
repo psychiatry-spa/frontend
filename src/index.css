@@ -22,6 +22,28 @@
   }
 }
 
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+input::-webkit-datetime-edit-day-field:focus,
+input::-webkit-datetime-edit-month-field:focus,
+input::-webkit-datetime-edit-year-field:focus,
+input::-webkit-datetime-edit-hour-field:focus,
+input::-webkit-datetime-edit-minute-field:focus,
+input::-webkit-datetime-edit-day-field:focus,
+input::-webkit-datetime-edit-month-field:focus,
+input::-webkit-datetime-edit-year-field:focus {
+    background-color: #EF7A5B;
+    color: #fff;
+    outline: none;
+    border-radius: 0.3rem;
+    padding: 0.05rem 0.2rem;
+}
+
 .secondary {
   @apply bg-coral/50 w-56 py-4 text-center rounded-2xl text-white font-light text-xl block mx-auto;
 }

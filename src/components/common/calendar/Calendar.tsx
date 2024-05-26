@@ -46,14 +46,11 @@ const Calendar = ({ today, events, selectedDay, setSelectedDay }: Props) => {
   };
 
   let firstDayOfWeek = parse(currDate, dateFormat, new Date());
-  // console.log(firstDayOfWeek);
 
   const week = eachDayOfInterval({
     start: startOfWeek(firstDayOfWeek, { weekStartsOn: 1 }),
     end: endOfWeek(firstDayOfWeek, { weekStartsOn: 1 }),
   });
-
-  // week.forEach((day) => console.log(day));
 
   let firstDayOfMonth = startOfMonth(parse(currDate, dateFormat, new Date()));
 
@@ -93,7 +90,13 @@ const Calendar = ({ today, events, selectedDay, setSelectedDay }: Props) => {
   const handleSetMonth = (month: Date) => {
     setCurrDate(format(month, dateFormat));
     setCalendar("Month");
-    handleDropdown("Month");
+    // handleDropdown("Month"); ToDo: fix this
+  };
+
+  const handleSetWeek = (weekDay: Date) => {
+    setCurrDate(format(weekDay, dateFormat));
+    setCalendar("Week");
+    // handleDropdown("Week"); ToDo: fix this
   };
 
   return (
@@ -139,51 +142,18 @@ const Calendar = ({ today, events, selectedDay, setSelectedDay }: Props) => {
               today={today}
               month={getMonth(firstDayOfMonth)}
               events={events}
+              handleWeek={handleSetWeek}
             />
           )}{" "}
           {calendar === "Year" && (
-            <YearCalendar months={months} handleMonth={handleSetMonth} />
+            <YearCalendar
+              months={months}
+              handleMonth={handleSetMonth}
+              handleWeek={handleSetWeek}
+            />
           )}
         </div>
       </Container>
-      {/* <Container styles="col-span-4">
-        <div className="w-full col-span-2">
-          <div></div>
-          <div className="flex items-center justify-between pb-4">
-            <span className="font-semibold text-3xl text-primary">
-              {calendar === "Year"
-                ? format(firstDay, "yyyy")
-                : format(firstDayOfMonth, "MMMM yyyy")}
-            </span>
-            <div className="flex justify-between">
-              <MenuButton
-                options={["Day", "Week", "Month", "Year"]}
-                styles="mx-2"
-                updateState={handleDropdown}
-              />
-              <button
-                onClick={handleSetToday}
-                className="mx-2 p-1 px-3 rounded-lg bg-primary-100 hover:bg-primary-200 dark:bg-primary-800 dark:hover:bg-primary-700 text-primary-800 hover:text-primary dark:text-primary-200 dark:hover:text-primary-100 font-medium text-sm"
-              >
-                <span>Today</span>
-              </button>
-              <IconButton
-                name="arrow-left"
-                handleClick={handleSetPrevMonth}
-                isBackground={true}
-                styles="mx-2 mr-4"
-              />
-              <IconButton
-                name="arrow-right"
-                handleClick={handleSetNextMonth}
-                isBackground={true}
-              />
-            </div>
-          </div>
-          <hr className="mb-5 bg-primary-200" />
-          
-        </div>
-      </Container> */}
     </>
   );
 };
