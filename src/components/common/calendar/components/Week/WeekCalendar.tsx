@@ -3,7 +3,7 @@ import { Event } from "../../../../../services/eventService";
 import { useEffect, useState } from "react";
 
 import WeekEventButton from "./WeekEventButton";
-import EventWindow from "../EventWindow";
+import EventWindow from "../EventForm";
 
 interface Props {
   week: Date[];
@@ -55,19 +55,19 @@ const WeekCalendar = ({ week, events = [] }: Props) => {
   };
 
   const [isOpen, setIsOpen] = useState(false);
-  const [event, setEvent] = useState(null);
+  const [selectedEvent, setSelectedEvent] = useState<Event>(events[0]);
 
   const openEvent = (e: React.MouseEvent, ev: Event) => {
     e.stopPropagation();
     setIsOpen(!isOpen);
-    setEvent(ev);
+    setSelectedEvent(ev);
     console.log(isOpen);
   };
 
   return (
     <>
       <div className="w-full h-full">
-        <div className="grid grid-cols-7 place-items-center text-lg pl-8 border-b border-primary-200">
+        <div className="grid grid-cols-7 place-items-center truncate text-md pl-8 border-b border-primary-200">
           {week.map((day, idx) => (
             <div
               key={idx}
@@ -79,16 +79,16 @@ const WeekCalendar = ({ week, events = [] }: Props) => {
                   : "text-primary-900"
               }`}
             >
-              {format(day, "E, d")}
+              {format(day, "E d")}
             </div>
           ))}
         </div>
-        <EventWindow isOpen={isOpen} event={event} />
-        <div className="relative flex max-h-[26.5rem] overflow-y-scroll">
-          {filtered.map((ev, idx) => (
+        <EventWindow isOpen={isOpen} event={selectedEvent} />
+        <div className="relative flex max-h-[26.5rem] overflow-y-scroll overflow-x-clip">
+          {filtered.map((event, idx) => (
             // <WeekEventButton key={idx} event={event} />
             <button
-              onClick={(e) => openEvent(e, ev)}
+              onClick={(e) => openEvent(e, event)}
               className="ml-[2.4rem] w-[13%] absolute h-px rounded-md flex justify-start items-center px-2 bg-accent/[.2] border-l-[3px] text-accent border-accent hover:text-accent-focus hover:bg-accent/[.3]"
               style={{
                 top: `calc(${getEventTopPosition(event)}% - 1px)`,

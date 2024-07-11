@@ -1,19 +1,18 @@
-import axios from "axios";
 import eventService, {
   Event,
   CACHE_KEY_EVENTS,
 } from "../../../services/eventService";
-import { QueryClient, useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 interface AddEventContext {
   previousEvents: Event[];
 }
 
-const useAddEvent = () => {
+const useModifyEvent = () => {
   const queryClient = useQueryClient();
 
   return useMutation<Event, Error, Event, AddEventContext>({
-    mutationFn: eventService.post,
+    mutationFn: (data) => eventService.patch(data.googleEventId, data),
 
     onMutate: (newEvent) => {
       const previousEvents =
@@ -23,10 +22,11 @@ const useAddEvent = () => {
       //   queryKey: ["events"],
       // });
       // 2. Updating the data in the cache directly
-      queryClient.setQueryData<Event[]>(CACHE_KEY_EVENTS, (events) => [
-        newEvent,
-        ...(events || []),
-      ]);
+      queryClient.setQueryData<Event[]>(["events"], (events) =>
+        (events || []).map((event) =>
+          event.googleEventId === newEvent.googleEventId ? newEvent : event
+        )
+      );
 
       return { previousEvents };
     },
@@ -37,6 +37,7 @@ const useAddEvent = () => {
       );
     },
     onError: (error, newEvent, context) => {
+      console.log(error);
       if (!context) return;
 
       queryClient.setQueryData<Event[]>(
@@ -47,4 +48,4 @@ const useAddEvent = () => {
   });
 };
 
-export default useAddEvent;
+export default useModifyEvent;

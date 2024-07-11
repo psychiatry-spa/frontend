@@ -2,6 +2,10 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:3000/api",
+  withCredentials: true,
+  headers: {
+    "Content-type": "application/json",
+  },
 });
 
 class ApiClient<T> {
@@ -15,6 +19,11 @@ class ApiClient<T> {
 
   post = (data: T) =>
     axiosInstance.post<T>(this.endpoint, data).then((res) => res.data);
+
+  patch = (eventId: string, data: T) =>
+    axiosInstance
+      .patch<T>(`${this.endpoint}/${eventId}`, data)
+      .then((res) => res.data);
 }
 
 export default ApiClient;

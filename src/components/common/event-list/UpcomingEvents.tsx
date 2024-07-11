@@ -17,10 +17,10 @@ const UpcomingEvents = ({ events }: Props) => {
     <Container styles="col-span-2">
       <section className="h-full flex flex-col justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-primary">
+          <h2 className="text-xl font-semibold text-primary dark:text-primary-100">
             {header} Events
           </h2>
-          <ol className="mt-4">
+          <ol className="mt-4 max-h-[26.5rem] overflow-y-scroll">
             {events.length > 0 ? (
               events.map(({ summary, start, end }, idx) => (
                 <EventItem
@@ -30,7 +30,7 @@ const UpcomingEvents = ({ events }: Props) => {
                 />
               ))
             ) : (
-              <p className="text-primary">
+              <p className="text-primary dark:text-primary-100">
                 No more {header.toLowerCase()} events.
               </p>
             )}

@@ -1,25 +1,15 @@
 import { format } from "date-fns";
-import { useState } from "react";
+import { Props } from "./DateTimeInput";
 
-interface Props {
-  dateTime: string;
-  labelText: string;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  defaultTime: number;
-  styles?: string;
-}
-
-const DateTimeInput = ({
+export const DateTimeInput = ({
   dateTime,
   labelText,
   handleChange,
   defaultTime,
   styles = "",
 }: Props) => {
-  const [input, setInput] = useState()
-  const formatInputs = () => {
-
-  }
+  const [input, setInput] = useState();
+  const formatInputs = () => {};
   return (
     <div className="w-full grid grid-cols-4 pt-1 place-items-start">
       <label htmlFor={`${labelText}`} className="text-xs text-primary">
@@ -46,5 +36,3 @@ const DateTimeInput = ({
     </div>
   );
 };
-
-export default DateTimeInput;

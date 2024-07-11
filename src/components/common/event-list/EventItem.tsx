@@ -21,14 +21,15 @@ const EventItem = ({ summary, start, end }: Props) => {
           <div className="flex justify-start items-center text-primary-600 pt-1">
             <Icon name="date" styles="size-4 mr-2" />
             <span className="text-sm leading-6">
-              {format(start, "MMMM do, yyyy")}
+              {format(start, "MMMM do, HH:mm")}
             </span>
           </div>
 
           <div className="flex justify-start items-center text-primary-600 pt-1">
             <Icon name="time" styles="size-4 mr-2" />
-            <span className="text-sm leading-6">{format(end, "HH:mm a")}</span>
+            <span className="text-sm leading-6">Online</span>
           </div>
+          
         </div>
       </div>
       <MenuButton options={["Reschedule", "Cancel"]} isDots={true} />

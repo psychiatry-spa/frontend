@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Event } from "../../../../../services/eventService";
 
-import EventWindow from "../EventWindow";
+import EventWindow from "../EventForm";
 
 interface Props {
   event: Event;

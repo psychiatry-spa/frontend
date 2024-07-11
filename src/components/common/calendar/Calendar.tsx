@@ -105,7 +105,7 @@ const Calendar = ({ today, events, selectedDay, setSelectedDay }: Props) => {
         <div className="w-full col-span-2">
           <div></div>
           <div className="flex items-center justify-between pb-4">
-            <span className="font-semibold text-3xl text-primary">
+            <span className="font-semibold text-3xl text-primary dark:text-primary-100">
               {calendar === "Year"
                 ? format(firstDay, "yyyy")
                 : format(firstDayOfMonth, "MMMM yyyy")}
@@ -135,7 +135,7 @@ const Calendar = ({ today, events, selectedDay, setSelectedDay }: Props) => {
               />
             </div>
           </div>
-          <hr className="mb-5 bg-primary-200" />
+          <hr className="pb-5 border-primary-200 dark:border-dark-border" />
           {calendar === "Week" && <WeekCalendar week={week} events={events} />}
           {calendar === "Month" && (
             <MonthCalendar

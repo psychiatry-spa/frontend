@@ -1,13 +1,16 @@
 import { format } from "date-fns";
+import classNames from "classnames";
+import { useState } from "react";
 
 import { Event } from "../../../../../../services/eventService";
 
 import MonthEventButton from "./MonthEventButton";
 import MoreEventsSpan from "../../MoreEventsSpan";
+import useAddEvent from "../../../../../../hooks/api/events/useAddEvent";
 
-import { useState } from "react";
-import axios from "axios";
-import { useMutation, useQuery } from "react-query";
+interface AddEventContext {
+  previousEvents: Event[];
+}
 
 interface Props {
   isToday: boolean;
@@ -28,71 +31,80 @@ const CalendarButton = ({
   events = [],
   handleClick,
 }: Props) => {
-  const [isNewEventOpen, setIsNewEventOpen] = useState(false);
-  const getStyles = () => {
-    if (isDisabled) return " text-primary-400 hover:text-primary-600";
-    if (!isCurrentMonth) return " text-primary-200 hover:text-primary-400";
-    if (isToday)
-      return " text-accent font-medium hover:text-accent-focus hover:font-semibold";
-    if (isWeekend)
-      return " text-primary-700 hover:text-primary-900 hover:font-medium";
+  // const [isNewEventOpen, setIsNewEventOpen] = useState(false);
 
-    return " text-primary-900 hover:text-primary hover:font-medium";
-  };
-
-  const addEvent = useMutation<Event, Error, Event>({
-    mutationFn: (event: Event) =>
-      axios
-        .post<Event>("http://localhost:3000/api/admin/events", event, {
-          withCredentials: true,
-          headers: {
-            "Content-type": "application/json",
-          },
-        })
-        .then((res) => res.data),
-    onSuccess: (addedEvent, newEvent) => {
-      console.log(addedEvent);
-      console.log(newEvent);
-    },
-    onError: (error) => {
-      console.log(error.message);
-    },
+  const variantStyles = classNames({
+    "text-primary-400 hover:text-primary-600": isDisabled,
+    "text-primary-200 hover:text-primary-400": !isCurrentMonth,
+    "text-accent font-medium hover:text-accent-focus hover:font-semibold":
+      isToday,
+    "text-primary-700 hover:text-primary-900 hover:font-medium": isWeekend && isCurrentMonth,
   });
 
+  const newEvent = {
+    // id: tempId,
+    summary: "New event",
+    start: { dateTime: day.toISOString() },
+    end: { dateTime: day.toISOString() },
+  };
+
+  const {
+    data: createdEvent,
+    mutate: addEvent,
+    isSuccess,
+    context,
+  } = useAddEvent();
+
   const createNewEvent = () => {
-    addEvent.mutate({
-      summary: "New event",
-      start: { dateTime: "2024-04-28T21:00:00+02:00" },
-      end: { dateTime: "2024-04-28T22:00:00+02:00" },
-    });
+    addEvent(newEvent); // Send the event without the temporary ID to the backend
+    // setIsNewEventOpen(true);
   };
 
   return (
     <div
       onClick={() => createNewEvent()}
       id={day.toLocaleString()}
-      className={`h-[4.4rem] w-full flex flex-col cursor-pointer border-[0.5px] border-primary-200
-                  ${isWeekend && "bg-primary-003"}`}
+      className={`h-[4.4rem] w-full flex flex-col cursor-pointer border-[0.5px] border-primary-200 dark:border-dark-border 
+                  ${isWeekend && "bg-primary-003 dark:bg-dark-bg-hover"}`}
     >
       <div className="flex justify-end">
         <button
           onClick={() => handleClick(day)}
-          className={`px-1 mt-1 mr-1 flex justify-end ${getStyles()}`}
+          className={`px-1 mt-1 mr-1 flex justify-end ${
+            variantStyles ||
+            "text-primary-900 hover:text-primary hover:font-medium"
+          }`}
         >
           {format(day, "d")}
         </button>
       </div>
       <div className="flex flex-col text-xs px-1 justify-between">
-        {events.length <= 2 ? (
-          events.map((event, idx) => (
-            <MonthEventButton key={idx} event={event} />
-          ))
-        ) : (
-          <>
-            <MonthEventButton event={events[0]} />
-            <MoreEventsSpan count={events.length - 1} />
-          </>
-        )}
+        {
+          // isNewEventOpen ? (
+          //   <>
+          //     <MonthEventButton
+          //       event={e}
+          //       open={true}
+          //       handleClose={() => setIsNewEventOpen(false)}
+          //     />
+          //     {/* {events.length > 2 ? (
+          //       <MoreEventsSpan count={events?.length} />
+          //     ) : (
+          //       <MonthEventButton event={events[0]} />
+          //     )} */}
+          //   </>
+          // ) :
+          events.length <= 2 ? (
+            events.map((event, idx) => (
+              <MonthEventButton key={idx} event={event} />
+            ))
+          ) : (
+            <>
+              <MonthEventButton event={events[0]} />
+              <MoreEventsSpan count={events.length - 1} />
+            </>
+          )
+        }
       </div>
     </div>
   );

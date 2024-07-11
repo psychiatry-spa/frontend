@@ -25,14 +25,14 @@ const MonthCalendar = ({ today, month, events = [], handleWeek }: Props) => {
           <div
             key={idx}
             className={`pr-1 ${
-              idx > 4 ? "text-primary-700" : "text-primary-900"
+              idx > 4 ? "text-primary-700 dark:text-primary-400" : "text-primary-900 dark:text-primary-300"
             }`}
           >
             {day}
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-7 mt-1 border-[0.5px] border-t border-primary-200">
+      <div className="grid grid-cols-7 mt-1 border-[0.5px] border-t border-primary-200 dark:border-dark-border">
         {month.map((day, idx) => (
           <CalendarButton
             key={idx}

@@ -35,7 +35,9 @@ const MenuButton = ({
 
   return (
     <div
-      className={`${styles} relative py-1 px-3 rounded-lg text-sm ${getStyles()}`}
+      className={`${styles} relative ${
+        isDots ? "" : "py-1 px-3 rounded-lg text-sm"
+      } ${getStyles()}`}
     >
       <button
         className="font-medium flex items-center h-full"
@@ -45,9 +47,7 @@ const MenuButton = ({
         <Icon name={isDots ? "menu" : "arrow-bottom"} styles="size-3" />
       </button>
       {isOpen && (
-        <ul
-          className="absolute top-10 left-0 z-50 w-32 cursor-pointer border rounded-lg p-2 border-primary-200 bg-white dark:border-dark-border dark:bg-dark-container"
-        >
+        <ul className="absolute top-10 left-0 z-50 w-32 cursor-pointer border rounded-lg p-2 border-primary-200 bg-white dark:border-dark-border dark:bg-dark-container">
           {options.map((option, index) => (
             <li
               className="p-1 bg-white hover:bg-primary-005 dark:bg-dark-container"
